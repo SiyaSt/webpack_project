@@ -47,6 +47,7 @@
 
   &--filled {
     border: none;
+
     @each $name, $color in $theme-colors {
       &--#{$name} {
         @include select-theme($color);

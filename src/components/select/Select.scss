@@ -1,0 +1,159 @@
+@use "../../styles/variables" as *;
+@use "sass:color";
+
+
+@mixin select-theme($color, $text-color: $white-color) {
+  border-color: $color;
+  background-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-theme-border($color, $text-color: $white-color) {
+  background: transparent;
+  border-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-size($size) {
+  height: $size;
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+
+  @each $name, $color in $theme-colors {
+    &--#{$name} {
+      .select--header {
+        @include select-theme($color);
+      }
+
+      .select--option{
+        @include select-theme($color);
+      }
+    }
+  }
+
+  @each $name, $size in $size{
+    &--#{$name} {
+      .select--header {
+        @include select-size($size);
+      }
+    }
+  }
+
+  &--outlined {
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        .select--header {
+          border: 2px solid;
+          border-radius: $select-border-radius;
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--option{
+          border: 2px solid;
+          @include select-theme-border($color, $dark-color);
+        }
+      }
+    }
+  }
+
+  &--borderless {
+    .select--header {
+      border-bottom: none;
+      border-radius: 0;
+    }
+  }
+
+  &--underlined {
+    .select--header {
+      border: none;
+      border-bottom: 1px solid $select-border-color;
+      border-radius: 0;
+    }
+  }
+
+  &--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    z-index: 1;
+  }
+
+  &--placeholder {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &--clear {
+    background: none;
+    border: none;
+    color: $select-text-color;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    margin-left: 10px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &--dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border-radius: $select-border-radius;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+    z-index: 2;
+  }
+
+  &--search {
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+
+  &--options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  &--option {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &--selected {
+      text-decoration-line: line-through;
+    }
+  }
+
+  &--no-options {
+    padding: 8px 10px;
+    color: #777;
+  }
+}

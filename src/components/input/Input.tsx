@@ -1,12 +1,13 @@
 import { ChangeEvent, FC, ReactNode } from "react";
 import LoaderIcon from "src/shared/assets/loader.svg";
 import { classNames } from "src/shared/utils/ClassName";
-import { Size } from "src/shared/types/types";
+import { Size, Type, Variants } from "src/shared/types/types";
 import "./Input.scss";
 
 interface InputProps {
+  type?: Type;
   size?: Size;
-  variant?: "outlined" | "filled" | "borderless" | "underlined";
+  variant?: Variants;
   placeholder?: string;
   onSearch?: (value: string) => void;
   multiline?: boolean;
@@ -19,6 +20,7 @@ interface InputProps {
 }
 
 export const Input: FC<InputProps> = ({
+  type = "primary",
   size = "medium",
   variant = "outlined",
   placeholder = "input",
@@ -41,7 +43,7 @@ export const Input: FC<InputProps> = ({
     `
     inp
     inp--${size}
-    inp--${variant}
+    inp--${variant}--${type}
   `,
   );
 

@@ -1,8 +1,21 @@
 @use "../../styles/variables" as *;
+@use "sass:color";
 
-$large-height: 40px;
-$medium-height: 32px;
-$small-height: 24px;
+@mixin select-theme($color, $text-color: $white-color) {
+  border-color: $color;
+  background-color: $color;
+  color: $text-color;
+}
+
+@mixin select-theme-border($color, $text-color) {
+  background: transparent;
+  border-color: $color;
+  color: $text-color;
+}
+
+@mixin select-size($size) {
+  height: $size;
+}
 
 .inp {
   display: inline-flex;
@@ -10,37 +23,35 @@ $small-height: 24px;
   border-radius: 4px;
   transition: border-color 0.3s ease;
 
-  &--large {
-    height: $large-height;
+  @each $name, $size in $size {
+    &--#{$name} {
+      @include select-size($size);
 
-    .search-button {
-      height: $large-height;
-    }
-  }
-
-  &--default {
-    height: $medium-height;
-
-    .search-button {
-      height: $medium-height;
-    }
-  }
-
-  &--small {
-    height: $small-height;
-
-    .search-button {
-      height: $small-height;
+      .search-button {
+        @include select-size($size);
+      }
     }
   }
 
   &--outlined {
-    border: 1px solid $input-border-color;
+    border: 1px solid;
+
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        border: 2px solid;
+
+        @include select-theme-border($color, $dark-color);
+      }
+    }
   }
 
   &--filled {
-    background-color: $input-fill-color;
     border: none;
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        @include select-theme($color);
+      }
+    }
   }
 
   &--borderless {
@@ -70,7 +81,7 @@ $small-height: 24px;
   }
 
   .search-button {
-    background-color: $primary-color;
+    background-color: #6363ac;
     color: $white-color;
     border: none;
     padding: 5px;

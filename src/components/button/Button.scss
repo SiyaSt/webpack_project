@@ -1,6 +1,34 @@
 @use "../../styles/variables" as *;
 @use "sass:color";
 
+@mixin select-theme($color, $text-color: $white-color) {
+  border-color: $color;
+  background-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-theme-border($color, $text-color: $white-color) {
+  background: transparent;
+  border-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-theme-text($color) {
+  color: $color;
+
+  &:hover {
+   color: $white-color;
+  }
+}
+
 .btn {
   border: 1px solid transparent;
   padding: 0.75rem 1.5rem;
@@ -20,41 +48,9 @@
     opacity: 0.6;
   }
 
-  &--primary {
-    background-color: $primary-color;
-    color: $white-color;
-
-    &:hover {
-      background-color: color.adjust($primary-color, $lightness: -10%);
-    }
-  }
-
-  &--secondary {
-    background-color: $secondary-color;
-    color: $dark-color;
-
-    &:hover {
-      background-color: color.adjust($secondary-color, $lightness: -10%);
-    }
-  }
-
-  &--danger {
-    background-color: $danger-color;
-    color: $white-color;
-
-    &:hover {
-      background-color: color.adjust($danger-color, $lightness: -10%);
-    }
-  }
-
-  &--link {
-    background-color: transparent;
-    color: $link-color;
-    text-decoration: underline;
-
-    &:hover {
-      background-color: color.adjust($link-color, $lightness: -10%);
-      color: $white-color;
+  @each $name, $color in $theme-colors {
+    &--#{$name} {
+      @include select-theme($color);
     }
   }
 
@@ -74,58 +70,23 @@
   }
 
   &--outlined {
-    background-color: transparent;
-    border: 1px solid $primary-color;
-    color: $primary-color;
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        border: 2px solid;
 
-    &.btn--secondary {
-      border-color: $secondary-color;
-      color: $dark-color;
-    }
-
-    &.btn--danger {
-      border-color: $danger-color;
-      color: $danger-color;
-    }
-
-    &.btn--link {
-      border-color: $link-color;
-      color: $link-color;
-    }
-
-    &:hover {
-      background-color: $primary-color;
-      color: $white-color;
-
-      &.btn--secondary {
-        background-color: $secondary-color;
-      }
-
-      &.btn--danger {
-        background-color: $danger-color;
-      }
-
-      &.btn--link {
-        background-color: $link-color;
+        @include select-theme-border($color, $dark-color);
       }
     }
   }
 
   &--text {
-    background-color: transparent;
-    color: $primary-color;
-    border: none;
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        background-color: transparent;
+        border: none;
 
-    &.btn--secondary {
-      color: $secondary-color;
-    }
-
-    &.btn--danger {
-      color: $danger-color;
-    }
-
-    &.btn--link {
-      color: $link-color;
+        @include select-theme-text($color);
+      }
     }
 
     &:hover {

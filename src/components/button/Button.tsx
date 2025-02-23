@@ -38,7 +38,7 @@ export const Button: FC<ButtonProps> = ({
     "btn",
     `btn--${type}`,
     `btn--${size}`,
-    `btn--${variant}`,
+    `btn--${variant}--${type}`,
     {
       "btn--disabled": disabled,
       "btn--loading": loading,

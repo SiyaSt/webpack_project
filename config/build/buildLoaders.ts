@@ -17,14 +17,12 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
         }
       ]
   };
-  const cssLoaderWithModules = {
-    loader: "css-loader",
-    options: {
-      modules: {
-        localIdentName: isDev ? "[path][name]__[local]" : "[hash:base64:8]"
-      }
-    }
+
+  const assetsLoader = {
+    test: /\.(png|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
   };
+
 
   const scssLoader = {
     test: /\.s[ac]ss$/i,
@@ -32,7 +30,7 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
       // Creates `style` nodes from JS strings
       isDev ? "style-loader" : MiniCssExtractPlugin.loader,
       // Translates CSS into CommonJS
-      cssLoaderWithModules,
+      "css-loader",
       // Compiles Sass to CSS
       "sass-loader"
     ]
@@ -52,5 +50,28 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
     ],
     exclude: /node_modules/
   };
-  return [scssLoader, tsLoader, fileLoader];
+
+  const svgrLoader = {
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    use: [
+      {
+        loader: '@svgr/webpack',
+        options: {
+          icon: true,
+          svgoConfig: {
+            plugins: [
+              {
+                name: 'convertColors',
+                params: {
+                  currentColor: true,
+                },
+              },
+            ],
+          },
+        },
+      },
+    ],
+  };
+  return [assetsLoader, scssLoader, tsLoader, fileLoader, svgrLoader];
 }

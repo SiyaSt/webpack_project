@@ -1,0 +1,115 @@
+@use "../../styles/variables" as *;
+
+$large-height: 40px;
+$medium-height: 32px;
+$small-height: 24px;
+
+.inp {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+
+  &--large {
+    height: $large-height;
+
+    .search-button {
+      height: $large-height;
+    }
+  }
+
+  &--default {
+    height: $medium-height;
+
+    .search-button {
+      height: $medium-height;
+    }
+  }
+
+  &--small {
+    height: $small-height;
+
+    .search-button {
+      height: $small-height;
+    }
+  }
+
+  &--outlined {
+    border: 1px solid $input-border-color;
+  }
+
+  &--filled {
+    background-color: $input-fill-color;
+    border: none;
+  }
+
+  &--borderless {
+    border: none;
+  }
+
+  &--underlined {
+    border: none;
+    border-bottom: 2px solid $input-border-color;
+  }
+
+  .input-icon {
+    display: flex;
+  }
+
+  .input-field {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    background-color: transparent;
+
+    &::placeholder {
+      color: $input-border-color;
+    }
+  }
+
+  .search-button {
+    background-color: $primary-color;
+    color: $white-color;
+    border: none;
+    padding: 5px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &--loading {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      .loading-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        animation: spin 1s linear infinite;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &:disabled {
+      background-color: $input-border-color;
+      cursor: not-allowed;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -14,6 +14,7 @@ interface SelectProps {
   hideSelectedOptions?: boolean;
   onChange: (selectedOptions: Option | Option[] | null) => void;
   value?: Option | Option[] | null;
+  className?: string;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -27,6 +28,7 @@ export const Select: React.FC<SelectProps> = ({
   hideSelectedOptions = false,
   onChange,
   value,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -93,6 +95,7 @@ export const Select: React.FC<SelectProps> = ({
   return (
     <div
       className={classNames(
+        className,
         "select",
         `select--${size}`,
         `select--${variant}--${type}`,

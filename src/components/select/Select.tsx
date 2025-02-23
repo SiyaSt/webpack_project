@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, FC } from "react";
 import { Option, Size, Type, Variants } from "src/shared/types/types";
-import "./Select.scss";
 import { classNames } from "src/shared/utils/ClassName";
+import "./Select.scss";
 
 interface SelectProps {
   type?: Type;
@@ -17,7 +17,7 @@ interface SelectProps {
   className?: string;
 }
 
-export const Select: React.FC<SelectProps> = ({
+export const Select: FC<SelectProps> = ({
   type,
   options,
   isMulti = false,

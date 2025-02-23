@@ -4,9 +4,12 @@ $theme-colors: (
         "danger": #f86565,
         "link": rgb(50 85 255),
 );
-$size: (" small": 24px,
+$size: ("small": 24px,
         "medium": 32px,
         "large": 40px);
+$size-checkbox: ("small": 12px,
+        "medium": 16px,
+        "large": 20px);
 $white-color: #ffff;
 $dark-color: #021327;
 $input-border-color: #ccc;

@@ -1,6 +1,7 @@
 import { classNames } from "src/shared/utils/ClassName";
 import { Size, Type } from "src/shared/types/types";
 import { FC, ReactNode } from "react";
+import LoadingIcon from "src/shared/assets/loader.svg";
 import "src/components/button/Button.scss";
 
 type IconPosition = "start" | "end";
@@ -10,13 +11,13 @@ type ButtonProps = {
   type?: Type;
   size?: Size;
   disabled?: boolean;
-  loading?: boolean | { icon?: ReactNode };
+  loading?: boolean;
   onClick?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
   icon?: ReactNode;
   iconPosition?: IconPosition;
   variant?: ButtonVariant;
-  color?: string;
+  className?: string;
 };
 
 export const Button: FC<ButtonProps> = ({
@@ -29,51 +30,50 @@ export const Button: FC<ButtonProps> = ({
   icon,
   iconPosition = "start",
   variant = "filled",
-  color,
+  className,
+  ...props
 }) => {
-  const isLoading =
-    typeof loading === "boolean" ? loading : Boolean(loading?.icon);
-  const loadingIcon =
-    typeof loading === "object" && loading.icon ? (
-      <span className="btn-loading-icon">{loading.icon}</span>
-    ) : (
-      <span className="btn-loading-spinner" />
-    );
-
   const btnClass = classNames(
+    className,
     "btn",
     `btn--${type}`,
     `btn--${size}`,
     `btn--${variant}`,
-    `btn--color-${color}`,
     {
       "btn--disabled": disabled,
-      "btn--loading": isLoading,
+      "btn--loading": loading,
     },
   );
 
-  const buttonStyle = color
-    ? { backgroundColor: color, borderColor: color }
-    : {};
-
+  const renderIcon = (iconPositionArg: IconPosition) => {
+    return (
+      icon &&
+      iconPosition === iconPositionArg && (
+        <span className="btn-icon">{icon}</span>
+      )
+    );
+  };
   return (
     <button
       className={btnClass}
       onClick={onClick}
-      disabled={disabled || isLoading}
-      style={buttonStyle}
+      disabled={disabled || loading}
+      {...props}
     >
-      {isLoading ? (
-        loadingIcon
+      {loading ? (
+        <>
+          <span className="btn-loading-icon">
+            <LoadingIcon />
+          </span>
+          {renderIcon("start")}
+          {children}
+          {renderIcon("end")}
+        </>
       ) : (
         <>
-          {icon && iconPosition === "start" && (
-            <span className="btn-icon">{icon}</span>
-          )}
+          {renderIcon("start")}
           {children}
-          {icon && iconPosition === "end" && (
-            <span className="btn-icon">{icon}</span>
-          )}
+          {renderIcon("end")}
         </>
       )}
     </button>

@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { TableProps } from "src/components/table/types";
-import { TablePagination } from "src/components/table/pagination";
+import { TablePagination } from "src/components/table/pagination/TablePagination";
 import "./Table.scss";
 
 export const Table = <T extends object>({

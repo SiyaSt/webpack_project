@@ -1,21 +1,7 @@
-import { FC, ReactNode } from "react";
-import { Type } from "src/shared/types/types";
-import "./Modal.scss";
+import { FC } from "react";
 import { classNames } from "src/shared/utils/ClassName";
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  header?: ReactNode;
-  footer?: ReactNode;
-  children: ReactNode;
-  primaryButtonText?: string;
-  secondaryButtonText?: string;
-  onPrimaryButtonClick?: () => void;
-  onSecondaryButtonClick?: () => void;
-  typeFirst?: Type;
-  typeSecond?: Type;
-}
+import { ModalProps } from "src/components/modal/types";
+import "./Modal.scss";
 
 export const Modal: FC<ModalProps> = ({
   isOpen,

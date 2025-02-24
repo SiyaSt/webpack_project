@@ -1,24 +1,8 @@
 import { classNames } from "src/shared/utils/ClassName";
-import { Size, Type } from "src/shared/types/types";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
-import "src/components/button/Button.scss";
-
-type IconPosition = "start" | "end";
-type ButtonVariant = "filled" | "outlined" | "text";
-
-type ButtonProps = {
-  type?: Type;
-  size?: Size;
-  disabled?: boolean;
-  loading?: boolean;
-  onClick?: () => void;
-  children?: ReactNode;
-  icon?: ReactNode;
-  iconPosition?: IconPosition;
-  variant?: ButtonVariant;
-  className?: string;
-};
+import { ButtonProps, IconPosition } from "src/components/button/types";
+import "./Button.scss";
 
 export const Button: FC<ButtonProps> = ({
   type = "primary",

@@ -1,18 +1,7 @@
-import React, { ChangeEvent, ReactNode, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { classNames } from "src/shared/utils/ClassName";
-import { Size, Type } from "src/shared/types/types";
+import { CheckboxProps } from "src/components/checkbox/types";
 import "./Checkbox.scss";
-
-interface CheckboxProps {
-  label?: string;
-  checked: boolean;
-  onChange?: (checked: boolean) => void;
-  disabled?: boolean;
-  type?: Type;
-  size?: Size;
-  icon?: ReactNode;
-  className?: string;
-}
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,

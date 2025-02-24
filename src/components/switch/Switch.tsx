@@ -1,24 +1,10 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
-import { Size, Type } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
+import { SwitchProps } from "src/components/switch/types";
 import "./Switch.scss";
 
-type SwitchProps = {
-  type?: Type;
-  size?: Size;
-  disabled?: boolean;
-  checked?: boolean;
-  onChange?: (checked: boolean) => void;
-  loading?: boolean;
-  checkedLabel?: string;
-  uncheckedLabel?: string;
-  checkedIcon?: React.ReactNode;
-  uncheckedIcon?: React.ReactNode;
-  className?: string;
-};
-
-export const Switch: React.FC<SwitchProps> = ({
+export const Switch: FC<SwitchProps> = ({
   type = "primary",
   size = "medium",
   disabled = false,

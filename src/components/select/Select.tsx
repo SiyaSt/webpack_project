@@ -1,21 +1,8 @@
 import { useState, useRef, useEffect, useCallback, FC } from "react";
-import { Option, Size, Type, Variants } from "src/shared/types/types";
+import { Option } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
 import "./Select.scss";
-
-interface SelectProps {
-  type?: Type;
-  options: Option[];
-  isMulti?: boolean;
-  placeholder?: string;
-  size?: Size;
-  variant?: Variants;
-  filterOption?: (option: Option, searchText: string) => boolean;
-  hideSelectedOptions?: boolean;
-  onChange: (selectedOptions: Option | Option[] | null) => void;
-  value?: Option | Option[] | null;
-  className?: string;
-}
+import { SelectProps } from "src/components/select/types";
 
 export const Select: FC<SelectProps> = ({
   type,

@@ -1,22 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { classNames } from "src/shared/utils/ClassName";
-import { Size, Type } from "src/shared/types/types";
+import { RadioProps } from "./types";
 import "./Radio.scss";
-
-type Direction = "vertical" | "horizontal";
-type RadioProps = {
-  id: string;
-  name: string;
-  value: string;
-  label?: string;
-  type?: Type;
-  size?: Size;
-  disabled?: boolean;
-  checked?: boolean;
-  onChange?: (value: string) => void;
-  direction?: Direction;
-  className?: string;
-};
 
 export const Radio: FC<RadioProps> = ({
   id,

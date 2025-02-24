@@ -1,23 +1,8 @@
-import { ChangeEvent, FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import LoaderIcon from "src/shared/assets/loader.svg";
 import { classNames } from "src/shared/utils/ClassName";
-import { Size, Type, Variants } from "src/shared/types/types";
+import { InputProps } from "./types";
 import "./Input.scss";
-
-interface InputProps {
-  type?: Type;
-  size?: Size;
-  variant?: Variants;
-  placeholder?: string;
-  onSearch?: (value: string) => void;
-  multiline?: boolean;
-  buttonSearchText?: string;
-  icon?: ReactNode;
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  value?: string;
-  loading?: boolean;
-  className?: string;
-}
 
 export const Input: FC<InputProps> = ({
   type = "primary",

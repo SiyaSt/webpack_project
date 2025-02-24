@@ -1,15 +1,7 @@
-import { Size, Type } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
-import "./Loader.scss";
 import { FC } from "react";
-
-export type LoaderProps = {
-  type?: Type;
-  size?: Size;
-  speed?: "slow" | "normal" | "fast";
-  variant?: "spinner" | "dots" | "bar";
-  className?: string;
-};
+import { LoaderProps } from "src/components/loader/types";
+import "./Loader.scss";
 
 export const Loader: FC<LoaderProps> = ({
   type = "primary",

@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "../../styles/variables.scss" as *;
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+
+  input, select{
+    margin-left: 5px;
+  }
+
+  th,
+  td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  thead {
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+
+  @each $name, $color in $theme-colors {
+    &--#{$name} {
+      thead {
+        th {
+          color: $color;
+        }
+      }
+
+      border: 1px solid $color;
+
+      th, td {
+        border-bottom: 1px solid $color;
+      }
+    }
+  }
+}
+
+.table-clear-filters {
+  background-color: map.get($theme-colors, "secondary");
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}

@@ -11,6 +11,7 @@ interface CheckboxProps {
   type?: Type;
   size?: Size;
   icon?: ReactNode;
+  className?: string;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -21,6 +22,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   type = "primary",
   size = "small",
   icon,
+  className,
 }) => {
   const [isChecked, setIsChecked] = useState(checked);
 
@@ -34,6 +36,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <label
       className={classNames(
+        className,
         `checkbox checkbox--${type} checkbox--${size} ${disabled ? "disabled" : ""}`,
       )}
     >

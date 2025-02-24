@@ -1,26 +1,9 @@
-import React, { useState } from "react";
-import { Orientation, Size, Type } from "src/shared/types/types";
+import { FC, useState } from "react";
+import { TabsProps } from "src/components/tabs/types";
 import { classNames } from "src/shared/utils/ClassName";
 import "./Tabs.scss";
 
-type TabPosition = "top" | "bottom" | "left" | "right";
-
-type TabItem = {
-  label: string;
-  content: React.ReactNode;
-  icon?: React.ReactNode;
-  disabled?: boolean;
-};
-
-type TabsProps = {
-  tabs: TabItem[];
-  position?: TabPosition;
-  size?: Size;
-  color?: Type;
-  orientation?: Orientation;
-};
-
-export const Tabs: React.FC<TabsProps> = ({
+export const Tabs: FC<TabsProps> = ({
   tabs,
   position = "top",
   size = "medium",

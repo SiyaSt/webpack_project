@@ -1,0 +1,30 @@
+@use "../../styles/theme" as *;
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+
+  .link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.5rem;
+    font-weight: 400;
+    gap: 10px;
+  }
+
+  &--collapsed {
+    span {
+      display: none;
+    }
+
+    .link {
+      justify-content: center;
+      padding: 20px 0;
+    }
+  }
+}
+

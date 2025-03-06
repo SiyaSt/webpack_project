@@ -5,14 +5,13 @@ import { SwitchProps } from "src/components/switch/types";
 import "./Switch.scss";
 
 export const Switch: FC<SwitchProps> = ({
-  type = "primary",
+  color = "primary",
   size = "medium",
   disabled = false,
   checked = false,
   onChange,
   loading = false,
-  checkedLabel,
-  uncheckedLabel,
+  label,
   checkedIcon,
   uncheckedIcon,
   className,
@@ -26,33 +25,33 @@ export const Switch: FC<SwitchProps> = ({
     onChange?.(newChecked);
   };
 
-  const labelContent = isChecked
-    ? checkedLabel || checkedIcon
-    : uncheckedLabel || uncheckedIcon;
+  const icon = isChecked ? checkedIcon : uncheckedIcon;
 
   return (
-    <label
-      className={classNames(
-        className,
-        "switch",
-        `switch--${type}`,
-        `switch--${size}`,
-        disabled ? "switch--disabled" : "",
-      )}
-    >
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={handleToggle}
-        disabled={disabled || loading}
-      />
-      <span className="slider">
-        {loading ? (
-          <LoadingIcon className="icon spin" />
-        ) : (
-          <span className="switch-content">{labelContent}</span>
+    <div className={classNames(className, "switch-container")}>
+      <label
+        className={classNames(
+          "switch",
+          `switch--${color}`,
+          `switch--${size}`,
+          disabled ? "switch--disabled" : "",
         )}
-      </span>
-    </label>
+      >
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleToggle}
+          disabled={disabled || loading}
+        />
+        <span className="slider">
+          {loading ? (
+            <LoadingIcon className="icon spin" />
+          ) : (
+            <span className="switch-content">{icon}</span>
+          )}
+        </span>
+      </label>
+      {label && <span className="switch-label">{label}</span>}
+    </div>
   );
 };

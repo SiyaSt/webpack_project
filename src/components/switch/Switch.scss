@@ -1,10 +1,23 @@
 @use "../../styles/variables" as *;
 
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.switch-label {
+  margin-left: 0.5em;
+  font-size: 1em;
+  color: $dark-color;
+}
+
 .switch {
   display: inline-flex;
   align-items: center;
   cursor: pointer;
   position: relative;
+
+
 
   input {
     display: none;
@@ -55,6 +68,10 @@
     }
   }
 
+  &.switch--disabled .slider {
+    background-color: #999;
+  }
+
   input:checked + .slider {
     &::before {
       transform: translateX(1em);
@@ -68,9 +85,6 @@
     opacity: 0.6;
   }
 
-  &.switch--disabled .slider {
-    background-color: #999;
-  }
 
   @each $name, $color in $theme-colors {
     &.switch--#{$name} input:checked + .slider {

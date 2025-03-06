@@ -1,15 +1,14 @@
-import { Size, Type } from "src/shared/types/types";
+import { Size, Color } from "src/shared/types/types";
 import React from "react";
 
 export interface SwitchProps {
-  type?: Type;
+  color?: Color;
   size?: Size;
   disabled?: boolean;
   checked?: boolean;
   onChange?: (checked: boolean) => void;
   loading?: boolean;
-  checkedLabel?: string;
-  uncheckedLabel?: string;
+  label?: string;
   checkedIcon?: React.ReactNode;
   uncheckedIcon?: React.ReactNode;
   className?: string;

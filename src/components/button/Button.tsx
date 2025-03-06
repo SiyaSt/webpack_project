@@ -5,11 +5,10 @@ import { ButtonProps, IconPosition } from "src/components/button/types";
 import "./Button.scss";
 
 export const Button: FC<ButtonProps> = ({
-  type = "primary",
+  color = "primary",
   size = "medium",
   disabled = false,
   loading = false,
-  onClick,
   children,
   icon,
   iconPosition = "start",
@@ -20,9 +19,9 @@ export const Button: FC<ButtonProps> = ({
   const btnClass = classNames(
     className,
     "btn",
-    `btn--${type}`,
+    `btn--${color}`,
     `btn--${size}`,
-    `btn--${variant}--${type}`,
+    `btn--${variant}--${color}`,
     {
       "btn--disabled": disabled,
       "btn--loading": loading,
@@ -38,28 +37,15 @@ export const Button: FC<ButtonProps> = ({
     );
   };
   return (
-    <button
-      className={btnClass}
-      onClick={onClick}
-      disabled={disabled || loading}
-      {...props}
-    >
-      {loading ? (
-        <>
-          <span className="btn-loading-icon">
-            <LoadingIcon />
-          </span>
-          {renderIcon("start")}
-          {children}
-          {renderIcon("end")}
-        </>
-      ) : (
-        <>
-          {renderIcon("start")}
-          {children}
-          {renderIcon("end")}
-        </>
+    <button className={btnClass} disabled={disabled || loading} {...props}>
+      {loading && (
+        <span className="btn-loading-icon">
+          <LoadingIcon />
+        </span>
       )}
+      {renderIcon("start")}
+      {children}
+      {renderIcon("end")}
     </button>
   );
 };

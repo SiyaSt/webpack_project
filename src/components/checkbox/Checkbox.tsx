@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { classNames } from "src/shared/utils/ClassName";
 import { CheckboxProps } from "src/components/checkbox/types";
 import "./Checkbox.scss";
@@ -8,36 +8,30 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   onChange,
   disabled = false,
-  type = "primary",
+  color = "primary",
   size = "small",
   icon,
   className,
 }) => {
-  const [isChecked, setIsChecked] = useState(checked);
-
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
       onChange(event.target.checked);
-    } else {
-      setIsChecked((prevState) => !prevState);
     }
   };
   return (
     <label
       className={classNames(
         className,
-        `checkbox checkbox--${type} checkbox--${size} ${disabled ? "disabled" : ""}`,
+        `checkbox checkbox--${color} checkbox--${size} ${disabled ? "disabled" : ""}`,
       )}
     >
       <input
         type="checkbox"
-        checked={isChecked}
+        checked={checked}
         onChange={handleCheckboxChange}
         disabled={disabled}
       />
-      <span className="custom-checkbox">
-        {isChecked && (icon ? icon : "✓")}
-      </span>
+      <span className="custom-checkbox">{checked && (icon ? icon : "✓")}</span>
       {label && <span className="checkbox--label">{label}</span>}
     </label>
   );

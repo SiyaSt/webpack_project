@@ -17,11 +17,23 @@
   height: $size;
 }
 
+.input-container {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.input-error {
+  font-size: 1.5em;
+  color: $danger-color;
+}
+
+
 .inp {
   display: inline-flex;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 6px;
   transition: border-color 0.3s ease;
+
 
   @each $name, $size in $size {
     &--#{$name} {
@@ -36,6 +48,14 @@
   &--outlined {
     border: 1px solid;
 
+    &--error {
+      border: 2px solid $danger-color;
+
+      .input-field {
+        color: $danger-color;
+      }
+    }
+
     @each $name, $color in $theme-colors {
       &--#{$name} {
         border: 2px solid;
@@ -48,6 +68,14 @@
   &--filled {
     border: none;
 
+    &--error {
+      background: $danger-color;
+
+      .input-field {
+        color: $dark-color;
+      }
+    }
+
     @each $name, $color in $theme-colors {
       &--#{$name} {
         @include select-theme($color);
@@ -57,11 +85,34 @@
 
   &--borderless {
     border: none;
+
+    &--error {
+      .input-field {
+        color: $danger-color;
+      }
+    }
   }
 
   &--underlined {
     border: none;
-    border-bottom: 2px solid $input-border-color;
+
+    &--error {
+      border-radius: 0;
+      border-bottom: 2px solid $danger-color;
+
+      .input-field {
+        color: $danger-color;
+      }
+    }
+
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        border-radius: 0;
+        border-bottom: 2px solid;
+
+        @include select-theme-border($color, $dark-color);
+      }
+    }
   }
 
   .input-icon {

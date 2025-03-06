@@ -1,17 +1,13 @@
-import { Size, Type, Variants } from "src/shared/types/types";
-import { ChangeEvent, ReactNode } from "react";
+import { Size, Color, Variants } from "src/shared/types/types";
+import { InputHTMLAttributes, ReactNode } from "react";
 
-export interface InputProps {
-  type?: Type;
-  size?: Size;
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  color?: Color;
+  baseSize?: Size;
   variant?: Variants;
-  placeholder?: string;
-  onSearch?: (value: string) => void;
-  multiline?: boolean;
+  onSearch?: (value: string | number | readonly string[]) => void;
   buttonSearchText?: string;
   icon?: ReactNode;
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  value?: string;
   loading?: boolean;
-  className?: string;
+  errorText?: string;
 }

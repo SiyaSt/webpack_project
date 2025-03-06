@@ -5,18 +5,18 @@ import { InputProps } from "./types";
 import "./Input.scss";
 
 export const Input: FC<InputProps> = ({
-  type = "primary",
-  size = "medium",
+  color = "primary",
+  baseSize = "medium",
   variant = "outlined",
   placeholder = "input",
-  onSearch,
-  multiline = false,
   buttonSearchText = "",
+  onSearch,
   icon,
-  onChange,
   value,
   loading,
   className,
+  errorText,
+  ...props
 }) => {
   const handleSearch = () => {
     if (onSearch) {
@@ -27,8 +27,8 @@ export const Input: FC<InputProps> = ({
     className,
     `
     inp
-    inp--${size}
-    inp--${variant}--${type}
+    inp--${baseSize}
+    ${errorText ? `inp--${variant}--error` : `inp--${variant}--${color}`}
   `,
   );
 
@@ -58,24 +58,17 @@ export const Input: FC<InputProps> = ({
     );
   };
   return (
-    <div className={inputClass}>
-      {multiline ? (
-        <textarea
-          placeholder={placeholder}
-          className="input-field"
-          onChange={onChange}
-          value={value}
-        />
-      ) : (
+    <div className={"input-container"}>
+      <div className={inputClass}>
         <input
           type="text"
           placeholder={placeholder}
           className="input-field"
-          onChange={onChange}
-          value={value}
+          {...props}
         />
-      )}
-      {renderButton(icon, buttonSearchText)}
+        {renderButton(icon, buttonSearchText)}
+      </div>
+      <span className="input-error">{errorText}</span>
     </div>
   );
 };

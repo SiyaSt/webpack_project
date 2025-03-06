@@ -8,7 +8,7 @@ export const Radio: FC<RadioProps> = ({
   name,
   value,
   label,
-  type = "primary",
+  color = "primary",
   size = "medium",
   disabled = false,
   checked = false,
@@ -27,7 +27,7 @@ export const Radio: FC<RadioProps> = ({
         className={classNames(
           className,
           "radio",
-          `radio--${type}`,
+          `radio--${color}`,
           `radio--${size}`,
           disabled ? "radio--disabled" : "",
         )}

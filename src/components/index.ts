@@ -5,3 +5,6 @@ export { Input } from "./input/Input";
 export { RadioGroup } from "./radio/RadioGroup";
 export { Select } from "./select/Select";
 export { Switch } from "./switch/Switch";
+export { Sidebar } from "./sideBar/Sidebar";
+export { CustomLink } from "./customLink/CustomLink";
+export { Navigation } from "./navigation/Navigation";

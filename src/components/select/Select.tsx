@@ -5,14 +5,13 @@ import "./Select.scss";
 import { SelectProps } from "src/components/select/types";
 
 export const Select: FC<SelectProps> = ({
-  type,
+  color = "primary",
   options,
   isMulti = false,
   placeholder = "Select...",
   size = "medium",
   variant = "outlined",
   filterOption,
-  hideSelectedOptions = false,
   onChange,
   value,
   className,
@@ -44,16 +43,10 @@ export const Select: FC<SelectProps> = ({
   };
 
   const handleClearSelection = useCallback(() => {
-    onChange(null);
-  }, [onChange]);
+    onChange(isMulti ? [] : null);
+  }, [onChange, isMulti]);
 
   const filteredOptions = options.filter((option) => {
-    if (
-      hideSelectedOptions &&
-      selectedOptions.some((selected) => selected.value === option.value)
-    ) {
-      return false;
-    }
     if (filterOption) {
       return filterOption(option, searchText);
     }
@@ -85,8 +78,8 @@ export const Select: FC<SelectProps> = ({
         className,
         "select",
         `select--${size}`,
-        `select--${variant}--${type}`,
-        `select--${type}`,
+        `select--${variant}--${color}`,
+        `select--${color}`,
       )}
       ref={selectRef}
     >

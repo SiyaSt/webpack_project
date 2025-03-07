@@ -2,7 +2,6 @@ import { Size, Color } from "src/shared/types/types";
 import { ReactNode } from "react";
 
 export interface CheckboxProps {
-  label?: string;
   checked: boolean;
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
@@ -10,4 +9,5 @@ export interface CheckboxProps {
   size?: Size;
   icon?: ReactNode;
   className?: string;
+  children?: ReactNode;
 }

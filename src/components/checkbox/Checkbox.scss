@@ -1,5 +1,11 @@
 @use "../../styles/variables" as *;
 
+.checkbox-container{
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
 .checkbox {
   display: inline-flex;
   align-items: center;
@@ -8,12 +14,6 @@
 
   input {
     display: none;
-  }
-
-  &--label {
-    margin-left: 0.5em;
-    font-size: 1em;
-    color: $dark-color;
   }
 
   .custom-checkbox {

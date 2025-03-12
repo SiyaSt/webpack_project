@@ -15,10 +15,10 @@ export interface RadioProps {
   className?: string;
 }
 export interface RadioGroupProps {
-  name: string;
+  name?: string;
   options: Option[];
   defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   color?: Color;
   size?: Size;
   direction?: Direction;

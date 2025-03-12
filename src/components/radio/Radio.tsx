@@ -29,7 +29,7 @@ export const Radio: FC<RadioProps> = ({
           "radio",
           `radio--${color}`,
           `radio--${size}`,
-          disabled ? "radio--disabled" : "",
+          { "radio--disabled": disabled },
         )}
         htmlFor={id}
       >

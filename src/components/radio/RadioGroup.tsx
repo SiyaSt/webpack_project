@@ -1,5 +1,5 @@
 import { Radio } from "./Radio";
-import { FC, useState } from "react";
+import { FC, useId, useState } from "react";
 import { RadioGroupProps } from "src/components/radio/types";
 
 export const RadioGroup: FC<RadioGroupProps> = ({
@@ -13,11 +13,12 @@ export const RadioGroup: FC<RadioGroupProps> = ({
   disabled,
   className,
 }) => {
+  const generatedName = useId();
   const [selectedValue, setSelectedValue] = useState(defaultValue || "");
 
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
-    onChange(value);
+    onChange?.(value);
   };
 
   return (
@@ -26,7 +27,7 @@ export const RadioGroup: FC<RadioGroupProps> = ({
         <Radio
           key={option.id}
           id={option.id}
-          name={name}
+          name={name || generatedName}
           value={option.value}
           label={option.label}
           checked={selectedValue === option.value}

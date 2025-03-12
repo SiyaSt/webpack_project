@@ -30,12 +30,9 @@ export const Switch: FC<SwitchProps> = ({
   return (
     <div className={classNames(className, "switch-container")}>
       <label
-        className={classNames(
-          "switch",
-          `switch--${color}`,
-          `switch--${size}`,
-          disabled ? "switch--disabled" : "",
-        )}
+        className={classNames("switch", `switch--${color}`, `switch--${size}`, {
+          "switch--disabled": disabled,
+        })}
       >
         <input
           type="checkbox"
@@ -50,8 +47,8 @@ export const Switch: FC<SwitchProps> = ({
             <span className="switch-content">{icon}</span>
           )}
         </span>
+        {label}
       </label>
-      {label && <span className="switch-label">{label}</span>}
     </div>
   );
 };

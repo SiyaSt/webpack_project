@@ -6,9 +6,7 @@
 }
 
 .switch-label {
-  margin-left: 0.5em;
-  font-size: 1em;
-  color: $dark-color;
+
 }
 
 .switch {
@@ -16,7 +14,8 @@
   align-items: center;
   cursor: pointer;
   position: relative;
-
+  font-size: 1em;
+  color: $dark-color;
 
 
   input {
@@ -24,6 +23,7 @@
   }
 
   .slider {
+    margin-right: 0.5em;
     position: relative;
     width: 2.5em;
     height: 1.5em;

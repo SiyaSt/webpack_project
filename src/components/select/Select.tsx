@@ -7,7 +7,6 @@ import { SelectProps } from "src/components/select/types";
 export const Select: FC<SelectProps> = ({
   color = "primary",
   options,
-  isMulti = false,
   placeholder = "Select...",
   size = "medium",
   variant = "outlined",
@@ -20,31 +19,26 @@ export const Select: FC<SelectProps> = ({
   const [searchText, setSearchText] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const selectedOptions = Array.isArray(value) ? value : value ? [value] : [];
+  const [selectedOption, setSelectedOption] = useState<Option | null>(
+    value || null,
+  );
+
+  const handleRadioChange = useCallback(
+    (option: Option | null) => {
+      setSelectedOption(option);
+      onChange?.(option);
+    },
+    [onChange],
+  );
 
   const handleOptionClick = (option: Option) => {
-    if (isMulti) {
-      const isSelected = selectedOptions.some(
-        (selected) => selected.value === option.value,
-      );
-      let newOptions;
-      if (isSelected) {
-        newOptions = selectedOptions.filter(
-          (selected) => selected.value !== option.value,
-        );
-      } else {
-        newOptions = [...selectedOptions, option];
-      }
-      onChange(newOptions);
-    } else {
-      onChange(option);
-      setIsOpen(false);
-    }
+    handleRadioChange(option);
+    setIsOpen(false);
   };
 
   const handleClearSelection = useCallback(() => {
-    onChange(isMulti ? [] : null);
-  }, [onChange, isMulti]);
+    handleRadioChange(null);
+  }, [handleRadioChange]);
 
   const filteredOptions = options.filter((option) => {
     if (filterOption) {
@@ -85,11 +79,9 @@ export const Select: FC<SelectProps> = ({
     >
       <div className="select--header" onClick={() => setIsOpen(!isOpen)}>
         <span className="select--placeholder">
-          {selectedOptions.length > 0
-            ? selectedOptions.map((option) => option.label).join(", ")
-            : placeholder}
+          {selectedOption ? selectedOption.label : placeholder}
         </span>
-        {selectedOptions.length > 0 && (
+        {selectedOption && (
           <button
             className="select--clear"
             onClick={(e) => {
@@ -116,9 +108,8 @@ export const Select: FC<SelectProps> = ({
                 <li
                   key={option.value}
                   className={classNames("select--option", {
-                    "select--option--selected": selectedOptions.some(
-                      (selected) => selected.value === option.value,
-                    ),
+                    "select--option--selected":
+                      selectedOption?.value === option.value,
                   })}
                   onClick={() => handleOptionClick(option)}
                 >

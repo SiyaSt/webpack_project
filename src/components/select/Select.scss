@@ -31,6 +31,7 @@
   display: inline-flex;
   align-items: center;
   min-width: 150px;
+  background: $white-color;
 
   &--filled {
     @each $name, $color in $theme-colors {
@@ -58,6 +59,10 @@
 
   @each $name, $size in $size {
     &--#{$name} {
+      .select--dropdown {
+        max-height: calc($size * 6.5);
+      }
+
       .select--header {
         @include select-size($size);
       }
@@ -192,6 +197,7 @@
   }
 
   &--dropdown {
+    background: $white-color;
     position: absolute;
     top: 100%;
     left: 0;
@@ -199,6 +205,7 @@
     border-radius: $select-border-radius;
     box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
     z-index: 2;
+    overflow-y: auto;
   }
 
   &--search {
@@ -209,6 +216,7 @@
   }
 
   &--options {
+    background: $white-color;
     list-style: none;
     padding: 0;
     margin: 0;

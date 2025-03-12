@@ -19,7 +19,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     }
   };
   return (
-    <div className={"checkbox-container"}>
+    <div className="checkbox-container">
       <label
         className={classNames(
           className,

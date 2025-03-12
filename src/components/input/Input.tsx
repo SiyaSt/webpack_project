@@ -33,37 +33,35 @@ export const Input: FC<InputProps> = ({
   );
 
   const renderButton = (icon: ReactNode, text: string) => {
+    if (!icon && !text) return null;
+
     return (
-      <>
-        {text || icon ? (
-          <button
-            className="search-button"
-            onClick={handleSearch}
-            disabled={loading}
-          >
-            {loading ? (
-              <span className="search-button--loading">
-                <LoaderIcon className="loading-icon" />
-                {icon && <span className="input-icon">{icon}</span>}
-                {text && text}
-              </span>
-            ) : icon ? (
-              <span className="input-icon">{icon}</span>
-            ) : (
-              text
-            )}
-          </button>
-        ) : null}
-      </>
+      <button
+        className="search-button"
+        onClick={handleSearch}
+        disabled={loading}
+      >
+        {loading ? (
+          <span className="search-button--loading">
+            <LoaderIcon className="loading-icon" />
+          </span>
+        ) : (
+          <>
+            {icon && <span className="input-icon">{icon}</span>}
+            {text && text}
+          </>
+        )}
+      </button>
     );
   };
   return (
-    <div className={"input-container"}>
+    <div className="input-container">
       <div className={inputClass}>
         <input
           type="text"
           placeholder={placeholder}
           className="input-field"
+          disabled={loading}
           {...props}
         />
         {renderButton(icon, buttonSearchText)}

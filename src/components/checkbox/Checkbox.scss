@@ -1,6 +1,6 @@
 @use "../../styles/variables" as *;
 
-.checkbox-container{
+.checkbox-container {
   display: flex;
   align-items: center;
   padding: 2px;
@@ -11,6 +11,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  gap: 5px;
 
   input {
     display: none;

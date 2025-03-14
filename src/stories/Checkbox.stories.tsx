@@ -1,36 +1,64 @@
 import { Meta, StoryObj } from "@storybook/react";
 import { Checkbox } from "src/components";
+import Done from "./assets/done-ring-round.svg";
+import { CheckboxProps } from "src/components/checkbox/types";
+import { useState } from "react";
+import { fn } from "@storybook/test";
 
-const meta: Meta<typeof Checkbox> = {
+const CheckboxWithState = (args: CheckboxProps) => {
+  const [checked, setChecked] = useState(args.checked || false);
+
+  const handleChange = (isChecked: boolean) => {
+    setChecked(isChecked);
+    args.onChange?.(isChecked);
+  };
+
+  return <Checkbox {...args} checked={checked} onChange={handleChange} />;
+};
+const meta = {
   title: "Components/Checkbox",
   component: Checkbox,
+  args: {
+    size: "medium",
+    onChange: fn(),
+  },
   argTypes: {
-    color: {
-      control: {
-        type: "select",
-        options: ["primary", "secondary", "danger", "link"],
-      },
-    },
-    size: {
-      control: {
-        type: "select",
-        options: ["small", "medium", "large"],
-      },
-    },
     disabled: {
       control: {
         type: "boolean",
       },
     },
   },
-};
+  render: (args) => <CheckboxWithState {...args} />,
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
-export const Primary: Story = {
+
+export const Default: Story = {
   args: {
-    children: "Primary Checkbox",
+    checked: false,
+    disabled: false,
     color: "primary",
-    size: "medium",
+    children: "Checkbox Label",
+  },
+};
+
+export const WithIcon: Story = {
+  args: {
+    checked: true,
+    disabled: false,
+    color: "primary",
+    icon: <Done />,
+    children: "Checkbox with Icon",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    checked: false,
+    disabled: true,
+    color: "primary",
+    children: "Disabled Checkbox",
   },
 };

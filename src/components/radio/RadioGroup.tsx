@@ -25,8 +25,8 @@ export const RadioGroup: FC<RadioGroupProps> = ({
     <div className={className}>
       {options.map((option) => (
         <Radio
-          key={option.id}
-          id={option.id}
+          key={option.value}
+          id={option.value}
           name={name || generatedName}
           value={option.value}
           label={option.label}

@@ -1,4 +1,4 @@
-import { Select, Switch } from "src/components";
+import { Switch } from "src/components";
 import { fn } from "@storybook/test";
 import { Meta, StoryObj } from "@storybook/react";
 import Check from "./assets/check.svg";

@@ -29,6 +29,13 @@ export default tseslint.config(
         "error",
         { props: "never", children: "never" },
       ],
+      "react/self-closing-comp": [
+        "error",
+        {
+          component: true,
+          html: true,
+        },
+      ],
     },
     settings: {
       react: {

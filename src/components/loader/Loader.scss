@@ -16,12 +16,35 @@
     height: $size;
     border-width: calc($size / 8);
   }
+
+  &.loader--dots .dot {
+    width: calc($size / 5);
+    height: calc($size / 5);
+  }
 }
 
 @mixin speed-loader($speed) {
-  .loader-inner {
+  &.loader--spinner .loader-inner {
     animation-duration: $speed;
   }
+
+  &.loader--dots .dot {
+    animation-duration: $speed;
+  }
+
+  &.loader--bar {
+    animation-duration: $speed;
+  }
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.loader-label {
+  font-size: 1em;
+  padding-top: 5px;
 }
 
 .loader {
@@ -49,11 +72,8 @@
     align-items: center;
 
     .dot {
-      width: calc(map.get($size, medium) / 5);
-      height: calc(map.get($size, medium) / 5);
       background-color: map.get($theme-colors, primary);
       border-radius: 50%;
-      margin: calc(map.get($size, medium) / 10);
       animation: loader-dots 1s infinite ease-in-out;
 
       &:nth-child(2) {
@@ -70,8 +90,8 @@
     width: 100%;
     height: calc(map.get($size, medium) / 10);
     background-color: map.get($theme-colors, primary);
-    animation: loader-bar 1s linear infinite;
     border-radius: calc(map.get($size, medium) / 20);
+    animation: loader-bar 1s linear infinite;
   }
 
   @each $name, $color in $theme-colors {

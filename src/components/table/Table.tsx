@@ -1,6 +1,11 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { TableProps } from "src/components/table/types";
-import { TablePagination } from "src/components/table/pagination/TablePagination";
+import { Button } from "src/components";
+import {
+  TableHeader,
+  TablePagination,
+  TableRow,
+} from "src/components/table/components";
 import "./Table.scss";
 
 export const Table = <T extends object>({
@@ -48,55 +53,15 @@ export const Table = <T extends object>({
   return (
     <div className="table-container">
       <table className={`table table--${type}`}>
-        <thead>
-          <tr>
-            {columns.map((column) => (
-              <th key={column.accessorKey}>
-                {column.header}
-                {column.filterType === "text" && (
-                  <input
-                    type="text"
-                    placeholder={`Filter ${column.header}`}
-                    value={filters[column.accessorKey as string] || ""}
-                    onChange={(e) =>
-                      handleFilterChange(
-                        column.accessorKey as string,
-                        e.target.value,
-                      )
-                    }
-                  />
-                )}
-                {column.filterType === "select" && column.options && (
-                  <select
-                    value={filters[column.accessorKey as string] || ""}
-                    onChange={(e) =>
-                      handleFilterChange(
-                        column.accessorKey as string,
-                        e.target.value,
-                      )
-                    }
-                  >
-                    <option value="">All</option>
-                    {column.options.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </th>
-            ))}
-          </tr>
-        </thead>
+        <TableHeader
+          color={type}
+          columns={columns}
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
         <tbody>
           {paginatedData.map((item, index) => (
-            <tr key={index}>
-              {columns.map((column) => (
-                <td key={column.accessorKey}>
-                  {String(item[column.accessorKey])}
-                </td>
-              ))}
-            </tr>
+            <TableRow key={index} item={item} columns={columns} />
           ))}
         </tbody>
       </table>
@@ -104,10 +69,15 @@ export const Table = <T extends object>({
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         totalPages={totalPages}
+        color={type}
       />
-      <button className="table-clear-filters" onClick={clearFilters}>
+      <Button
+        className="table-clear-filters"
+        onClick={clearFilters}
+        color={type}
+      >
         Clear Filters
-      </button>
+      </Button>
     </div>
   );
 };

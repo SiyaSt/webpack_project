@@ -1,38 +1,47 @@
-import { TablePaginationProps } from "./types";
+import { TablePaginationProps } from "src/components/table/components/pagination/types";
 import { FC } from "react";
-import "./TablePagination.scss";
+import "src/components/table/components/pagination/TablePagination.scss";
+import { Button } from "src/components";
 
 export const TablePagination: FC<TablePaginationProps> = ({
   currentPage,
   setCurrentPage,
   totalPages,
+  color,
 }) => {
   return (
     <div className="table-pagination">
-      <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>
+      <Button
+        onClick={() => setCurrentPage(1)}
+        disabled={currentPage === 1}
+        color={color}
+      >
         First
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => setCurrentPage(currentPage - 1)}
         disabled={currentPage === 1}
+        color={color}
       >
         Previous
-      </button>
+      </Button>
       <span>
         Page {currentPage} of {totalPages}
       </span>
-      <button
+      <Button
         onClick={() => setCurrentPage(currentPage + 1)}
         disabled={currentPage === totalPages}
+        color={color}
       >
         Next
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => setCurrentPage(totalPages)}
         disabled={currentPage === totalPages}
+        color={color}
       >
         Last
-      </button>
+      </Button>
     </div>
   );
 };

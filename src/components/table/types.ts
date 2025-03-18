@@ -1,4 +1,4 @@
-import { Type } from "src/shared/types/types";
+import { Color } from "src/shared/types/types";
 
 export interface Column<T> {
   header: string;
@@ -11,5 +11,5 @@ export interface TableProps<T> {
   data: T[];
   columns: Column<T>[];
   pageSize?: number;
-  type?: Type;
+  type?: Color;
 }

@@ -1,63 +1,64 @@
 import { FC } from "react";
-import { classNames } from "src/shared/utils/ClassName";
 import { ModalProps } from "src/components/modal/types";
 import "./Modal.scss";
+import { Button } from "src/components";
+import { createPortal } from "react-dom";
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
   onClose,
   header,
-  footer,
   children,
-  primaryButtonText = "OK",
-  secondaryButtonText = "Cancel",
+  primaryButtonText,
+  secondaryButtonText,
   onPrimaryButtonClick,
   onSecondaryButtonClick,
-  typeFirst = "primary",
-  typeSecond = "primary",
+  colorPrimaryButton = "primary",
+  colorSecondaryButton = "primary",
 }) => {
   if (!isOpen) {
     return null;
   }
 
-  return (
+  return createPortal(
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal--header">
-          {header}
-          <button className="modal--close-button" onClick={onClose}>
+          <div className="modal--header-content">{header}</div>
+          <Button
+            className="modal--close-button"
+            onClick={onClose}
+            variant="text"
+            size="large"
+          >
             &times;
-          </button>
+          </Button>
         </div>
         <div className="modal--body">{children}</div>
-        {(footer || primaryButtonText || secondaryButtonText) && (
+        {(primaryButtonText || secondaryButtonText) && (
           <div className="modal--footer">
-            {footer}
             {secondaryButtonText && (
-              <button
-                className={classNames(
-                  "modal--button",
-                  `modal--button--${typeFirst}`,
-                )}
+              <Button
+                className="modal--button"
+                color={colorSecondaryButton}
                 onClick={onSecondaryButtonClick || onClose}
               >
                 {secondaryButtonText}
-              </button>
+              </Button>
             )}
             {primaryButtonText && (
-              <button
-                className={classNames(
-                  "modal--button",
-                  `modal--button--second--${typeSecond}`,
-                )}
+              <Button
+                className="modal--button"
+                color={colorPrimaryButton}
                 onClick={onPrimaryButtonClick}
               >
                 {primaryButtonText}
-              </button>
+              </Button>
             )}
           </div>
         )}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 };

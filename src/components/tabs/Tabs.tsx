@@ -40,8 +40,8 @@ export const Tabs: FC<TabsProps> = ({
             disabled={disabled}
           >
             <div className="tab-container">
-              {icon && <span className="tab-icon">{icon}</span>}
-              <span className="tab-lable">{label}</span>
+              {icon}
+              {label}
             </div>
           </button>
         ))}

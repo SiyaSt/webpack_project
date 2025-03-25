@@ -3,6 +3,7 @@ import { ModalProps } from "src/components/modal/types";
 import "./Modal.scss";
 import { Button } from "src/components";
 import { createPortal } from "react-dom";
+import { classNames } from "src/shared/utils/ClassName";
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
@@ -15,13 +16,14 @@ export const Modal: FC<ModalProps> = ({
   onSecondaryButtonClick,
   colorPrimaryButton = "primary",
   colorSecondaryButton = "primary",
+  className,
 }) => {
   if (!isOpen) {
     return null;
   }
 
   return createPortal(
-    <div className="modal-overlay">
+    <div className={classNames("modal-overlay", className)}>
       <div className="modal">
         <div className="modal--header">
           <div className="modal--header-content">{header}</div>

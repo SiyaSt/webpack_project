@@ -45,11 +45,11 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 10px;
   }
 
   &--button {
     padding: 8px 16px;
-    margin-left: 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;

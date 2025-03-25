@@ -1,4 +1,8 @@
 export { Layout } from "./layout/Layout";
+export { Tabs } from "./tabs/Tabs";
+export { Table } from "./table/Table";
+export { Modal } from "./modal/Modal";
+export { Loader } from "./loader/Loader";
 export { Button } from "./button/Button";
 export { Checkbox } from "./checkbox/Checkbox";
 export { Input } from "./input/Input";

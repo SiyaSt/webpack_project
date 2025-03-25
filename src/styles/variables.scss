@@ -7,11 +7,21 @@ $theme-colors: (
 $size: ("small": 24px,
         "medium": 32px,
         "large": 40px);
+$size-checkbox: ("small": 12px,
+        "medium": 16px,
+        "large": 20px);
+$loader-speeds: (
+        "slow": 1.5s,
+        "normal": 1s,
+        "fast": 0.5s,
+);
 $size-checkbox: ("small": 16px,
         "medium": 18px,
         "large": 22px);
 $danger-color: #f86565;
 $white-color: #ffff;
+$dark-color: #021327;
+$input-border-color: #ccc;
 $dark-color: #021227;
 $input-border-color: #cdcdcd;
 $input-fill-color: #f0f0f0;

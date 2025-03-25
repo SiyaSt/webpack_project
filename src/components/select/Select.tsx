@@ -19,13 +19,10 @@ export const Select: FC<SelectProps> = ({
   const [searchText, setSearchText] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
 
-  const [selectedOption, setSelectedOption] = useState<Option | null>(
-    value || null,
-  );
+  const selectedOption = value || null;
 
   const handleRadioChange = useCallback(
     (option: Option | null) => {
-      setSelectedOption(option);
       onChange?.(option);
     },
     [onChange],
@@ -66,6 +63,11 @@ export const Select: FC<SelectProps> = ({
     };
   }, [handleOutsideClick]);
 
+  useEffect(() => {
+    if (value !== selectedOption) {
+      setSearchText("");
+    }
+  }, [selectedOption, value]);
   return (
     <div
       className={classNames(

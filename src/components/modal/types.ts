@@ -12,4 +12,5 @@ export interface ModalProps {
   onSecondaryButtonClick?: () => void;
   colorPrimaryButton?: Color;
   colorSecondaryButton?: Color;
+  className?: string;
 }

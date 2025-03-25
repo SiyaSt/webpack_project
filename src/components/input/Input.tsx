@@ -62,6 +62,7 @@ export const Input: FC<InputProps> = ({
           placeholder={placeholder}
           className="input-field"
           disabled={loading}
+          value={value}
           {...props}
         />
         {renderButton(icon, buttonSearchText)}

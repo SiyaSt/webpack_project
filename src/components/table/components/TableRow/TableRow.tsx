@@ -7,9 +7,7 @@ export const TableRow = <T extends object>({
   return (
     <tr>
       {columns.map((column) => (
-        <td key={column.accessorKey as string}>
-          {String(item[column.accessorKey])}
-        </td>
+        <td key={column.accessorKey}>{String(item[column.accessorKey])}</td>
       ))}
     </tr>
   );

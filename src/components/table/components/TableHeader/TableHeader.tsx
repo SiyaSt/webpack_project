@@ -7,11 +7,12 @@ export const TableHeader = <T extends object>({
   onFilterChange,
   color,
 }: TableHeaderProps<T>) => {
+  console.log(filters);
   return (
     <thead>
       <tr>
         {columns.map((column) => (
-          <th key={column.accessorKey as string}>
+          <th key={column.accessorKey}>
             {column.header}
             {column.filterType === "text" && (
               <Input
@@ -19,9 +20,9 @@ export const TableHeader = <T extends object>({
                 className="input-filter"
                 baseSize="small"
                 placeholder={`Filter ${column.header}`}
-                value={filters[column.accessorKey as string] || ""}
+                value={filters[column.accessorKey] || ""}
                 onChange={(e) =>
-                  onFilterChange(column.accessorKey as string, e.target.value)
+                  onFilterChange(column.accessorKey, e.target.value)
                 }
               />
             )}
@@ -37,16 +38,16 @@ export const TableHeader = <T extends object>({
                 }))}
                 placeholder={`Filter ${column.header}`}
                 value={
-                  filters[column.accessorKey as string]
+                  filters[column.accessorKey]
                     ? {
-                        value: filters[column.accessorKey as string],
-                        label: filters[column.accessorKey as string],
+                        value: filters[column.accessorKey],
+                        label: filters[column.accessorKey],
                       }
                     : null
                 }
                 onChange={(selectedOption) =>
                   onFilterChange(
-                    column.accessorKey as string,
+                    column.accessorKey,
                     selectedOption?.value || "",
                   )
                 }

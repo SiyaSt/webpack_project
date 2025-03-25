@@ -12,4 +12,5 @@ export interface TableProps<T> {
   columns: Column<T>[];
   pageSize?: number;
   type?: Color;
+  className?: string;
 }

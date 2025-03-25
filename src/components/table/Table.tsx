@@ -7,12 +7,14 @@ import {
   TableRow,
 } from "src/components/table/components";
 import "./Table.scss";
+import { classNames } from "src/shared/utils/ClassName";
 
 export const Table = <T extends object>({
   data,
   columns,
   pageSize = 10,
   type = "primary",
+  className,
 }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<{ [key: string]: string }>({});
@@ -51,7 +53,7 @@ export const Table = <T extends object>({
   }, []);
 
   return (
-    <div className="table-container">
+    <div className={classNames("table-container", className)}>
       <table className={`table table--${type}`}>
         <TableHeader
           color={type}
@@ -75,6 +77,7 @@ export const Table = <T extends object>({
         className="table-clear-filters"
         onClick={clearFilters}
         color={type}
+        disabled={Object.keys(filters).length === 0}
       >
         Clear Filters
       </Button>

@@ -8,11 +8,17 @@ export const Loader: FC<LoaderProps> = ({
   size = "medium",
   speed = "normal",
   variant = "spinner",
-  label = "text",
+  label,
   className,
 }) => {
   return (
-    <div className="loader-container">
+    <div
+      className={classNames(
+        "loader-container",
+        `loader-container--${variant}`,
+        className,
+      )}
+    >
       <div
         className={classNames(
           "loader",
@@ -20,7 +26,6 @@ export const Loader: FC<LoaderProps> = ({
           `loader--${type}`,
           `loader--${size}`,
           `loader--${speed}`,
-          className,
         )}
       >
         {variant === "spinner" && <div className="loader-inner" />}
@@ -33,7 +38,7 @@ export const Loader: FC<LoaderProps> = ({
         )}
         {variant === "bar" && <div className="bar" />}
       </div>
-      <span className="loader-label">{label}</span>
+      {label && <span className="loader-label">{label}</span>}
     </div>
   );
 };

@@ -39,7 +39,15 @@
 
 .loader-container {
   display: flex;
-  flex-direction: column;
+
+  &--bar {
+    flex-direction: column;
+  }
+
+  &--spinner, &--dots {
+    flex-direction: row;
+    gap: 0.5em;
+  }
 }
 
 .loader-label {
@@ -64,6 +72,7 @@
       border: calc(map.get($size, medium) / 8) solid transparent;
       animation: loader-rotate 1s linear infinite;
     }
+
   }
 
   &--dots {

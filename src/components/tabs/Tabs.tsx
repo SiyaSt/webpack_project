@@ -10,6 +10,7 @@ export const Tabs: FC<TabsProps> = ({
   color = "primary",
   orientation = "horizontal",
   activeTab = 0,
+  className,
 }) => {
   const [activeIndex, setActiveIndex] = useState(activeTab);
 
@@ -19,7 +20,11 @@ export const Tabs: FC<TabsProps> = ({
 
   return (
     <div
-      className={classNames("tabs-container", `tabs-container--${position}`)}
+      className={classNames(
+        "tabs-container",
+        `tabs-container--${position}`,
+        className,
+      )}
     >
       <div
         className={classNames(

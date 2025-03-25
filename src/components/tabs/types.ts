@@ -17,4 +17,5 @@ export interface TabsProps {
   color?: Color;
   orientation?: Orientation;
   activeTab?: number;
+  className?: string;
 }

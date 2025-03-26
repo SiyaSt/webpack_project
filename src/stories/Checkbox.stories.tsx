@@ -18,6 +18,7 @@ const CheckboxWithState = (args: CheckboxProps) => {
 const meta = {
   title: "Components/Checkbox",
   component: Checkbox,
+  tags: ["autodocs"],
   args: {
     size: "medium",
     onChange: fn(),

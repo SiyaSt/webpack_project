@@ -5,6 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 const meta = {
   title: "Components/Select",
   component: Select,
+  tags: ["autodocs"],
   args: {
     size: "medium",
     placeholder: "Select an option...",

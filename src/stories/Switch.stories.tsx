@@ -7,6 +7,7 @@ import Cross from "./assets/cross.svg";
 const meta = {
   title: "Components/Switch",
   component: Switch,
+  tags: ["autodocs"],
   args: {
     size: "medium",
     onChange: fn(),

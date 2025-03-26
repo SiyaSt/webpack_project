@@ -6,6 +6,7 @@ import Image from "./assets/search.svg";
 const meta = {
   title: "Components/Input",
   component: Input,
+  tags: ["autodocs"],
   args: {
     onSearch: fn(),
     baseSize: "medium",

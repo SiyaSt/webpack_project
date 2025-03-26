@@ -6,6 +6,7 @@ import { fn } from "@storybook/test";
 const meta = {
   title: "Components/Button",
   component: Button,
+  tags: ["autodocs"],
   args: {
     variant: "filled",
     onClick: fn(),

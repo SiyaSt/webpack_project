@@ -30,7 +30,7 @@ export const Sidebar: FC = () => {
           className="collapse-button"
           onClick={toggleCollapse}
           icon={arrowIcon}
-          size={"small"}
+          size="small"
         />
       </div>
       <div className="sidebar--content">
@@ -40,7 +40,7 @@ export const Sidebar: FC = () => {
         <Button
           className="theme-button"
           onClick={toggleTheme}
-          size={"small"}
+          size="small"
           icon={themeIcon}
         >
           <span className="sidebar-mode">

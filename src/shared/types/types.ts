@@ -8,8 +8,3 @@ export interface Option {
   value: string;
   label: string;
 }
-export interface NavigationLink {
-  to: string;
-  icon: ComponentType;
-  label: string;
-}

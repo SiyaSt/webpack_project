@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from "react";
-import { TableProps } from "src/components/table/types";
+import { TableProps } from "./types";
 import { Button } from "src/components";
 import {
   TableHeader,

@@ -1,6 +1,6 @@
 import { classNames } from "src/shared/utils/ClassName";
 import { FC } from "react";
-import { LoaderProps } from "src/components/loader/types";
+import { LoaderProps } from "./types";
 import "./Loader.scss";
 
 export const Loader: FC<LoaderProps> = ({

@@ -46,11 +46,12 @@ const meta = {
   component: Modal,
   tags: ["autodocs"],
   args: {
-    isOpen: true,
     header: "Default Modal",
     children: "This is a basic modal content",
     primaryButtonText: "Confirm",
     secondaryButtonText: "Cancel",
+    colorPrimaryButton: "primary",
+    colorSecondaryButton: "primary",
     ...mockActions,
   },
   render: (args) => <ModalWrapper {...args} />,
@@ -78,7 +79,7 @@ export const WithoutButtons: Story = {
   },
 };
 
-export const WithoutOneButtons: Story = {
+export const WithoutOneButton: Story = {
   args: {
     secondaryButtonText: undefined,
   },

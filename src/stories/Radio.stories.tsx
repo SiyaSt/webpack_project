@@ -5,6 +5,7 @@ import { fn } from "@storybook/test";
 const meta = {
   title: "Components/RadioGroup",
   component: RadioGroup,
+  tags: ["autodocs"],
   args: {
     size: "medium",
     onChange: fn(),

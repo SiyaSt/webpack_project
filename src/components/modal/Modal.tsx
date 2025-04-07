@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { ModalProps } from "src/components/modal/types";
-import "./Modal.scss";
+import { ModalProps } from "./types";
 import { Button } from "src/components";
 import { createPortal } from "react-dom";
 import { classNames } from "src/shared/utils/ClassName";
+import "./Modal.scss";
 
 export const Modal: FC<ModalProps> = ({
   isOpen,

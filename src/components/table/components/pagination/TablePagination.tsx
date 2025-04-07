@@ -1,7 +1,7 @@
-import { TablePaginationProps } from "src/components/table/components/pagination/types";
+import { TablePaginationProps } from "./types";
 import { FC } from "react";
-import "src/components/table/components/pagination/TablePagination.scss";
 import { Button } from "src/components";
+import "./TablePagination.scss";
 
 export const TablePagination: FC<TablePaginationProps> = ({
   currentPage,

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import { classNames } from "src/shared/utils/ClassName";
-import { CheckboxProps } from "src/components/checkbox/types";
+import { CheckboxProps } from "./types";
 import "./Checkbox.scss";
 
 export const Checkbox: React.FC<CheckboxProps> = ({

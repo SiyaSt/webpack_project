@@ -5,7 +5,7 @@ export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   header?: ReactNode;
-  children: ReactNode;
+  children?: ReactNode;
   primaryButtonText?: string;
   secondaryButtonText?: string;
   onPrimaryButtonClick?: () => void;

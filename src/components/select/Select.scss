@@ -1,0 +1,236 @@
+@use "../../styles/variables" as *;
+@use "sass:color";
+
+
+@mixin select-theme($color, $text-color: $white-color) {
+  border-color: $color;
+  background-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-theme-border($color, $text-color: $white-color) {
+  background: transparent;
+  border-color: $color;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+}
+
+@mixin select-size($size) {
+  height: $size;
+}
+
+.select {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-width: 150px;
+  background: transparent;
+
+  &--filled {
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        .select--header {
+          @include select-theme($color);
+        }
+
+        .select--search {
+          border: 2px solid;
+
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--option {
+          @include select-theme($color);
+
+          &--selected {
+            background: color.adjust($color, $lightness: -10%);
+          }
+        }
+      }
+    }
+  }
+
+  @each $name, $size in $size {
+    &--#{$name} {
+      .select--dropdown {
+        max-height: calc($size * 6.5);
+      }
+
+      .select--header {
+        @include select-size($size);
+      }
+
+      .select--option {
+        @include select-size($size);
+      }
+    }
+  }
+
+  &--outlined {
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        .select--header {
+          border: 2px solid;
+
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--search {
+          border: 2px solid;
+
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--option {
+          border: 2px solid;
+
+
+          @include select-theme-border($color, $dark-color);
+
+          &--selected {
+            background: color.adjust($color, $lightness: 20%);
+          }
+        }
+      }
+    }
+  }
+
+  &--header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    z-index: 1;
+    min-width: 150px;
+  }
+
+  &--borderless {
+    border: none;
+    border-radius: 0;
+    background: none;
+
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        .select--header {
+          border-radius: 0;
+
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--option {
+          background: none;
+
+          @include select-theme-border($color, $dark-color);
+
+          &--selected {
+            background: color.adjust($color, $lightness: -10%);
+          }
+        }
+      }
+    }
+  }
+
+  &--underlined {
+    border-radius: 0;
+
+    @each $name, $color in $theme-colors {
+      &--#{$name} {
+        .select--header {
+          border-bottom: 1px solid;
+          border-radius: 0;
+
+          @include select-theme-border($color, $dark-color);
+
+        }
+
+        .select--search {
+          border-bottom: 1px solid;
+
+          @include select-theme-border($color, $dark-color);
+        }
+
+        .select--option {
+          border-bottom: 1px solid;
+
+          @include select-theme-border($color, $dark-color);
+
+          &--selected {
+            background: color.adjust($color, $lightness: -10%);
+          }
+        }
+      }
+    }
+  }
+
+
+  &--placeholder {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &--clear {
+    background: none;
+    border: none;
+    color: $select-text-color;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0;
+    margin-left: 10px;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &--dropdown {
+    background: $white-color;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border-radius: $select-border-radius;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+    z-index: 2;
+    overflow-y: auto;
+  }
+
+  &--search {
+    border: none;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &--options {
+    background: $white-color;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+  }
+
+  &--option {
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  &--no-options {
+    padding: 8px 10px;
+    color: #777;
+  }
+}

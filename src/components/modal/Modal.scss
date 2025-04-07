@@ -1,5 +1,6 @@
 @use "../../styles/variables.scss" as *;
 @use "sass:map";
+@use "../../styles/theme" as *;
 
 .modal-overlay {
   position: fixed;
@@ -23,6 +24,11 @@
   max-height: 70%;
   display: flex;
   flex-direction: column;
+
+  &.dark{
+    background: $dark-background;
+    color: white;
+  }
 
   &--header {
     padding: 10px 20px;

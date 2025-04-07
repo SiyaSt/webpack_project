@@ -185,7 +185,6 @@ export const PostsPage = () => {
         onClose={() => setDeletingPostId(null)}
         header="Confirm Delete"
         primaryButtonText="Delete"
-        secondaryButtonText="Cancel"
         onPrimaryButtonClick={handleDeleteConfirm}
         onSecondaryButtonClick={() => setDeletingPostId(null)}
         colorPrimaryButton="danger"

@@ -1,5 +1,5 @@
 export interface UpdateComment {
-  id: number;
+  id?: number;
   name?: string;
   email?: string;
   body?: string;

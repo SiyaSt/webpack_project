@@ -30,21 +30,21 @@ const commentsSlice = createSlice({
       })
       .addCase(fetchCommentsByPostId.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items = action.payload.data;
+        state.items = action.payload;
       })
       .addCase(fetchCommentsByPostId.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch comments";
       })
       .addCase(createComment.fulfilled, (state, action) => {
-        state.items.unshift(action.payload.data);
+        state.items.unshift(action.payload);
       })
       .addCase(updateComment.fulfilled, (state, action) => {
         const index = state.items.findIndex(
-          (comment) => comment.id === action.payload.data.id,
+          (comment) => comment.id === action.payload.id,
         );
         if (index !== -1) {
-          state.items[index] = action.payload.data;
+          state.items[index] = action.payload;
         }
       })
       .addCase(deleteComment.fulfilled, (state, action) => {

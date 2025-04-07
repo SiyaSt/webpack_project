@@ -6,21 +6,24 @@ import { UpdateComment } from "src/shared/types/comment/updateComment";
 export const fetchCommentsByPostId = createAsyncThunk(
   "comments/fetchCommentsByPostId",
   async (postId: number) => {
-    return await commentsApi.fetchByPostId(postId);
+    const response = await commentsApi.fetchByPostId(postId);
+    return response.data;
   },
 );
 
 export const createComment = createAsyncThunk(
   "comments/createComment",
   async (commentData: CreateComment) => {
-    return await commentsApi.create(commentData);
+    const response = await commentsApi.create(commentData);
+    return response.data;
   },
 );
 
 export const updateComment = createAsyncThunk(
   "comments/updateComment",
   async ({ id, data }: { id: number; data: UpdateComment }) => {
-    return await commentsApi.update(id, data);
+    const response = await commentsApi.update(id, data);
+    return response.data;
   },
 );
 

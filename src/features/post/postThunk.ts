@@ -19,6 +19,14 @@ export const fetchPosts = createAsyncThunk(
   },
 );
 
+export const fetchPostById = createAsyncThunk(
+  "posts/fetchPostById",
+  async (id: number) => {
+    const response = await postsApi.fetchById(id);
+    return response.data;
+  },
+);
+
 export const createPost = createAsyncThunk(
   "posts/createPost",
   async (postData: CreatePost) => {

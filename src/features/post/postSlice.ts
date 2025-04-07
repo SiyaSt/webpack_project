@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   createPost,
   deletePost,
+  fetchPostById,
   fetchPosts,
   updatePost,
 } from "src/features/post/postThunk";
 
 interface PostsState {
   items: Post[];
+  currentPost: Post | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   totalCount: number;
@@ -16,6 +18,7 @@ interface PostsState {
 
 const initialState: PostsState = {
   items: [],
+  currentPost: null,
   status: "idle",
   error: null,
   totalCount: 0,
@@ -27,6 +30,17 @@ const postsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchPostById.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchPostById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.currentPost = action.payload;
+      })
+      .addCase(fetchPostById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to fetch post";
+      })
       .addCase(fetchPosts.pending, (state) => {
         state.status = "loading";
       })

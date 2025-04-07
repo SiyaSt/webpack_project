@@ -1,0 +1,40 @@
+.post-form {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+
+      &.error {
+        border-color: #f44;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .error {
+      color: #f44;
+      font-size: 12px;
+      margin-top: 5px;
+      display: block;
+    }
+  }
+}

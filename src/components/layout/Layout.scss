@@ -2,6 +2,7 @@
 
 .container {
   display: flex;
+  min-height: 100vh;
   background-color: $light-background;
   color: $light-text;
   transition: background-color 0.3s ease, color 0.3s ease;

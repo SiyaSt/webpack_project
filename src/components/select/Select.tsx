@@ -3,6 +3,7 @@ import { Option } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
 import { SelectProps } from "./types";
 import "./Select.scss";
+import { useTheme } from "src/hooks/useTheme";
 
 export const Select: FC<SelectProps> = ({
   color = "primary",
@@ -19,12 +20,13 @@ export const Select: FC<SelectProps> = ({
   const [searchText, setSearchText] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState<Option | null>(value);
+  const { theme } = useTheme();
 
   const handleRadioChange = useCallback(
     (option: Option | null) => {
-      setSelectedOption(option); // Обновляем состояние selectedOption
+      setSelectedOption(option);
       onChange?.(option);
-      setSearchText(""); // Очищаем текст поиска
+      setSearchText("");
     },
     [onChange],
   );
@@ -96,7 +98,7 @@ export const Select: FC<SelectProps> = ({
         )}
       </div>
       {isOpen && (
-        <div className="select--dropdown">
+        <div className={classNames("select--dropdown", `${theme}`)}>
           <input
             type="text"
             className="select--search"
@@ -105,7 +107,7 @@ export const Select: FC<SelectProps> = ({
             onChange={(e) => setSearchText(e.target.value)}
           />
           {filteredOptions.length > 0 ? (
-            <ul className="select--options">
+            <ul className={classNames("select--options", `${theme}`)}>
               {filteredOptions.map((option) => (
                 <li
                   key={option.value}

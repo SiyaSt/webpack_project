@@ -5,26 +5,33 @@ import { UpdatePost } from "src/shared/types/post/updatePost";
 
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",
-  async (params: { start: number; limit: number; userId?: number }) => {
-    return await postsApi.fetchAll({
-      _start: params.start,
-      _limit: params.limit,
-      userId: params.userId,
-    });
+  async (params: {
+    _start?: number;
+    _limit?: number;
+    title_like?: string;
+    userId?: number;
+  }) => {
+    const response = await postsApi.fetchAll(params);
+    return {
+      data: response.data,
+      totalCount: Number(response.headers["x-total-count"]) || 0,
+    };
   },
 );
 
 export const createPost = createAsyncThunk(
   "posts/createPost",
   async (postData: CreatePost) => {
-    return await postsApi.create(postData);
+    const response = await postsApi.create(postData);
+    return response.data;
   },
 );
 
 export const updatePost = createAsyncThunk(
   "posts/updatePost",
   async ({ id, data }: { id: number; data: UpdatePost }) => {
-    return await postsApi.update(id, data);
+    const response = await postsApi.update(id, data);
+    return response.data;
   },
 );
 

@@ -1,5 +1,5 @@
 export interface UpdatePost {
-  id: number;
+  id?: number;
   title?: string;
   body?: string;
   userId: number;

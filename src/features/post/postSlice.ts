@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { Post } from "src/shared/types/post/post";
+import { createSlice } from "@reduxjs/toolkit";
 import {
   createPost,
   deletePost,
@@ -11,12 +11,14 @@ interface PostsState {
   items: Post[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
+  totalCount: number;
 }
 
 const initialState: PostsState = {
   items: [],
   status: "idle",
   error: null,
+  totalCount: 0,
 };
 
 const postsSlice = createSlice({
@@ -31,24 +33,27 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload.data;
+        state.totalCount = action.payload.totalCount;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch posts";
       })
       .addCase(createPost.fulfilled, (state, action) => {
-        state.items.unshift(action.payload.data);
+        state.items.unshift(action.payload);
+        state.totalCount += 1;
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         const index = state.items.findIndex(
-          (post) => post.id === action.payload.data.id,
+          (post) => post.id === action.payload.id,
         );
         if (index !== -1) {
-          state.items[index] = action.payload.data;
+          state.items[index] = action.payload;
         }
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         state.items = state.items.filter((post) => post.id !== action.payload);
+        state.totalCount -= 1;
       });
   },
 });

@@ -1,3 +1,10 @@
+export interface ShortUserInformation {
+  name: string;
+  email: string;
+  company: string;
+  phone: string;
+}
+
 export interface User {
   id: number;
   name: string;

@@ -15,6 +15,7 @@ export const Table = <T extends object>({
   pageSize = 10,
   type = "primary",
   className,
+  onRowClick,
 }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<{ [key: string]: string }>({});
@@ -63,7 +64,12 @@ export const Table = <T extends object>({
         />
         <tbody>
           {paginatedData.map((item, index) => (
-            <TableRow key={index} item={item} columns={columns} />
+            <TableRow
+              key={index}
+              item={item}
+              columns={columns}
+              onClick={onRowClick}
+            />
           ))}
         </tbody>
       </table>

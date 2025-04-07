@@ -11,8 +11,12 @@
   border-collapse: collapse;
   margin-bottom: 1rem;
 
-  .input-filter, .select-filter{
+  .input-filter, .select-filter {
     margin-left: 10px;
+  }
+
+  tr {
+    cursor: pointer;
   }
 
   th,
@@ -25,14 +29,7 @@
   thead {
     th {
       font-weight: normal;
-      background-color: #f2f2f2;
       text-transform: uppercase;
-    }
-  }
-
-  tbody {
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
     }
   }
 

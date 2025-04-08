@@ -123,20 +123,20 @@ export const PostsPage = () => {
           Create New Post
         </Button>
       </div>
-
-      <div className="posts-list">
-        {status === "loading" && <Loader className="loader" type="secondary" />}
-        {error && <div className="error">Error: {error}</div>}
-        {posts.map((post) => (
-          <PostItem
-            key={post.id}
-            post={post}
-            onEdit={() => setEditingPost(post)}
-            onDelete={() => setDeletingPostId(post.id)}
-          />
-        ))}
-      </div>
-
+      {status === "loading" && <Loader className="loader" type="secondary" />}
+      {error && <div className="error">Error: {error}</div>}
+      {!error && status !== "loading" && (
+        <div className="posts-list">
+          {posts.map((post) => (
+            <PostItem
+              key={post.id}
+              post={post}
+              onEdit={() => setEditingPost(post)}
+              onDelete={() => setDeletingPostId(post.id)}
+            />
+          ))}
+        </div>
+      )}
       <TablePagination
         currentPage={currentPage}
         totalPages={Math.ceil(totalCount / pageSize)}

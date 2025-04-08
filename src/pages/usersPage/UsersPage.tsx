@@ -49,9 +49,6 @@ export const UsersPage = () => {
     [filteredUsers],
   );
 
-  if (status === "loading") return <Loader type="secondary" />;
-  if (error) return <div>Error: {error}</div>;
-
   return (
     <div className="users-page">
       <div className="search-container">
@@ -62,14 +59,20 @@ export const UsersPage = () => {
           color="secondary"
         />
       </div>
-      <Table
-        data={filteredShortUsers}
-        columns={columns}
-        onRowClick={(user) =>
-          handleRowClick(users.find((u) => u.email === user.email) as User)
-        }
-        type="secondary"
-      />
+
+      {status === "loading" && <Loader type="secondary" className="loader" />}
+      {error && <div>Error: {error}</div>}
+
+      {!error && status !== "loading" && (
+        <Table
+          data={filteredShortUsers}
+          columns={columns}
+          onRowClick={(user) =>
+            handleRowClick(users.find((u) => u.email === user.email) as User)
+          }
+          type="secondary"
+        />
+      )}
 
       {selectedUser && (
         <UserDetailsSidebar

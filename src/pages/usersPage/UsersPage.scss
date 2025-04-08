@@ -1,5 +1,10 @@
-.users-page{
+.users-page {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  .loader{
+    align-self: center;
+  }
+
 }

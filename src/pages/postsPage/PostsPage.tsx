@@ -31,10 +31,9 @@ const PostsPage = () => {
   const error = useAppSelector(selectPostsError);
   const totalCount = useAppSelector((state) => state.posts.totalCount);
   const users = useAppSelector(selectAllUsers);
-  const [searchParams] = useSearchParams();
-  const userIdParam = searchParams.get("userId");
-  const [isFormValid, setIsFormValid] = useState(false);
 
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTitle, setSearchTitle] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
@@ -44,6 +43,8 @@ const PostsPage = () => {
 
   const debouncedSearchTitle = useDebounce(searchTitle, 300);
   const pageSize = 10;
+  const userIdParam = searchParams.get("userId");
+  const titleParam = searchParams.get("title");
 
   const userOptions: Option[] = users.map((user) => ({
     value: String(user.id),
@@ -51,6 +52,7 @@ const PostsPage = () => {
   }));
 
   useEffect(() => {
+    if (titleParam) setSearchTitle(titleParam);
     if (userIdParam) {
       const userId = Number(userIdParam);
       if (!isNaN(userId)) {
@@ -70,6 +72,18 @@ const PostsPage = () => {
     );
     dispatch(fetchUsers());
   }, [currentPage, debouncedSearchTitle, selectedUserId, dispatch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+
+    if (debouncedSearchTitle) params.set("title", debouncedSearchTitle);
+    else params.delete("title");
+
+    if (selectedUserId) params.set("userId", String(selectedUserId));
+    else params.delete("userId");
+
+    setSearchParams(params, { replace: true });
+  }, [debouncedSearchTitle, selectedUserId, setSearchParams]);
 
   const handleCreatePost = useCallback(
     async (data: Post) => {

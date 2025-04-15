@@ -38,6 +38,7 @@ export const PostsFilter = ({
         value={searchValue}
         onChange={(e) => onSearchChange(e.target.value)}
         color="secondary"
+        className="posts-filter-input"
       />
 
       <Select

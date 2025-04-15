@@ -55,7 +55,7 @@ export const Input: FC<InputProps> = ({
     );
   };
   return (
-    <div className="input-container">
+    <div className={classNames("input-container", className)}>
       <div className={inputClass}>
         <input
           type="text"

@@ -63,7 +63,7 @@ const PostsPage = () => {
         setSelectedUserId(userId);
       }
     }
-  }, [userIdParam]);
+  }, [titleParam, userIdParam]);
 
   useEffect(() => {
     dispatch(
@@ -87,6 +87,7 @@ const PostsPage = () => {
     else params.delete("userId");
 
     setSearchParams(params, { replace: true });
+    setCurrentPage(1);
   }, [debouncedSearchTitle, selectedUserId, setSearchParams]);
 
   const handleCreatePost = useCallback(

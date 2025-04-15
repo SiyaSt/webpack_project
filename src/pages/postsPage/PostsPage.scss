@@ -14,8 +14,8 @@
 
 .posts-controls {
   display: flex;
-  justify-content: space-between;
   margin-bottom: 20px;
+  gap: 20px;
   flex-wrap: wrap;
   align-items: center;
 
@@ -23,6 +23,10 @@
     display: flex;
     gap: 20px;
     align-items: center;
+
+    &-input{
+      width: 50%;
+    }
   }
 
   .create-post-button {

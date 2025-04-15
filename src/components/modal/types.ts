@@ -13,4 +13,5 @@ export interface ModalProps {
   colorPrimaryButton?: Color;
   colorSecondaryButton?: Color;
   className?: string;
+  disabledPrimaryButton?: boolean;
 }

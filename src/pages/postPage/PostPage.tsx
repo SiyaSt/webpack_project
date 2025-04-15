@@ -37,6 +37,7 @@ const PostPage = () => {
     null,
   );
   const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const status = useAppSelector(selectCommentsStatus);
   const error = useAppSelector(selectCommentsError);
   const { theme } = useTheme();
@@ -127,8 +128,12 @@ const PostPage = () => {
           form?.requestSubmit();
         }}
         onSecondaryButtonClick={() => setIsCommentModalOpen(false)}
+        disabledPrimaryButton={!isFormValid}
       >
-        <CommentForm onSubmit={handleCreateComment} />
+        <CommentForm
+          onSubmit={handleCreateComment}
+          onValidityChange={setIsFormValid}
+        />
       </Modal>
 
       <Modal
@@ -146,11 +151,13 @@ const PostPage = () => {
           form?.requestSubmit();
         }}
         onSecondaryButtonClick={() => setEditingComment(null)}
+        disabledPrimaryButton={!isFormValid}
       >
         {editingComment && (
           <CommentForm
             comment={editingComment}
             onSubmit={handleUpdateComment}
+            onValidityChange={setIsFormValid}
           />
         )}
       </Modal>

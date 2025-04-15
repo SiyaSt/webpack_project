@@ -3,8 +3,8 @@ import { ModalProps } from "./types";
 import { Button } from "src/components";
 import { createPortal } from "react-dom";
 import { classNames } from "src/shared/utils/ClassName";
-import "./Modal.scss";
 import { useTheme } from "src/hooks/useTheme";
+import "./Modal.scss";
 
 export const Modal: FC<ModalProps> = ({
   isOpen,
@@ -18,6 +18,7 @@ export const Modal: FC<ModalProps> = ({
   colorPrimaryButton = "primary",
   colorSecondaryButton = "primary",
   className,
+  disabledPrimaryButton,
 }) => {
   const { theme } = useTheme();
   if (!isOpen) {
@@ -55,6 +56,7 @@ export const Modal: FC<ModalProps> = ({
                 className="modal--button"
                 color={colorPrimaryButton}
                 onClick={onPrimaryButtonClick}
+                disabled={disabledPrimaryButton}
               >
                 {primaryButtonText}
               </Button>

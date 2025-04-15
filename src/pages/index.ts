@@ -1,5 +1,5 @@
 export { LazyHomePage as HomePage } from "./homePage/HomePage.lazy";
 export { NotFoundPage } from "./notFoundPage/NotFoundPage";
-export { PostPage } from "./postPage/PostPage";
-export { PostsPage } from "./postsPage/PostsPage";
-export { UsersPage } from "./usersPage/UsersPage";
+export { LazyPostPage as PostPage } from "./postPage/PostPage.lazy";
+export { LazyPostsPage as PostsPage } from "./postsPage/PostsPage.lazy";
+export { LazyUsersPage as UsersPage } from "./usersPage/UsersPage.lazy";

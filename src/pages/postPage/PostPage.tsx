@@ -28,7 +28,7 @@ import { classNames } from "src/shared/utils/ClassName";
 import { useTheme } from "src/hooks/useTheme";
 import "./PostPage.scss";
 
-export const PostPage = () => {
+const PostPage = () => {
   const { id } = useParams<{ id: string }>();
   const postId = Number(id);
   const dispatch = useAppDispatch();
@@ -180,3 +180,5 @@ export const PostPage = () => {
     </div>
   );
 };
+
+export default PostPage;

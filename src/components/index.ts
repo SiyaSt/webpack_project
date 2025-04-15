@@ -12,3 +12,4 @@ export { Switch } from "./switch/Switch";
 export { Sidebar } from "./sideBar/Sidebar";
 export { CustomLink } from "./customLink/CustomLink";
 export { Navigation } from "./navigation/Navigation";
+export { ErrorBoundary } from "./errorBoundary/ErrorBoundary";

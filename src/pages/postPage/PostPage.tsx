@@ -24,7 +24,7 @@ import { useTheme } from "src/hooks/useTheme";
 import { CommentItem } from "src/components/сommentItem/CommentItem";
 import "./PostPage.scss";
 
-export const PostPage = () => {
+const PostPage = () => {
   const { id } = useParams<{ id: string }>();
   const postId = Number(id);
   const dispatch = useAppDispatch();
@@ -169,3 +169,5 @@ export const PostPage = () => {
     </div>
   );
 };
+
+export default PostPage;

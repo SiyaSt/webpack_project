@@ -87,7 +87,6 @@ const PostsPage = () => {
     else params.delete("userId");
 
     setSearchParams(params, { replace: true });
-    setCurrentPage(1);
   }, [debouncedSearchTitle, selectedUserId, setSearchParams]);
 
   const handleCreatePost = useCallback(
@@ -123,14 +122,23 @@ const PostsPage = () => {
     }
   }, [deletingPostId, dispatch]);
 
+  const handleFilterChange = useCallback(
+    (newUserId: number | null, newSearch: string) => {
+      setSelectedUserId(newUserId);
+      setSearchTitle(newSearch);
+      setCurrentPage(1);
+    },
+    [],
+  );
+
   return (
     <div className="posts-page">
       <div className="posts-controls">
         <PostsFilter
           searchValue={searchTitle}
-          onSearchChange={setSearchTitle}
+          onSearchChange={(value) => handleFilterChange(selectedUserId, value)}
           selectedAuthorId={selectedUserId}
-          onAuthorChange={setSelectedUserId}
+          onAuthorChange={(id) => handleFilterChange(id, searchTitle)}
           authorOptions={userOptions}
           className="posts-page-filter"
         />

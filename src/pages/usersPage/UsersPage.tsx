@@ -12,7 +12,7 @@ import {
 import { columns } from "src/shared/types/columns";
 import "./UsersPage.scss";
 
-const UsersPage = () => {
+export const UsersPage = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(selectAllUsers);
   const status = useAppSelector(selectUsersStatus);
@@ -82,5 +82,3 @@ const UsersPage = () => {
     </div>
   );
 };
-
-export default UsersPage;

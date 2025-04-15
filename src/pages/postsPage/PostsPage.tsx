@@ -28,7 +28,7 @@ import { fetchUsers } from "src/features/user/userThunk";
 import { useSearchParams } from "react-router-dom";
 import "./PostsPage.scss";
 
-const PostsPage = () => {
+export const PostsPage = () => {
   const dispatch = useAppDispatch();
   const posts = useAppSelector(selectAllPosts);
   const status = useAppSelector(selectPostsStatus);
@@ -231,5 +231,3 @@ const PostsPage = () => {
     </div>
   );
 };
-
-export default PostsPage;

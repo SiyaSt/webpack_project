@@ -33,6 +33,7 @@ const PostsPage = () => {
   const users = useAppSelector(selectAllUsers);
   const [searchParams] = useSearchParams();
   const userIdParam = searchParams.get("userId");
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTitle, setSearchTitle] = useState("");
@@ -157,8 +158,12 @@ const PostsPage = () => {
           form?.requestSubmit();
         }}
         onSecondaryButtonClick={() => setIsCreateModalOpen(false)}
+        disabledPrimaryButton={!isFormValid}
       >
-        <PostForm onSubmit={handleCreatePost} />
+        <PostForm
+          onSubmit={handleCreatePost}
+          onValidityChange={setIsFormValid}
+        />
       </Modal>
 
       <Modal
@@ -174,9 +179,14 @@ const PostsPage = () => {
           form?.requestSubmit();
         }}
         onSecondaryButtonClick={() => setEditingPost(null)}
+        disabledPrimaryButton={!isFormValid}
       >
         {editingPost && (
-          <PostForm post={editingPost} onSubmit={handleUpdatePost} />
+          <PostForm
+            post={editingPost}
+            onSubmit={handleUpdatePost}
+            onValidityChange={setIsFormValid}
+          />
         )}
       </Modal>
 

@@ -1,0 +1,10 @@
+@use "../../styles/theme" as *;
+
+
+.posts-filter {
+  input {
+    .dark & {
+      color: white;
+    }
+  }
+}

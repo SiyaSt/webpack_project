@@ -3,8 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ShortUserInformation, User } from "src/shared/types/user";
 import { useDebounce } from "src/hooks/useDebounce";
 import { fetchUsers } from "src/features/user/userThunk";
-import { Input, Loader, Table } from "src/components";
-import { UserDetailsSidebar } from "src/components/userDetails/UserDetailsSidebar";
+import { Input, Loader, Table, UserDetailsSidebar } from "src/components";
 import {
   selectAllUsers,
   selectUsersError,

@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { User } from "src/shared/types/user";
 import { FC } from "react";
-import "./UserDetailsSidebar.scss";
 import { useTheme } from "src/hooks/useTheme";
 import { classNames } from "src/shared/utils/ClassName";
 import { Button } from "src/components";
+import "./UserDetailsSidebar.scss";
 
 interface UserDetailsSidebarProps {
   user: User;

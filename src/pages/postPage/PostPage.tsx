@@ -16,12 +16,16 @@ import {
 import { CreateComment } from "src/shared/types/comment/createComment";
 import { UpdateComment } from "src/shared/types/comment/updateComment";
 import { Comment } from "src/shared/types/comment/comment";
-import { Button, Loader, Modal } from "src/components";
-import { CommentForm } from "src/components/commentForm/CommentForm";
+import {
+  Button,
+  CommentForm,
+  CommentItem,
+  Loader,
+  Modal,
+} from "src/components";
 import { fetchPostById } from "src/features/post/postThunk";
 import { classNames } from "src/shared/utils/ClassName";
 import { useTheme } from "src/hooks/useTheme";
-import { CommentItem } from "src/components/сommentItem/CommentItem";
 import "./PostPage.scss";
 
 const PostPage = () => {

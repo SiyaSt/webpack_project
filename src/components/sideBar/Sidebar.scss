@@ -3,6 +3,7 @@
 .sidebar {
   width: 200px;
   min-width: 200px;
+  max-height: 100vh;
   background-color: $light-sidebar-background;
   color: $light-sidebar-text;
   display: flex;

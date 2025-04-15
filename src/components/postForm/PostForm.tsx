@@ -1,8 +1,8 @@
 import { FC, useState, useEffect, FormEvent } from "react";
 import { Post } from "src/shared/types/post/post";
 import { Input } from "src/components";
-import "./PostForm.scss";
 import { CreatePost } from "src/shared/types/post/createPost";
+import "./PostForm.scss";
 
 interface PostFormProps {
   post?: Post;

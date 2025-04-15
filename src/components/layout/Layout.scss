@@ -13,6 +13,8 @@
   }
 
   .content {
+    max-height: 100vh;
+    overflow-y: auto;
     flex-grow: 1;
     padding: 20px;
   }

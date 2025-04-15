@@ -14,15 +14,19 @@ import {
 } from "src/features/post/postSelector";
 import { selectAllUsers } from "src/features/user/userSelector";
 import { Post } from "src/shared/types/post/post";
-import { PostItem } from "src/components/postItem/PostItem";
-import { Button, Loader, Modal } from "src/components";
-import { PostForm } from "src/components/postForm/PostForm";
-import { TablePagination } from "src/components/table/components";
+import {
+  Button,
+  Loader,
+  Modal,
+  Pagination,
+  PostForm,
+  PostItem,
+  PostsFilter,
+} from "src/components";
 import { Option } from "src/shared/types/types";
-import { PostsFilter } from "src/components/postsFilter/PostsFilter";
 import { fetchUsers } from "src/features/user/userThunk";
-import "./PostsPage.scss";
 import { useSearchParams } from "react-router-dom";
+import "./PostsPage.scss";
 
 const PostsPage = () => {
   const dispatch = useAppDispatch();
@@ -152,7 +156,7 @@ const PostsPage = () => {
           ))}
         </div>
       )}
-      <TablePagination
+      <Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(totalCount / pageSize)}
         setCurrentPage={setCurrentPage}

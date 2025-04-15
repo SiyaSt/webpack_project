@@ -33,6 +33,7 @@ export const CommentForm: FC<CommentFormProps> = ({ comment, onSubmit }) => {
           onChange={(e) => setName(e.target.value)}
           required
           color="secondary"
+          className="form-group-input"
         />
         <label>Email</label>
         <Input

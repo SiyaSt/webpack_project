@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "src/components";
 import "./ErrorBoundary.scss";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children: ReactNode;
@@ -11,6 +11,19 @@ interface State {
   hasError: boolean;
   error?: Error;
 }
+
+const HomeButton = () => {
+  const navigate = useNavigate();
+  return (
+    <Button
+      color="secondary"
+      onClick={() => navigate("/")}
+      className="error-boundary-link"
+    >
+      Return to Home
+    </Button>
+  );
+};
 
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
@@ -32,11 +45,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="error-boundary">
           <h1>Something went wrong</h1>
           <p>{this.state.error?.toString()}</p>
-          <Button color="secondary">
-            <Link to="/" className="error-boundary-link">
-              Return to Home
-            </Link>
-          </Button>
+          <HomeButton />
         </div>
       );
     }

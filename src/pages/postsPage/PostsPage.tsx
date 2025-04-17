@@ -8,7 +8,7 @@ import {
 } from "src/features/post/postThunk";
 import { useDebounce } from "src/hooks/useDebounce";
 import {
-  selectFilteredPosts,
+  selectAllPosts,
   selectPostsError,
   selectPostsStatus,
 } from "src/features/post/postSelector";
@@ -27,11 +27,11 @@ import { Option } from "src/shared/types/types";
 import { fetchUsers } from "src/features/user/userThunk";
 import { useSearchParams } from "react-router-dom";
 import "./PostsPage.scss";
-import { markAsDeleted, restorePost } from "src/features/post/postSlice";
+import { setPosts } from "src/features/post/postSlice";
 
 const PostsPage = () => {
   const dispatch = useAppDispatch();
-  const posts = useAppSelector(selectFilteredPosts);
+  const posts = useAppSelector(selectAllPosts);
   const status = useAppSelector(selectPostsStatus);
   const error = useAppSelector(selectPostsError);
   const totalCount = useAppSelector((state) => state.posts.totalCount);
@@ -116,31 +116,44 @@ const PostsPage = () => {
     [dispatch, editingPost],
   );
 
-  // В компоненте PostsPage:
   const handleDeleteConfirm = useCallback(async () => {
-    if (deletingPostId) {
-      try {
-        console.log(totalCount);
-        // Оптимистичное удаление
-        dispatch(markAsDeleted(deletingPostId));
+    if (!deletingPostId) return;
 
-        await dispatch(deletePost(deletingPostId)).unwrap();
-        console.log(totalCount);
-        // Автокоррекция пагинации
-        const newTotal = totalCount - 1;
-        const maxPage = Math.ceil(newTotal / pageSize);
-        if (currentPage > maxPage) {
-          setCurrentPage(maxPage);
-        }
-      } catch (error) {
-        // Откат изменений при ошибке
-        dispatch(restorePost(deletingPostId));
-        console.error("Delete failed:", error);
-      } finally {
-        setDeletingPostId(null);
+    try {
+      await dispatch(deletePost(deletingPostId)).unwrap();
+      setDeletingPostId(null);
+
+      const nextStart = (currentPage - 1) * pageSize + posts.length;
+      const nextPostBatch = await dispatch(
+        fetchPosts({
+          _start: nextStart,
+          _limit: 1,
+          title_like: debouncedSearchTitle,
+          userId: selectedUserId || undefined,
+        }),
+      ).unwrap();
+
+      const updatedPosts = posts
+        .filter((post) => post.id !== deletingPostId)
+        .concat(nextPostBatch.data);
+
+      if (updatedPosts.length > 0) {
+        dispatch(setPosts(updatedPosts));
+      } else if (currentPage > 1) {
+        setCurrentPage((prev) => prev - 1);
       }
+    } catch (error) {
+      console.error("Failed to delete post:", error);
     }
-  }, [deletingPostId, dispatch, currentPage, totalCount]);
+  }, [
+    deletingPostId,
+    dispatch,
+    posts,
+    currentPage,
+    pageSize,
+    debouncedSearchTitle,
+    selectedUserId,
+  ]);
 
   const handleFilterChange = useCallback(
     (newUserId: number | null, newSearch: string) => {

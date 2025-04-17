@@ -1,5 +1,5 @@
 import { Post } from "src/shared/types/post/post";
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   createPost,
   deletePost,
@@ -14,6 +14,7 @@ interface PostsState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   totalCount: number;
+  deletedIds: number[];
 }
 
 const initialState: PostsState = {
@@ -22,12 +23,17 @@ const initialState: PostsState = {
   status: "idle",
   error: null,
   totalCount: 0,
+  deletedIds: [],
 };
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    setPosts: (state, action: PayloadAction<Post[]>) => {
+      state.items = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPostById.pending, (state) => {
@@ -73,3 +79,4 @@ const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
+export const { setPosts } = postsSlice.actions;

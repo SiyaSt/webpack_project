@@ -16,7 +16,7 @@
     margin-left: 10px;
   }
 
-  tr {
+  tbody tr {
     cursor: pointer;
   }
 
@@ -27,7 +27,7 @@
     border-bottom: 1px solid #dee2e6;
   }
 
-  tr:hover{
+  tbody tr:hover{
     background: var(--background-dark);
   }
 

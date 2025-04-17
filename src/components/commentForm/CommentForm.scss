@@ -14,20 +14,14 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
-      color: #333;
-
-      .dark & {
-        color: white;
-      }
+      color:  var(--text);;
     }
 
     textarea {
       resize: none;
       min-height: 150px;
+      background: var(--background);
 
-      .dark & {
-        background: $dark-background;
-      }
     }
 
     input,
@@ -36,10 +30,8 @@
       padding: 10px;
       border-radius: 4px;
       font-size: 14px;
+      color:  var(--text);
 
-      .dark & {
-        color: white;
-      }
     }
 
     .input-wrapper{

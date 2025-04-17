@@ -47,22 +47,11 @@
 
 .post-item {
   h3 a {
-    color: #333;
+    color: var(--text);
     text-decoration: none;
 
     &:hover {
       text-decoration: underline;
-    }
-  }
-
-  &.dark {
-    h3 a {
-      color: $light-background;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
     }
   }
 

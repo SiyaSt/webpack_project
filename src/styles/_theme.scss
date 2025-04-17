@@ -1,8 +1,20 @@
-$light-background: #f0f0f0;
-$light-text: #333;
-$light-sidebar-background: #65a2a6;
-$light-sidebar-text: #333;
-$dark-background: #333;
-$dark-text: #f0f0f0;
-$dark-sidebar-background: #235a5e;
-$dark-sidebar-text: #f0f0f0;
+html[data-theme='dark'] {
+  --background: #333;
+  --text: #f0f0f0;
+  --sidebar-background: #235a5e;
+  --sidebar-text: #f0f0f0;
+  --background-light: #494848;
+  --text-80: rgba(240, 240, 240, 0.8);
+  --text-60: rgba(240, 240, 240, 0.6);
+}
+
+html[data-theme='light'] {
+  --background: #f0f0f0;
+  --text: #333;
+  --sidebar-background: #65a2a6;
+  --sidebar-text: #333;
+  --background-light: #fff;
+  --text-80: rgba(51, 51, 51, 0.8);
+  --text-60: rgba(51, 51, 51, 0.6);
+
+}

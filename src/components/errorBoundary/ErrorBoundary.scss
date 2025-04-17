@@ -4,11 +4,7 @@
   padding: 50px;
   text-align: center;
   min-height: 100vh;
-
-  &-link {
-    text-decoration: none;
-    color: $light-text;
-  }
+  color:  var(--text);
 
   h1 {
     color: #dc3545;

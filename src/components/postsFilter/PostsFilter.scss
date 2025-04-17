@@ -3,8 +3,6 @@
 
 .posts-filter {
   input {
-    .dark & {
-      color: white;
-    }
+    color:  var(--text);;
   }
 }

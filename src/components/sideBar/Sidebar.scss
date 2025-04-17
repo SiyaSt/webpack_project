@@ -4,18 +4,13 @@
   width: 200px;
   min-width: 200px;
   max-height: 100vh;
-  background-color: $light-sidebar-background;
-  color: $light-sidebar-text;
+  background-color:  var(--sidebar-background);;
+  color:  var(--sidebar-text);;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-
-  &.dark {
-    background-color: $dark-sidebar-background;
-    color: $dark-sidebar-text;
-  }
 
   @media (width <= 768px) {
     .sidebar {
@@ -41,11 +36,7 @@
         min-width: 200px;
         z-index: 1000;
         box-shadow: 2px 0 5px rgb(0 0 0 / 20%);
-        background-color: $light-sidebar-background;
-
-        &.dark {
-          background-color: $dark-sidebar-background;
-        }
+        background-color:  var(--sidebar-background);;
 
         .sidebar-title,
         .sidebar-mode {

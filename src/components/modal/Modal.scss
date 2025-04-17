@@ -16,7 +16,7 @@
 }
 
 .modal {
-  background-color: white;
+  background-color:  var(--background);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
   width: 500px;
@@ -24,11 +24,7 @@
   max-height: 70%;
   display: flex;
   flex-direction: column;
-
-  &.dark{
-    background: $dark-background;
-    color: white;
-  }
+  color:  var(--text);
 
   &--header {
     padding: 10px 20px;

@@ -20,14 +20,13 @@ export const Modal: FC<ModalProps> = ({
   className,
   disabledPrimaryButton,
 }) => {
-  const { theme } = useTheme();
   if (!isOpen) {
     return null;
   }
 
   return createPortal(
     <div className={classNames("modal-overlay", className)}>
-      <div className={classNames("modal", `${theme}`)}>
+      <div className={classNames("modal")}>
         <div className="modal--header">
           <div className="modal--header-content">{header}</div>
           <Button

@@ -2,18 +2,18 @@
 @use "sass:color";
 
 .post-details {
-  background: color.adjust($light-background, $lightness: 5%);
+  background: var(--background-light);
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
 
   h1 {
     margin-bottom: 15px;
-    color: $light-text;
+    color:  var(--text);
   }
 
   .post-body {
-    color: $light-text;
+    color:  var(--text);;
     opacity: 0.8;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -21,7 +21,7 @@
 }
 
 .comments-section {
-  background: color.adjust($light-background, $lightness: 5%);
+  background: var(--background-light);
   padding: 20px;
   border-radius: 8px;
 
@@ -32,14 +32,14 @@
     margin-bottom: 20px;
 
     h2 {
-      color: $light-text;
+      color:  var(--text);
     }
   }
 }
 
 .comment-item {
   padding: 15px;
-  border-bottom: 1px solid rgba($light-text, 0.2);
+  border-bottom: 1px solid rgba( var(--text), 0.2);
 
   .comment-content {
     display: flex;
@@ -47,15 +47,15 @@
     gap: 5px;
 
     h4 {
-      color: $light-text;
+      color:  var(--text);;
     }
 
     p {
-      color: rgba($light-text, 0.8);
+      color: var(--text-80);
     }
 
     .comment-email {
-      color: rgba($light-text, 0.6);
+      color: var(--text-60);
     }
   }
 
@@ -70,29 +70,5 @@
   max-width: 800px;
   margin: 0 auto;
   min-height: 100vh;
-
-  &.dark {
-    background: $dark-background;
-    color: $dark-text;
-
-    .post-details,
-    .comments-section {
-      background: color.adjust($dark-background, $lightness: 5%);
-
-      h1, h2, h4 {
-        color: $dark-text;
-      }
-
-      .post-body,
-      .comment-content p,
-      .comment-email {
-        color: rgba($dark-text, 0.8);
-      }
-    }
-
-    .comment-item {
-      border-bottom-color: rgba($dark-text, 0.2);
-    }
-  }
 }
 

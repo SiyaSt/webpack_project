@@ -25,7 +25,6 @@ import {
 } from "src/components";
 import { fetchPostById } from "src/features/post/postThunk";
 import { classNames } from "src/shared/utils/ClassName";
-import { useTheme } from "src/hooks/useTheme";
 import "./PostPage.scss";
 
 const PostPage = () => {
@@ -44,7 +43,6 @@ const PostPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const status = useAppSelector(selectCommentsStatus);
   const error = useAppSelector(selectCommentsError);
-  const { theme } = useTheme();
 
   useEffect(() => {
     if (id) {
@@ -88,7 +86,7 @@ const PostPage = () => {
     [],
   );
   return (
-    <div className={classNames("post-page", `${theme}`)}>
+    <div className={classNames("post-page")}>
       {post && (
         <article className="post-details">
           <h1>{post.title}</h1>

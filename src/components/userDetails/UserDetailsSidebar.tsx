@@ -16,14 +16,13 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
-  const { theme } = useTheme();
 
   const handleViewPosts = () => {
     navigate(`/posts?userId=${user.id}`);
   };
 
   return (
-    <div className={classNames("user-details-sidebar", `${theme}`)}>
+    <div className={classNames("user-details-sidebar")}>
       <Button
         className="close-button"
         onClick={onClose}

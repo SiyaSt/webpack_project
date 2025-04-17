@@ -198,7 +198,7 @@
   }
 
   &--dropdown {
-    background: $light-background;
+    background: var(--background);
     position: absolute;
     top: 100%;
     left: 0;
@@ -207,10 +207,6 @@
     box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
     z-index: 2;
     overflow-y: auto;
-
-    &.dark {
-      background: $dark-background;
-    }
   }
 
   &--search {
@@ -221,14 +217,11 @@
   }
 
   &--options {
-    background: $light-background;
+    background: var(--background);
     list-style: none;
     padding: 0;
     margin: 0;
 
-    &.dark {
-      background: $dark-background;
-    }
   }
 
   &--option {

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { Post } from "src/shared/types/post/post";
 import { Button } from "src/components";
 import { FC } from "react";
-import { useTheme } from "src/hooks/useTheme";
 import { classNames } from "src/shared/utils/ClassName";
 
 interface PostItemProps {
@@ -12,9 +11,8 @@ interface PostItemProps {
 }
 
 export const PostItem: FC<PostItemProps> = ({ post, onEdit, onDelete }) => {
-  const { theme } = useTheme();
   return (
-    <div className={classNames("post-item", `${theme}`)}>
+    <div className={classNames("post-item")}>
       <h3>
         <Link to={`/posts/${post.id}`}>{post.title}</Link>
       </h3>

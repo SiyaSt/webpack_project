@@ -20,7 +20,6 @@ export const Select: FC<SelectProps> = ({
   const [searchText, setSearchText] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState<Option | null>(value);
-  const { theme } = useTheme();
 
   const handleRadioChange = useCallback(
     (option: Option | null) => {
@@ -98,7 +97,7 @@ export const Select: FC<SelectProps> = ({
         )}
       </div>
       {isOpen && (
-        <div className={classNames("select--dropdown", `${theme}`)}>
+        <div className={classNames("select--dropdown")}>
           <input
             type="text"
             className="select--search"
@@ -107,7 +106,7 @@ export const Select: FC<SelectProps> = ({
             onChange={(e) => setSearchText(e.target.value)}
           />
           {filteredOptions.length > 0 ? (
-            <ul className={classNames("select--options", `${theme}`)}>
+            <ul className={classNames("select--options")}>
               {filteredOptions.map((option) => (
                 <li
                   key={option.value}

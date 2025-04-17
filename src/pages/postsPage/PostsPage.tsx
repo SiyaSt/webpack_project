@@ -8,7 +8,7 @@ import {
 } from "src/features/post/postThunk";
 import { useDebounce } from "src/hooks/useDebounce";
 import {
-  selectAllPosts,
+  selectFilteredPosts,
   selectPostsError,
   selectPostsStatus,
 } from "src/features/post/postSelector";
@@ -27,10 +27,11 @@ import { Option } from "src/shared/types/types";
 import { fetchUsers } from "src/features/user/userThunk";
 import { useSearchParams } from "react-router-dom";
 import "./PostsPage.scss";
+import { markAsDeleted, restorePost } from "src/features/post/postSlice";
 
 const PostsPage = () => {
   const dispatch = useAppDispatch();
-  const posts = useAppSelector(selectAllPosts);
+  const posts = useAppSelector(selectFilteredPosts);
   const status = useAppSelector(selectPostsStatus);
   const error = useAppSelector(selectPostsError);
   const totalCount = useAppSelector((state) => state.posts.totalCount);
@@ -115,12 +116,31 @@ const PostsPage = () => {
     [dispatch, editingPost],
   );
 
+  // В компоненте PostsPage:
   const handleDeleteConfirm = useCallback(async () => {
     if (deletingPostId) {
-      await dispatch(deletePost(deletingPostId));
-      setDeletingPostId(null);
+      try {
+        console.log(totalCount);
+        // Оптимистичное удаление
+        dispatch(markAsDeleted(deletingPostId));
+
+        await dispatch(deletePost(deletingPostId)).unwrap();
+        console.log(totalCount);
+        // Автокоррекция пагинации
+        const newTotal = totalCount - 1;
+        const maxPage = Math.ceil(newTotal / pageSize);
+        if (currentPage > maxPage) {
+          setCurrentPage(maxPage);
+        }
+      } catch (error) {
+        // Откат изменений при ошибке
+        dispatch(restorePost(deletingPostId));
+        console.error("Delete failed:", error);
+      } finally {
+        setDeletingPostId(null);
+      }
     }
-  }, [deletingPostId, dispatch]);
+  }, [deletingPostId, dispatch, currentPage, totalCount]);
 
   const handleFilterChange = useCallback(
     (newUserId: number | null, newSearch: string) => {

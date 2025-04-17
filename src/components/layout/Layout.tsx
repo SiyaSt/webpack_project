@@ -6,9 +6,8 @@ import "./Layout.scss";
 import { Suspense } from "react";
 
 export const Layout = () => {
-  const { theme } = useTheme();
   return (
-    <div className={classNames(`container ${theme}`)}>
+    <div className={classNames(`container`)}>
       <Sidebar />
       <div className="content">
         <Suspense fallback={<Loader type="secondary" />}>

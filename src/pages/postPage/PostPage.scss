@@ -38,8 +38,8 @@
 }
 
 .comment-item {
+  border-bottom: 1px solid var(--text);
   padding: 15px;
-  border-bottom: 1px solid rgba( var(--text), 0.2);
 
   .comment-content {
     display: flex;

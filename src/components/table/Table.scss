@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../../styles/variables.scss" as *;
+@use "../../styles/theme" as *;
 
 .table-container {
   width: 100%;
@@ -24,6 +25,10 @@
     padding: 0.75rem;
     text-align: left;
     border-bottom: 1px solid #dee2e6;
+  }
+
+  tr:hover{
+    background: var(--background-dark);
   }
 
   thead {

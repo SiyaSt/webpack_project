@@ -4,17 +4,19 @@ html[data-theme='dark'] {
   --sidebar-background: #235a5e;
   --sidebar-text: #f0f0f0;
   --background-light: #494848;
-  --text-80: rgba(240, 240, 240, 0.8);
-  --text-60: rgba(240, 240, 240, 0.6);
+  --background-dark: #4c4b4b;
+  --text-80: rgb(240 240 240 / 80%);
+  --text-60: rgb(240 240 240 / 60%);
 }
 
 html[data-theme='light'] {
-  --background: #f0f0f0;
+  --background: #e4e4e4;
   --text: #333;
   --sidebar-background: #65a2a6;
   --sidebar-text: #333;
-  --background-light: #fff;
-  --text-80: rgba(51, 51, 51, 0.8);
-  --text-60: rgba(51, 51, 51, 0.6);
+  --background-light: #f3f3f3;
+  --background-dark: #d6d6d6;
+  --text-80: rgb(51 51 51 / 80%);
+  --text-60: rgb(51 51 51 / 60%);
 
 }

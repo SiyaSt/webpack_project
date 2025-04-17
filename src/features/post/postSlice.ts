@@ -8,13 +8,19 @@ import {
   updatePost,
 } from "src/features/post/postThunk";
 
-interface PostsState {
+export interface PostsState {
   items: Post[];
   currentPost: Post | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   totalCount: number;
   deletedIds: number[];
+  cache: {
+    [key: string]: {
+      data: Post[];
+      totalCount: number;
+    };
+  };
 }
 
 const initialState: PostsState = {
@@ -24,6 +30,7 @@ const initialState: PostsState = {
   error: null,
   totalCount: 0,
   deletedIds: [],
+  cache: {},
 };
 
 const postsSlice = createSlice({
@@ -32,6 +39,10 @@ const postsSlice = createSlice({
   reducers: {
     setPosts: (state, action: PayloadAction<Post[]>) => {
       state.items = action.payload;
+      state.totalCount = action.payload.length; // Синхронизируем общее количество
+    },
+    setTotalCount: (state, action: PayloadAction<number>) => {
+      state.totalCount = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -53,7 +64,7 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.items = action.payload.data;
-        state.totalCount = action.payload.totalCount;
+        state.totalCount = action.payload.data.length;
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = "failed";
@@ -79,4 +90,4 @@ const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
-export const { setPosts } = postsSlice.actions;
+export const { setPosts, setTotalCount } = postsSlice.actions;

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 import {
   createPost,
@@ -26,8 +26,8 @@ import {
 import { Option } from "src/shared/types/types";
 import { fetchUsers } from "src/features/user/userThunk";
 import { useSearchParams } from "react-router-dom";
+import { setPosts, setTotalCount } from "src/features/post/postSlice";
 import "./PostsPage.scss";
-import { setPosts } from "src/features/post/postSlice";
 
 const PostsPage = () => {
   const dispatch = useAppDispatch();
@@ -69,8 +69,6 @@ const PostsPage = () => {
   useEffect(() => {
     dispatch(
       fetchPosts({
-        _start: (currentPage - 1) * pageSize,
-        _limit: pageSize,
         title_like: debouncedSearchTitle,
         userId: selectedUserId || undefined,
       }),
@@ -119,41 +117,27 @@ const PostsPage = () => {
   const handleDeleteConfirm = useCallback(async () => {
     if (!deletingPostId) return;
 
-    try {
-      await dispatch(deletePost(deletingPostId)).unwrap();
-      setDeletingPostId(null);
+    const updatedPosts = posts.filter((post) => post.id !== deletingPostId);
 
-      const nextStart = (currentPage - 1) * pageSize + posts.length;
-      const nextPostBatch = await dispatch(
-        fetchPosts({
-          _start: nextStart,
-          _limit: 1,
-          title_like: debouncedSearchTitle,
-          userId: selectedUserId || undefined,
-        }),
-      ).unwrap();
+    dispatch(setPosts(updatedPosts));
+    dispatch(setTotalCount(updatedPosts.length));
+    await dispatch(deletePost(deletingPostId)).unwrap();
 
-      const updatedPosts = posts
-        .filter((post) => post.id !== deletingPostId)
-        .concat(nextPostBatch.data);
+    const currentPagePosts = updatedPosts.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize,
+    );
 
-      if (updatedPosts.length > 0) {
-        dispatch(setPosts(updatedPosts));
-      } else if (currentPage > 1) {
-        setCurrentPage((prev) => prev - 1);
-      }
-    } catch (error) {
-      console.error("Failed to delete post:", error);
+    if (currentPagePosts.length === 0 && currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
     }
-  }, [
-    deletingPostId,
-    dispatch,
-    posts,
-    currentPage,
-    pageSize,
-    debouncedSearchTitle,
-    selectedUserId,
-  ]);
+
+    setDeletingPostId(null);
+  }, [deletingPostId, posts, currentPage, dispatch, pageSize]);
+
+  const paginatedPosts = useMemo(() => {
+    return posts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  }, [posts, currentPage, pageSize]);
 
   const handleFilterChange = useCallback(
     (newUserId: number | null, newSearch: string) => {
@@ -188,7 +172,7 @@ const PostsPage = () => {
       {error && <div className="error">Error: {error}</div>}
       {!error && status !== "loading" && (
         <div className="posts-list">
-          {posts.map((post) => (
+          {paginatedPosts.map((post) => (
             <PostItem
               key={post.id}
               post={post}

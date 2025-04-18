@@ -1,8 +1,10 @@
-import { FC, useState, useEffect, FormEvent } from "react";
+import { FC, useEffect, FormEvent } from "react";
 import { Post } from "src/shared/types/post/post";
 import { Input } from "src/components";
 import { CreatePost } from "src/shared/types/post/createPost";
 import "./PostForm.scss";
+import { postValidationRules } from "src/shared/validationRules";
+import { useFormValidation } from "src/hooks/useFormValidation";
 
 interface PostFormProps {
   post?: Post;
@@ -15,51 +17,18 @@ export const PostForm: FC<PostFormProps> = ({
   onSubmit,
   onValidityChange,
 }) => {
-  const [title, setTitle] = useState(post?.title || "");
-  const [body, setBody] = useState(post?.body || "");
-  const [userId] = useState(post?.userId || 1);
-  const [errors, setErrors] = useState({
-    title: "",
-    body: "",
-  });
-  const [touched, setTouched] = useState({
-    title: false,
-    body: false,
-  });
-
-  const validateForm = () => {
-    const newErrors = {
-      title: title.trim() ? "" : "Title is required",
-      body: body.trim() ? "" : "Content is required",
-    };
-
-    setErrors(newErrors);
-    const isValid = Object.values(newErrors).every((error) => !error);
-    onValidityChange?.(isValid);
-    return isValid;
-  };
+  const validationParams = { title: post?.title || "", body: post?.body || "" };
+  const { values, errors, touched, isValid, handleChange, handleBlur } =
+    useFormValidation(validationParams, postValidationRules);
 
   useEffect(() => {
-    validateForm();
-  }, [title, body]);
-
-  const handleBlur = (field: string) => () => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  };
+    onValidityChange?.(isValid);
+  }, [isValid, onValidityChange]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const isValid = validateForm();
-
-    if (!isValid) {
-      setTouched({
-        title: true,
-        body: true,
-      });
-      return;
-    }
-
-    await onSubmit({ title, body, userId });
+    if (!isValid) return;
+    await onSubmit({ ...values, userId: post?.userId || 1 });
   };
 
   return (
@@ -68,10 +37,10 @@ export const PostForm: FC<PostFormProps> = ({
         <div className="input-wrapper">
           <label>Title</label>
           <Input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={handleBlur("title")}
             color="secondary"
+            value={values.title}
+            onChange={(e) => handleChange("title")(e.target.value)}
+            onBlur={handleBlur("title")}
             errorText={touched.title && errors.title}
           />
         </div>
@@ -81,8 +50,8 @@ export const PostForm: FC<PostFormProps> = ({
         <div className="input-wrapper">
           <label>Content</label>
           <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
+            value={values.body}
+            onChange={(e) => handleChange("body")(e.target.value)}
             onBlur={handleBlur("body")}
             rows={5}
           />

@@ -7,20 +7,12 @@ import {
   fetchPosts,
   updatePost,
 } from "src/features/post/postThunk";
+import { State } from "src/shared/types/types";
 
-export interface PostsState {
-  items: Post[];
+export interface PostsState extends State<Post> {
   currentPost: Post | null;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
   totalCount: number;
   deletedIds: number[];
-  cache: {
-    [key: string]: {
-      data: Post[];
-      totalCount: number;
-    };
-  };
 }
 
 const initialState: PostsState = {
@@ -30,7 +22,6 @@ const initialState: PostsState = {
   error: null,
   totalCount: 0,
   deletedIds: [],
-  cache: {},
 };
 
 const postsSlice = createSlice({
@@ -39,7 +30,7 @@ const postsSlice = createSlice({
   reducers: {
     setPosts: (state, action: PayloadAction<Post[]>) => {
       state.items = action.payload;
-      state.totalCount = action.payload.length; // Синхронизируем общее количество
+      state.totalCount = action.payload.length;
     },
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;

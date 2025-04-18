@@ -1,14 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "src/shared/types/user";
 import { fetchUsers } from "src/features/user/userThunk";
+import { State } from "src/shared/types/types";
 
-interface UsersState {
-  items: User[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
-
-const initialState: UsersState = {
+const initialState: State<User> = {
   items: [],
   status: "idle",
   error: null,

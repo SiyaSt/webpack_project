@@ -6,14 +6,9 @@ import {
   updateComment,
 } from "src/features/commet/commentThunk";
 import { Comment } from "src/shared/types/comment/comment";
+import { State } from "src/shared/types/types";
 
-interface CommentsState {
-  items: Comment[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
-
-const initialState: CommentsState = {
+const initialState: State<Comment> = {
   items: [],
   status: "idle",
   error: null,

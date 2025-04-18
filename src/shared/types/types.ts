@@ -14,3 +14,9 @@ export type ValidationRules = {
     custom?: (value: string) => string;
   };
 };
+
+export interface State<T> {
+  items: T[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}

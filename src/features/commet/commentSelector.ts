@@ -1,13 +1,18 @@
 import { RootState } from "src/store/store";
 import { createSelector } from "@reduxjs/toolkit";
 
-export const selectAllComments = (state: RootState) => state.comments.items;
-export const selectCommentsByPostId = createSelector(
-  [
-    (state: RootState) => state.comments.items,
-    (state: RootState, postId: number) => postId,
-  ],
-  (comments, postId) => comments.filter((comment) => comment.postId === postId),
+export const selectComments = (state: RootState) => state.comments;
+
+export const selectCommentsData = createSelector(
+  selectComments,
+  (comments) => ({
+    items: comments.items,
+    status: comments.status,
+    error: comments.error,
+  }),
 );
-export const selectCommentsStatus = (state: RootState) => state.comments.status;
-export const selectCommentsError = (state: RootState) => state.comments.error;
+
+export const selectCommentsByPostId = createSelector(
+  [selectComments, (state: RootState, postId: number) => postId],
+  (comments, postId) => comments.items.filter((c) => c.postId === postId),
+);

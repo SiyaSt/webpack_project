@@ -47,18 +47,23 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
           <strong>Address:</strong>
         </p>
         <ul>
-          <li>{user.address.street}</li>
-          <li>{user.address.suite}</li>
-          <li>{user.address.city}</li>
-          <li>{user.address.zipcode}</li>
+          {Object.entries(user.address).map(([key, value], index) => (
+            <li key={index}>
+              <strong>{key}:</strong>{" "}
+              {typeof value === "object" ? JSON.stringify(value) : value}
+            </li>
+          ))}
         </ul>
         <p>
           <strong>Company:</strong>
         </p>
         <ul>
-          <li>{user.company.name}</li>
-          <li>{user.company.catchPhrase}</li>
-          <li>{user.company.bs}</li>
+          {Object.entries(user.company).map(([key, value], index) => (
+            <li key={index}>
+              <strong>{key}:</strong>{" "}
+              {typeof value === "object" ? JSON.stringify(value) : value}
+            </li>
+          ))}
         </ul>
       </div>
       <Button

@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useEffect } from "react";
+import { FC, FormEvent, useEffect } from "react";
 import { Comment } from "src/shared/types/comment/comment";
 import { Input } from "src/components";
 import { CreateComment } from "src/shared/types/comment/createComment";
@@ -27,7 +27,7 @@ export const CommentForm: FC<CommentFormProps> = ({
 
   useEffect(() => {
     onValidityChange?.(isValid);
-  }, [isValid]);
+  }, [isValid, onValidityChange]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

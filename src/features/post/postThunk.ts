@@ -2,15 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { postsApi } from "src/api/posts";
 import { CreatePost } from "src/shared/types/post/createPost";
 import { UpdatePost } from "src/shared/types/post/updatePost";
+import { PostParams } from "src/shared/types/postParams";
 
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",
-  async (params: {
-    _start?: number;
-    _limit?: number;
-    title_like?: string;
-    userId?: number;
-  }) => {
+  async (params: PostParams) => {
     const response = await postsApi.fetchAll(params);
     return {
       data: response.data,

@@ -1,7 +1,6 @@
 import { Input, Select } from "src/components";
 import { Option } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
-import { useTheme } from "src/hooks/useTheme";
 import "./PostsFilter.scss";
 
 interface PostsFilterProps {
@@ -21,8 +20,6 @@ export const PostsFilter = ({
   authorOptions,
   className,
 }: PostsFilterProps) => {
-  const { theme } = useTheme();
-
   const handleAuthorSelect = (option: Option | null) => {
     onAuthorChange(option ? Number(option.value) : null);
   };
@@ -32,7 +29,7 @@ export const PostsFilter = ({
   );
 
   return (
-    <div className={classNames("posts-filter", className, theme)}>
+    <div className={classNames("posts-filter", className)}>
       <Input
         placeholder="Search by title..."
         value={searchValue}

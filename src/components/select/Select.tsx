@@ -3,7 +3,6 @@ import { Option } from "src/shared/types/types";
 import { classNames } from "src/shared/utils/ClassName";
 import { SelectProps } from "./types";
 import "./Select.scss";
-import { useTheme } from "src/hooks/useTheme";
 
 export const Select: FC<SelectProps> = ({
   color = "primary",
@@ -97,7 +96,7 @@ export const Select: FC<SelectProps> = ({
         )}
       </div>
       {isOpen && (
-        <div className={classNames("select--dropdown")}>
+        <div className="select--dropdown">
           <input
             type="text"
             className="select--search"
@@ -106,7 +105,7 @@ export const Select: FC<SelectProps> = ({
             onChange={(e) => setSearchText(e.target.value)}
           />
           {filteredOptions.length > 0 ? (
-            <ul className={classNames("select--options")}>
+            <ul className="select--options">
               {filteredOptions.map((option) => (
                 <li
                   key={option.value}

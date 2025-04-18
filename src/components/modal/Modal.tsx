@@ -3,7 +3,6 @@ import { ModalProps } from "./types";
 import { Button } from "src/components";
 import { createPortal } from "react-dom";
 import { classNames } from "src/shared/utils/ClassName";
-import { useTheme } from "src/hooks/useTheme";
 import "./Modal.scss";
 
 export const Modal: FC<ModalProps> = ({
@@ -26,7 +25,7 @@ export const Modal: FC<ModalProps> = ({
 
   return createPortal(
     <div className={classNames("modal-overlay", className)}>
-      <div className={classNames("modal")}>
+      <div className="modal">
         <div className="modal--header">
           <div className="modal--header-content">{header}</div>
           <Button

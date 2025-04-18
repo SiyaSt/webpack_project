@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { User } from "src/shared/types/user";
 import { FC } from "react";
-import { useTheme } from "src/hooks/useTheme";
-import { classNames } from "src/shared/utils/ClassName";
 import { Button } from "src/components";
 import "./UserDetailsSidebar.scss";
 
@@ -22,7 +20,7 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
   };
 
   return (
-    <div className={classNames("user-details-sidebar")}>
+    <div className="user-details-sidebar">
       <Button
         className="close-button"
         onClick={onClose}

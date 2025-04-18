@@ -24,7 +24,6 @@ import {
   Modal,
 } from "src/components";
 import { fetchPostById } from "src/features/post/postThunk";
-import { classNames } from "src/shared/utils/ClassName";
 import "./PostPage.scss";
 
 const PostPage = () => {
@@ -86,7 +85,7 @@ const PostPage = () => {
     [],
   );
   return (
-    <div className={classNames("post-page")}>
+    <div className="post-page">
       {post && (
         <article className="post-details">
           <h1>{post.title}</h1>

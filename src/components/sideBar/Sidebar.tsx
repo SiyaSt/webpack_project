@@ -6,8 +6,8 @@ import Moon from "src/shared/assets/moon-stars.svg";
 import Sun from "src/shared/assets/sun.svg";
 import { classNames } from "src/shared/utils/ClassName";
 import { Button, Navigation } from "src/components";
-import "./Sidebar.scss";
 import { useMediaQuery } from "src/hooks/useMediaQuery";
+import "./Sidebar.scss";
 
 export const Sidebar: FC = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);

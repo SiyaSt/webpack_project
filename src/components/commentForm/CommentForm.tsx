@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect } from "react";
+import { FC, FormEvent, memo, useEffect } from "react";
 import { Comment } from "src/shared/types/comment/comment";
 import { Input } from "src/components";
 import { CreateComment } from "src/shared/types/comment/createComment";
@@ -12,69 +12,73 @@ interface CommentFormProps {
   onValidityChange?: (isValid: boolean) => void;
 }
 
-export const CommentForm: FC<CommentFormProps> = ({
-  comment,
-  onSubmit,
-  onValidityChange,
-}) => {
-  const validationParams = {
-    name: comment?.name || "",
-    email: comment?.email || "",
-    body: comment?.body || "",
-  };
-  const { values, errors, touched, isValid, handleChange, handleBlur } =
-    useFormValidation(validationParams, commentValidationRules);
+const areEqual = (prev: CommentFormProps, next: CommentFormProps) =>
+  prev.comment?.id === next.comment?.id &&
+  prev.onSubmit === next.onSubmit &&
+  prev.onValidityChange === next.onValidityChange;
 
-  useEffect(() => {
-    onValidityChange?.(isValid);
-  }, [isValid, onValidityChange]);
+export const CommentForm: FC<CommentFormProps> = memo(
+  ({ comment, onSubmit, onValidityChange }) => {
+    const validationParams = {
+      name: comment?.name || "",
+      email: comment?.email || "",
+      body: comment?.body || "",
+    };
+    const { values, errors, touched, isValid, handleChange, handleBlur } =
+      useFormValidation(validationParams, commentValidationRules);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!isValid) return;
-    onSubmit({ ...values, postId: comment?.postId || 0 });
-  };
+    useEffect(() => {
+      onValidityChange?.(isValid);
+    }, [isValid, onValidityChange]);
 
-  return (
-    <form className="comment-form" onSubmit={handleSubmit} id="comment-form">
-      <div className="form-group">
-        <div className="input-wrapper">
-          <label>Name</label>
-          <Input
-            color="secondary"
-            value={values.name}
-            onChange={(e) => handleChange("name")(e.target.value)}
-            onBlur={handleBlur("name")}
-            errorText={touched.name && errors.name}
-          />
+    const handleSubmit = (e: FormEvent) => {
+      e.preventDefault();
+      if (!isValid) return;
+      onSubmit({ ...values, postId: comment?.postId || 0 });
+    };
+
+    return (
+      <form className="comment-form" onSubmit={handleSubmit} id="comment-form">
+        <div className="form-group">
+          <div className="input-wrapper">
+            <label>Name</label>
+            <Input
+              color="secondary"
+              value={values.name}
+              onChange={(e) => handleChange("name")(e.target.value)}
+              onBlur={handleBlur("name")}
+              errorText={touched.name && errors.name}
+            />
+          </div>
+
+          <div className="input-wrapper">
+            <label>Email</label>
+            <Input
+              color="secondary"
+              value={values.email}
+              onChange={(e) => handleChange("email")(e.target.value)}
+              onBlur={handleBlur("email")}
+              errorText={touched.email && errors.email}
+            />
+          </div>
         </div>
 
-        <div className="input-wrapper">
-          <label>Email</label>
-          <Input
-            color="secondary"
-            value={values.email}
-            onChange={(e) => handleChange("email")(e.target.value)}
-            onBlur={handleBlur("email")}
-            errorText={touched.email && errors.email}
-          />
+        <div className="form-group">
+          <div className="input-wrapper">
+            <label>Comment</label>
+            <textarea
+              value={values.body}
+              onChange={(e) => handleChange("body")(e.target.value)}
+              onBlur={handleBlur("body")}
+              rows={4}
+            />
+            {touched.body && errors.body && (
+              <div className="error-message">{errors.body}</div>
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="form-group">
-        <div className="input-wrapper">
-          <label>Comment</label>
-          <textarea
-            value={values.body}
-            onChange={(e) => handleChange("body")(e.target.value)}
-            onBlur={handleBlur("body")}
-            rows={4}
-          />
-          {touched.body && errors.body && (
-            <div className="error-message">{errors.body}</div>
-          )}
-        </div>
-      </div>
-    </form>
-  );
-};
+      </form>
+    );
+  },
+  areEqual,
+);

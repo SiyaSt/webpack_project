@@ -2,7 +2,7 @@ import { ValidationRules } from "src/shared/types/types";
 import { emailRegex } from "src/shared/types/regex";
 
 export const postValidationRules: ValidationRules = {
-  title: { required: true, minLength: 5 },
+  title: { required: true },
   body: { required: true },
 };
 

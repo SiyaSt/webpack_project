@@ -4,19 +4,13 @@ import { ShortUserInformation, User } from "src/shared/types/user";
 import { useDebounce } from "src/hooks/useDebounce";
 import { fetchUsers } from "src/features/user/userThunk";
 import { Input, Loader, Table, UserDetailsSidebar } from "src/components";
-import {
-  selectAllUsers,
-  selectUsersError,
-  selectUsersStatus,
-} from "src/features/user/userSelector";
 import { columns } from "src/shared/types/columns";
+import { selectUsers } from "src/features/user/userSelector";
 import "./UsersPage.scss";
 
 const UsersPage = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector(selectAllUsers);
-  const status = useAppSelector(selectUsersStatus);
-  const error = useAppSelector(selectUsersError);
+  const { items: users, status, error } = useAppSelector(selectUsers);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);

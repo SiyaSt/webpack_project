@@ -7,12 +7,8 @@ import {
   updatePost,
 } from "src/features/post/postThunk";
 import { useDebounce } from "src/hooks/useDebounce";
-import {
-  selectAllPosts,
-  selectPostsError,
-  selectPostsStatus,
-} from "src/features/post/postSelector";
-import { selectAllUsers } from "src/features/user/userSelector";
+import { selectPosts } from "src/features/post/postSelector";
+import { selectUsers } from "src/features/user/userSelector";
 import { Post } from "src/shared/types/post/post";
 import {
   Button,
@@ -31,20 +27,20 @@ import "./PostsPage.scss";
 
 const PostsPage = () => {
   const dispatch = useAppDispatch();
-  const posts = useAppSelector(selectAllPosts);
-  const status = useAppSelector(selectPostsStatus);
-  const error = useAppSelector(selectPostsError);
-  const totalCount = useAppSelector((state) => state.posts.totalCount);
-  const users = useAppSelector(selectAllUsers);
-
+  const {
+    items: posts,
+    status,
+    error,
+    totalCount,
+  } = useAppSelector(selectPosts);
+  const { items: users } = useAppSelector(selectUsers);
   const [isFormValid, setIsFormValid] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTitle, setSearchTitle] = useState("");
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [deletingPostId, setDeletingPostId] = useState<number | null>(null);
+  const [activePost, setActivePost] = useState<Post | null | "new">(null);
 
   const debouncedSearchTitle = useDebounce(searchTitle, 300);
   const pageSize = 10;
@@ -88,30 +84,20 @@ const PostsPage = () => {
     setSearchParams(params, { replace: true });
   }, [debouncedSearchTitle, selectedUserId, setSearchParams]);
 
-  const handleCreatePost = useCallback(
+  const handleSubmitPost = useCallback(
     async (data: Post) => {
       try {
-        await dispatch(createPost(data)).unwrap();
-        setIsCreateModalOpen(false);
+        if (activePost === "new") {
+          await dispatch(createPost(data)).unwrap();
+        } else if (activePost) {
+          await dispatch(updatePost({ id: activePost.id, data })).unwrap();
+        }
+        setActivePost(null);
       } catch (error) {
-        console.error("Failed to create post:", error);
+        console.error("Failed to save post:", error);
       }
     },
-    [dispatch],
-  );
-
-  const handleUpdatePost = useCallback(
-    async (data: Post) => {
-      if (!editingPost) return;
-
-      try {
-        await dispatch(updatePost({ id: editingPost.id, data })).unwrap();
-        setEditingPost(null);
-      } catch (error) {
-        console.error("Failed to update post:", error);
-      }
-    },
-    [dispatch, editingPost],
+    [dispatch, activePost],
   );
 
   const handleDeleteConfirm = useCallback(async () => {
@@ -148,6 +134,28 @@ const PostsPage = () => {
     [],
   );
 
+  const handleEditPost = useCallback((post: Post) => setActivePost(post), []);
+  const handleDeletePost = useCallback(
+    (id: number) => setDeletingPostId(id),
+    [],
+  );
+  const handleOpenCreateModal = () => setActivePost("new");
+
+  const postsList = useMemo(
+    () =>
+      paginatedPosts.map((post) => (
+        <PostItem
+          key={post.id}
+          post={post}
+          onEdit={handleEditPost}
+          onDelete={handleDeletePost}
+        />
+      )),
+    [paginatedPosts, handleEditPost, handleDeletePost],
+  );
+
+  const memoizedUserOptions = useMemo(() => userOptions, [userOptions]);
+
   return (
     <div className="posts-page">
       <div className="posts-controls">
@@ -156,13 +164,13 @@ const PostsPage = () => {
           onSearchChange={(value) => handleFilterChange(selectedUserId, value)}
           selectedAuthorId={selectedUserId}
           onAuthorChange={(id) => handleFilterChange(id, searchTitle)}
-          authorOptions={userOptions}
+          authorOptions={memoizedUserOptions}
           className="posts-page-filter"
         />
 
         <Button
           className="create-post-button"
-          onClick={() => setIsCreateModalOpen(true)}
+          onClick={handleOpenCreateModal}
           color="secondary"
         >
           Create New Post
@@ -171,16 +179,7 @@ const PostsPage = () => {
       {status === "loading" && <Loader className="loader" type="secondary" />}
       {error && <div className="error">Error: {error}</div>}
       {!error && status !== "loading" && (
-        <div className="posts-list">
-          {paginatedPosts.map((post) => (
-            <PostItem
-              key={post.id}
-              post={post}
-              onEdit={() => setEditingPost(post)}
-              onDelete={() => setDeletingPostId(post.id)}
-            />
-          ))}
-        </div>
+        <div className="posts-list">{postsList}</div>
       )}
       <Pagination
         currentPage={currentPage}
@@ -190,48 +189,22 @@ const PostsPage = () => {
       />
 
       <Modal
-        isOpen={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        header="Create New Post"
+        isOpen={!!activePost}
+        onClose={() => setActivePost(null)}
+        header={activePost === "new" ? "Create New Post" : "Edit Post"}
         primaryButtonText="Save"
         secondaryButtonText="Cancel"
         colorPrimaryButton="secondary"
         colorSecondaryButton="danger"
-        onPrimaryButtonClick={() => {
-          const form = document.getElementById("post-form") as HTMLFormElement;
-          form?.requestSubmit();
-        }}
-        onSecondaryButtonClick={() => setIsCreateModalOpen(false)}
+        formPrimaryButton="post-form"
+        onSecondaryButtonClick={() => setActivePost(null)}
         disabledPrimaryButton={!isFormValid}
       >
         <PostForm
-          onSubmit={handleCreatePost}
+          post={activePost !== "new" ? activePost : null}
+          onSubmit={handleSubmitPost}
           onValidityChange={setIsFormValid}
         />
-      </Modal>
-
-      <Modal
-        isOpen={!!editingPost}
-        onClose={() => setEditingPost(null)}
-        header="Edit Post"
-        primaryButtonText="Save"
-        secondaryButtonText="Cancel"
-        colorPrimaryButton="secondary"
-        colorSecondaryButton="danger"
-        onPrimaryButtonClick={() => {
-          const form = document.getElementById("post-form") as HTMLFormElement;
-          form?.requestSubmit();
-        }}
-        onSecondaryButtonClick={() => setEditingPost(null)}
-        disabledPrimaryButton={!isFormValid}
-      >
-        {editingPost && (
-          <PostForm
-            post={editingPost}
-            onSubmit={handleUpdatePost}
-            onValidityChange={setIsFormValid}
-          />
-        )}
       </Modal>
 
       <Modal

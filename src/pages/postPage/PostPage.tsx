@@ -1,11 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 import { selectCurrentPost } from "src/features/post/postSelector";
 import {
   selectCommentsByPostId,
-  selectCommentsError,
-  selectCommentsStatus,
+  selectCommentsData,
 } from "src/features/commet/commentSelector";
 import {
   createComment,
@@ -31,17 +30,17 @@ const PostPage = () => {
   const postId = Number(id);
   const dispatch = useAppDispatch();
   const post = useAppSelector(selectCurrentPost);
-  const comments = useAppSelector((state) =>
+  const { items: comments, status, error } = useAppSelector(selectCommentsData);
+  const commentsForPost = useAppSelector((state) =>
     selectCommentsByPostId(state, postId),
   );
-  const [editingComment, setEditingComment] = useState<Comment | null>(null);
+  const [activeComment, setActiveComment] = useState<Comment | null | "new">(
+    null,
+  );
   const [deletingCommentId, setDeletingCommentId] = useState<number | null>(
     null,
   );
-  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
-  const status = useAppSelector(selectCommentsStatus);
-  const error = useAppSelector(selectCommentsError);
 
   useEffect(() => {
     if (id) {
@@ -50,22 +49,18 @@ const PostPage = () => {
     }
   }, [id, dispatch]);
 
-  const handleCreateComment = useCallback(
-    async (commentData: CreateComment) => {
-      if (!post?.id) return;
-      await dispatch(createComment({ ...commentData, postId: post.id }));
-      setIsCommentModalOpen(false);
+  const handleSubmitComment = useCallback(
+    async (data: CreateComment | UpdateComment) => {
+      if (activeComment === "new") {
+        await dispatch(
+          createComment({ ...data, postId } as CreateComment),
+        ).unwrap();
+      } else if (activeComment) {
+        await dispatch(updateComment({ id: activeComment.id, data })).unwrap();
+      }
+      setActiveComment(null);
     },
-    [dispatch, post],
-  );
-
-  const handleUpdateComment = useCallback(
-    async (data: UpdateComment) => {
-      if (!editingComment) return;
-      await dispatch(updateComment({ id: editingComment.id, data }));
-      setEditingComment(null);
-    },
-    [dispatch, editingComment],
+    [dispatch, activeComment, postId],
   );
 
   const handleDeleteCommentConfirm = useCallback(async () => {
@@ -75,14 +70,28 @@ const PostPage = () => {
     }
   }, [dispatch, deletingCommentId]);
 
+  const handleOpenCreateModal = () => setActiveComment("new");
   const handleEditComment = useCallback(
-    (comment: Comment) => setEditingComment(comment),
+    (comment: Comment) => setActiveComment(comment),
     [],
   );
 
   const handleDeleteComment = useCallback(
     (id: number) => setDeletingCommentId(id),
     [],
+  );
+
+  const memoizedComments = useMemo(
+    () =>
+      commentsForPost.map((comment) => (
+        <CommentItem
+          key={comment.id}
+          comment={comment}
+          onEdit={handleEditComment}
+          onDelete={handleDeleteComment}
+        />
+      )),
+    [commentsForPost, handleEditComment, handleDeleteComment],
   );
   return (
     <div className="post-page">
@@ -96,71 +105,32 @@ const PostPage = () => {
       <section className="comments-section">
         <div className="comments-header">
           <h2>Comments ({comments.length})</h2>
-          <Button onClick={() => setIsCommentModalOpen(true)} color="secondary">
+          <Button onClick={handleOpenCreateModal} color="secondary">
             Add Comment
           </Button>
         </div>
         {status === "loading" && <Loader className="loader" type="secondary" />}
         {error && <div className="error">Error: {error}</div>}
-        <div className="comments-list">
-          {comments.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              comment={comment}
-              onEdit={handleEditComment}
-              onDelete={handleDeleteComment}
-            />
-          ))}
-        </div>
+        <div className="comments-list">{memoizedComments}</div>
       </section>
 
       <Modal
-        isOpen={isCommentModalOpen}
-        onClose={() => setIsCommentModalOpen(false)}
-        header="Add Comment"
-        primaryButtonText="Submit"
+        isOpen={!!activeComment}
+        onClose={() => setActiveComment(null)}
+        header={activeComment === "new" ? "Add Comment" : "Edit Comment"}
+        primaryButtonText={activeComment === "new" ? "Submit" : "Save"}
         secondaryButtonText="Cancel"
         colorPrimaryButton="secondary"
         colorSecondaryButton="danger"
-        onPrimaryButtonClick={() => {
-          const form = document.getElementById(
-            "comment-form",
-          ) as HTMLFormElement;
-          form?.requestSubmit();
-        }}
-        onSecondaryButtonClick={() => setIsCommentModalOpen(false)}
+        onSecondaryButtonClick={() => setActiveComment(null)}
         disabledPrimaryButton={!isFormValid}
+        formPrimaryButton="comment-form"
       >
         <CommentForm
-          onSubmit={handleCreateComment}
+          comment={activeComment !== "new" ? activeComment : undefined}
+          onSubmit={handleSubmitComment}
           onValidityChange={setIsFormValid}
         />
-      </Modal>
-
-      <Modal
-        isOpen={!!editingComment}
-        onClose={() => setEditingComment(null)}
-        header="Edit Comment"
-        primaryButtonText="Save"
-        secondaryButtonText="Cancel"
-        colorPrimaryButton="secondary"
-        colorSecondaryButton="danger"
-        onPrimaryButtonClick={() => {
-          const form = document.getElementById(
-            "comment-form",
-          ) as HTMLFormElement;
-          form?.requestSubmit();
-        }}
-        onSecondaryButtonClick={() => setEditingComment(null)}
-        disabledPrimaryButton={!isFormValid}
-      >
-        {editingComment && (
-          <CommentForm
-            comment={editingComment}
-            onSubmit={handleUpdateComment}
-            onValidityChange={setIsFormValid}
-          />
-        )}
       </Modal>
 
       <Modal

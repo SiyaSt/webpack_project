@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
-import { selectCurrentPost } from "src/features/post/postSelector";
+import { selectPosts } from "src/features/post/postSelector";
 import {
+  selectComments,
   selectCommentsByPostId,
-  selectCommentsData,
 } from "src/features/commet/commentSelector";
 import {
   createComment,
@@ -29,8 +29,8 @@ const PostPage = () => {
   const { id } = useParams<{ id: string }>();
   const postId = Number(id);
   const dispatch = useAppDispatch();
-  const post = useAppSelector(selectCurrentPost);
-  const { items: comments, status, error } = useAppSelector(selectCommentsData);
+  const { currentPost: post } = useAppSelector(selectPosts);
+  const { items: comments, status, error } = useAppSelector(selectComments);
   const commentsForPost = useAppSelector((state) =>
     selectCommentsByPostId(state, postId),
   );

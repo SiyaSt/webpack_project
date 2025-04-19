@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
 import { classNames } from "src/shared/utils/ClassName";
-import { SwitchProps } from "src/components/switch/types";
+import { SwitchProps } from "./types";
 import "./Switch.scss";
 
 export const Switch: FC<SwitchProps> = ({

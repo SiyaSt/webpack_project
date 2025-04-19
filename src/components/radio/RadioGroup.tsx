@@ -1,6 +1,6 @@
 import { Radio } from "./Radio";
 import { FC, useId, useState } from "react";
-import { RadioGroupProps } from "src/components/radio/types";
+import { RadioGroupProps } from "./types";
 
 export const RadioGroup: FC<RadioGroupProps> = ({
   name,

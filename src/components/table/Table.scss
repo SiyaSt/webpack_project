@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../../styles/variables.scss" as *;
+@use "../../styles/theme" as *;
 
 .table-container {
   width: 100%;
@@ -11,8 +12,12 @@
   border-collapse: collapse;
   margin-bottom: 1rem;
 
-  .input-filter, .select-filter{
+  .input-filter, .select-filter {
     margin-left: 10px;
+  }
+
+  tbody tr {
+    cursor: pointer;
   }
 
   th,
@@ -22,17 +27,14 @@
     border-bottom: 1px solid #dee2e6;
   }
 
+  tbody tr:hover{
+    background: var(--background-dark);
+  }
+
   thead {
     th {
       font-weight: normal;
-      background-color: #f2f2f2;
       text-transform: uppercase;
-    }
-  }
-
-  tbody {
-    tr:nth-child(even) {
-      background-color: #f9f9f9;
     }
   }
 

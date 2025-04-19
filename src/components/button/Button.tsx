@@ -1,7 +1,7 @@
 import { classNames } from "src/shared/utils/ClassName";
 import { FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
-import { ButtonProps, IconPosition } from "src/components/button/types";
+import { ButtonProps, IconPosition } from "./types";
 import "./Button.scss";
 
 export const Button: FC<ButtonProps> = ({

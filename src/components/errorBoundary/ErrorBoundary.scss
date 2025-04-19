@@ -1,0 +1,17 @@
+@use "../../styles/theme" as *;
+
+.error-boundary {
+  padding: 50px;
+  text-align: center;
+  min-height: 100vh;
+  color:  var(--text);
+
+  h1 {
+    color: #dc3545;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 30px;
+  }
+}

@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <ThemeProvider>
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <App />
     </BrowserRouter>
   </ThemeProvider>,

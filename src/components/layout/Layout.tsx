@@ -1,16 +1,16 @@
 import { Outlet } from "react-router-dom";
-import { useTheme } from "src/hooks/useTheme";
-import { classNames } from "src/shared/utils/ClassName";
-import { Sidebar } from "src/components";
+import { Loader, Sidebar } from "src/components";
 import "./Layout.scss";
+import { Suspense } from "react";
 
 export const Layout = () => {
-  const { theme } = useTheme();
   return (
-    <div className={classNames(`container ${theme}`)}>
+    <div className="container">
       <Sidebar />
       <div className="content">
-        <Outlet />
+        <Suspense fallback={<Loader type="secondary" />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

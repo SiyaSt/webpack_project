@@ -1,6 +1,10 @@
 import { API } from "./client";
-import { CreatePost, Post, UpdatePost } from "src/shared/types/post";
-import { PostParams } from "src/shared/types/postParams";
+import {
+  CreatePost,
+  Post,
+  PostParams,
+  UpdatePost,
+} from "src/shared/types/post";
 
 export const postsApi = {
   fetchAll: (params?: PostParams) => API.get<Post[]>("/posts", { params }),

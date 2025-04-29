@@ -17,3 +17,10 @@ export interface UpdatePost {
   body?: string;
   userId: number;
 }
+
+export interface PostParams {
+  _start?: number;
+  _limit?: number;
+  userId?: number;
+  title_like?: string;
+}

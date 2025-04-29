@@ -1,6 +1,6 @@
 import { Input, Select } from "src/components";
 import { Option } from "src/shared/types/types";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import "./PostsFilter.scss";
 import { memo } from "react";
 

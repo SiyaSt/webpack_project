@@ -1,9 +1,8 @@
 import { FC, FormEvent, memo, useEffect } from "react";
-import { Comment } from "src/shared/types/comment/comment";
+import { Comment, CreateComment } from "src/shared/types/comment";
 import { Input } from "src/components";
-import { commentValidationRules } from "src/shared/validationRules";
 import { useFormValidation } from "src/hooks";
-import { CreateComment } from "src/shared/types/comment/createComment";
+import { COMMENT_VALIDATION_RULES } from "src/shared/constants";
 import "./CommentForm.scss";
 
 interface CommentFormProps {
@@ -20,7 +19,7 @@ export const CommentForm: FC<CommentFormProps> = memo(
       body: comment?.body || "",
     };
     const { values, errors, touched, isValid, handleChange, handleBlur } =
-      useFormValidation(validationParams, commentValidationRules);
+      useFormValidation(validationParams, COMMENT_VALIDATION_RULES);
 
     useEffect(() => {
       onValidityChange?.(isValid);

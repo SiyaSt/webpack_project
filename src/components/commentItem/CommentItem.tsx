@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { Comment } from "src/shared/types/comment/comment";
+import { Comment } from "src/shared/types/comment";
 import { Button } from "src/components";
 
 interface CommentItemProps {

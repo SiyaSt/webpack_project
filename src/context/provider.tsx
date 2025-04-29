@@ -1,7 +1,7 @@
 import { Theme, ThemeProviderProps } from "./types";
 import { FC, useLayoutEffect, useState } from "react";
 import { ThemeContext } from "./context";
-import { getInitialTheme } from "src/shared/utils/GetInitialTheme";
+import { getInitialTheme } from "src/shared/utils";
 import { LOCAL_STORAGE_THEME_KEY } from "src/shared/constants";
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {

@@ -1,4 +1,4 @@
-import { Post } from "src/shared/types/post/post";
+import { Post } from "src/shared/types/post";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   createPost,

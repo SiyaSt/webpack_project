@@ -1,8 +1,7 @@
 import { FC, useEffect, FormEvent, memo } from "react";
-import { Post } from "src/shared/types/post/post";
+import { CreatePost, Post } from "src/shared/types/post";
 import { Input } from "src/components";
-import { CreatePost } from "src/shared/types/post/createPost";
-import { postValidationRules } from "src/shared/validationRules";
+import { POST_VALIDATION_RULES } from "src/shared/constants/validationRules";
 import { useFormValidation } from "src/hooks";
 import "./PostForm.scss";
 
@@ -19,7 +18,7 @@ export const PostForm: FC<PostFormProps> = memo(
       body: post?.body || "",
     };
     const { values, errors, touched, isValid, handleChange, handleBlur } =
-      useFormValidation(validationParams, postValidationRules);
+      useFormValidation(validationParams, POST_VALIDATION_RULES);
 
     useEffect(() => {
       onValidityChange?.(isValid);

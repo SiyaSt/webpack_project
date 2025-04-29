@@ -1,4 +1,4 @@
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
 import { ButtonProps, IconPosition } from "./types";

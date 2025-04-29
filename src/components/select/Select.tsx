@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, FC } from "react";
 import { Option } from "src/shared/types/types";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { SelectProps } from "./types";
 import "./Select.scss";
 

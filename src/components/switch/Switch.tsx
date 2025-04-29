@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FC } from "react";
 import LoadingIcon from "src/shared/assets/loader.svg";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { SwitchProps } from "./types";
 import "./Switch.scss";
 

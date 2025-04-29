@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { commentsApi } from "src/api/comments";
-import { CreateComment } from "src/shared/types/comment/createComment";
-import { UpdateComment } from "src/shared/types/comment/updateComment";
+import { CreateComment, UpdateComment } from "src/shared/types/comment";
 
 export const fetchCommentsByPostId = createAsyncThunk(
   "comments/fetchCommentsByPostId",

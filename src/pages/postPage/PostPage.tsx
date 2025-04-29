@@ -11,9 +11,11 @@ import {
   fetchCommentsByPostId,
   updateComment,
 } from "src/features/commet/commentThunk";
-import { CreateComment } from "src/shared/types/comment/createComment";
-import { UpdateComment } from "src/shared/types/comment/updateComment";
-import { Comment } from "src/shared/types/comment/comment";
+import {
+  Comment,
+  CreateComment,
+  UpdateComment,
+} from "src/shared/types/comment";
 import {
   Button,
   CommentForm,

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Post } from "src/shared/types/post/post";
+import { Post } from "src/shared/types/post";
 import { Button } from "src/components";
 import { FC, memo } from "react";
 

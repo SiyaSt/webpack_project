@@ -1,7 +1,5 @@
 import { API } from "./client";
-import { Post } from "src/shared/types/post/post";
-import { CreatePost } from "src/shared/types/post/createPost";
-import { UpdatePost } from "src/shared/types/post/updatePost";
+import { CreatePost, Post, UpdatePost } from "src/shared/types/post";
 import { PostParams } from "src/shared/types/postParams";
 
 export const postsApi = {

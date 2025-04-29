@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { CheckboxProps } from "./types";
 import "./Checkbox.scss";
 

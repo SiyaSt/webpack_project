@@ -5,7 +5,7 @@ import {
   fetchCommentsByPostId,
   updateComment,
 } from "src/features/commet/commentThunk";
-import { Comment } from "src/shared/types/comment/comment";
+import { Comment } from "src/shared/types/comment";
 import { State } from "src/shared/types/types";
 
 const initialState: State<Comment> = {

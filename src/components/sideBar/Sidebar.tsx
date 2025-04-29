@@ -4,7 +4,7 @@ import RightArrow from "src/shared/assets/right-arrow.svg";
 import Moon from "src/shared/assets/moon-stars.svg";
 import Sun from "src/shared/assets/sun.svg";
 import { Button, Navigation } from "src/components";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { useMediaQuery, useTheme } from "src/hooks";
 import "./Sidebar.scss";
 

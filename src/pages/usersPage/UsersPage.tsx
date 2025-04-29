@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { ShortUserInformation, User } from "src/shared/types/user";
 import { fetchUsers } from "src/features/user/userThunk";
 import { Input, Loader, Table, UserDetailsSidebar } from "src/components";
-import { columns } from "src/shared/types/columns";
 import { selectUsers } from "src/features/user/userSelector";
 import { useAppDispatch, useAppSelector, useDebounce } from "src/hooks";
-import { DEBOUNCE } from "src/shared/constants";
+import { DEBOUNCE, COLUMNS } from "src/shared/constants";
+import { mapToShortInfo } from "src/shared/utils";
 import "./UsersPage.scss";
 
 const UsersPage = () => {
@@ -24,19 +24,15 @@ const UsersPage = () => {
     user.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase()),
   );
 
-  const handleRowClick = useCallback((user: User) => {
-    setSelectedUser(user);
-  }, []);
-
-  const mapToShortInfo = (users: User[]): ShortUserInformation[] => {
-    return users.map((user) => ({
-      name: user.name,
-      email: user.email,
-      company: user.company.name,
-      phone: user.phone,
-    }));
-  };
-
+  const handleRowClick = useCallback(
+    (shortUser: ShortUserInformation) => {
+      const selected = users.find((u) => u.email === shortUser.email);
+      if (selected) {
+        setSelectedUser(selected);
+      }
+    },
+    [users],
+  );
   const filteredShortUsers = useMemo(
     () => mapToShortInfo(filteredUsers),
     [filteredUsers],
@@ -59,10 +55,8 @@ const UsersPage = () => {
       {!error && status !== "loading" && (
         <Table
           data={filteredShortUsers}
-          columns={columns}
-          onRowClick={(user) =>
-            handleRowClick(users.find((u) => u.email === user.email) as User)
-          }
+          columns={COLUMNS}
+          onRowClick={handleRowClick}
           type="secondary"
         />
       )}

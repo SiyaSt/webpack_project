@@ -1,8 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { postsApi } from "src/api/posts";
-import { CreatePost } from "src/shared/types/post/createPost";
-import { UpdatePost } from "src/shared/types/post/updatePost";
 import { PostParams } from "src/shared/types/postParams";
+import { CreatePost, UpdatePost } from "src/shared/types/post";
 
 export const fetchPosts = createAsyncThunk(
   "posts/fetchPosts",

@@ -7,7 +7,7 @@ import {
 } from "src/features/post/postThunk";
 import { selectPosts } from "src/features/post/postSelector";
 import { selectUsers } from "src/features/user/userSelector";
-import { Post } from "src/shared/types/post/post";
+import { Post } from "src/shared/types/post";
 import {
   Button,
   Loader,

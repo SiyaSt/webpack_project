@@ -6,7 +6,7 @@ import {
   TablePagination,
   TableRow,
 } from "src/components/table/components";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import "./Table.scss";
 
 export const Table = <T extends object>({

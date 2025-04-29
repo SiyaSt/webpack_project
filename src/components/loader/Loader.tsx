@@ -1,4 +1,4 @@
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { FC } from "react";
 import { LoaderProps } from "./types";
 import "./Loader.scss";

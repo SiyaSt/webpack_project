@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 import { ModalProps } from "./types";
 import { Button } from "src/components";
 import { createPortal } from "react-dom";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import "./Modal.scss";
 
 export const Modal: FC<ModalProps> = memo(

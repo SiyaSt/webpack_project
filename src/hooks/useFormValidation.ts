@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ValidationRules } from "src/shared/types/types";
-import { validateForm } from "src/shared/utils/Validation";
+import { validateForm } from "src/shared/utils";
 
 export const useFormValidation = <T extends Record<string, string>>(
   initialValues: T,

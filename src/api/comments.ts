@@ -1,7 +1,9 @@
 import { API } from "./client";
-import { Comment } from "src/shared/types/comment/comment";
-import { CreateComment } from "src/shared/types/comment/createComment";
-import { UpdateComment } from "src/shared/types/comment/updateComment";
+import {
+  Comment,
+  CreateComment,
+  UpdateComment,
+} from "src/shared/types/comment";
 
 export const commentsApi = {
   fetchByPostId: (postId: number) =>

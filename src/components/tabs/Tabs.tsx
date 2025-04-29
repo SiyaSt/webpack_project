@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { TabsProps } from "src/components/tabs/types";
-import { classNames } from "src/shared/utils/ClassName";
+import { TabsProps } from "./types";
+import { classNames } from "src/shared/utils";
 import "./Tabs.scss";
 
 export const Tabs: FC<TabsProps> = ({

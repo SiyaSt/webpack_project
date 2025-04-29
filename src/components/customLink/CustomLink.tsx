@@ -1,6 +1,6 @@
 import { FC, LinkHTMLAttributes, ReactNode } from "react";
 import { Link, useMatch } from "react-router-dom";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 
 interface CustomLinkProps extends LinkHTMLAttributes<HTMLAnchorElement> {
   to: string;

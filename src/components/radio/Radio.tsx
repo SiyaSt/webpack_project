@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from "react";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { RadioProps } from "./types";
 import "./Radio.scss";
 

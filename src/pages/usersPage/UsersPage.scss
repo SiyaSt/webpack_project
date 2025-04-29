@@ -1,0 +1,16 @@
+.users-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .search-container {
+    input {
+      color: var(--text);
+    }
+  }
+
+  .loader {
+    align-self: center;
+  }
+
+}

@@ -13,4 +13,5 @@ export interface TableProps<T> {
   pageSize?: number;
   type?: Color;
   className?: string;
+  onRowClick?: (item: T) => void;
 }

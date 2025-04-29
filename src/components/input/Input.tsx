@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import LoaderIcon from "src/shared/assets/loader.svg";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
 import { InputProps } from "./types";
 import "./Input.scss";
 
@@ -55,7 +55,7 @@ export const Input: FC<InputProps> = ({
     );
   };
   return (
-    <div className="input-container">
+    <div className={classNames("input-container", className)}>
       <div className={inputClass}>
         <input
           type="text"

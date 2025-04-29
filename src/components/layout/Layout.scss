@@ -2,17 +2,14 @@
 
 .container {
   display: flex;
-  height: 100vh;
-  background-color: $light-background;
-  color: $light-text;
+  min-height: 100vh;
+  background-color:  var(--background);;
+  color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
 
-  &.dark {
-    background-color: $dark-background;
-    color: $dark-text;
-  }
-
   .content {
+    max-height: 100vh;
+    overflow-y: auto;
     flex-grow: 1;
     padding: 20px;
   }

@@ -1,0 +1,42 @@
+@use "../../styles/theme" as *;
+@use "../../styles/variables" as *;
+
+.post-form {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%;
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color:  var(--text);
+    }
+
+    textarea {
+      resize: none;
+      min-height: 150px;
+      background: transparent;
+    }
+
+    input,
+    textarea {
+      min-width: 100%;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 14px;
+      color:  var(--text);
+    }
+
+    .input-wrapper{
+      .error-message{
+        font-size: 0.7em;
+        color: $danger-color;
+      }
+    }
+  }
+}

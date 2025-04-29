@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, useCallback, FC } from "react";
 import { Option } from "src/shared/types/types";
-import { classNames } from "src/shared/utils/ClassName";
+import { classNames } from "src/shared/utils";
+import { SelectProps } from "./types";
 import "./Select.scss";
-import { SelectProps } from "src/components/select/types";
 
 export const Select: FC<SelectProps> = ({
   color = "primary",
@@ -18,12 +18,13 @@ export const Select: FC<SelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const selectRef = useRef<HTMLDivElement>(null);
-
-  const selectedOption = value || null;
+  const [selectedOption, setSelectedOption] = useState<Option | null>(value);
 
   const handleRadioChange = useCallback(
     (option: Option | null) => {
+      setSelectedOption(option);
       onChange?.(option);
+      setSearchText("");
     },
     [onChange],
   );
@@ -64,10 +65,9 @@ export const Select: FC<SelectProps> = ({
   }, [handleOutsideClick]);
 
   useEffect(() => {
-    if (value !== selectedOption) {
-      setSearchText("");
-    }
-  }, [selectedOption, value]);
+    setSelectedOption(value);
+  }, [value]);
+
   return (
     <div
       className={classNames(

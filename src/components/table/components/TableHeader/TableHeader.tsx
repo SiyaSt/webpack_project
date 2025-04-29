@@ -7,7 +7,6 @@ export const TableHeader = <T extends object>({
   onFilterChange,
   color,
 }: TableHeaderProps<T>) => {
-  console.log(filters);
   return (
     <thead>
       <tr>

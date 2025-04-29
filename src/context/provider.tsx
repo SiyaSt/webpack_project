@@ -1,19 +1,20 @@
 import { Theme, ThemeProviderProps } from "./types";
-import { FC, useEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { ThemeContext } from "./context";
+import { getInitialTheme } from "src/shared/utils";
+import { LOCAL_STORAGE_THEME_KEY } from "src/shared/constants";
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme === "dark" ? "dark" : "light";
-  });
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
+  useLayoutEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem(LOCAL_STORAGE_THEME_KEY, newTheme);
   };
 
   return (

@@ -8,18 +8,6 @@ interface CommentItemProps {
   onDelete: (id: number) => void;
 }
 
-const areEqual = (prev: CommentItemProps, next: CommentItemProps) => {
-  const isCommentSame =
-    prev.comment.id === next.comment.id &&
-    prev.comment.name === next.comment.name &&
-    prev.comment.body === next.comment.body;
-
-  const areCallbacksSame =
-    prev.onEdit === next.onEdit && prev.onDelete === next.onDelete;
-
-  return isCommentSame && areCallbacksSame;
-};
-
 export const CommentItem: FC<CommentItemProps> = memo(
   ({ comment, onEdit, onDelete }) => {
     return (
@@ -48,5 +36,4 @@ export const CommentItem: FC<CommentItemProps> = memo(
       </div>
     );
   },
-  areEqual,
 );

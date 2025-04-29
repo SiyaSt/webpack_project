@@ -9,13 +9,6 @@ interface PostItemProps {
   onDelete: (id: number) => void;
 }
 
-const areEqual = (prev: PostItemProps, next: PostItemProps) =>
-  prev.post.id === next.post.id &&
-  prev.post.title === next.post.title &&
-  prev.post.body === next.post.body &&
-  prev.onEdit === next.onEdit &&
-  prev.onDelete === next.onDelete;
-
 export const PostItem: FC<PostItemProps> = memo(
   ({ post, onEdit, onDelete }) => {
     return (
@@ -43,5 +36,4 @@ export const PostItem: FC<PostItemProps> = memo(
       </div>
     );
   },
-  areEqual,
 );

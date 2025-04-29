@@ -12,13 +12,6 @@ interface PostFormProps {
   onValidityChange?: (isValid: boolean) => void;
 }
 
-const areEqual = (prev: PostFormProps, next: PostFormProps) =>
-  prev.post?.id === next.post?.id &&
-  prev.post?.title === next.post?.title &&
-  prev.post?.body === next.post?.body &&
-  prev.onSubmit === next.onSubmit &&
-  prev.onValidityChange === next.onValidityChange;
-
 export const PostForm: FC<PostFormProps> = memo(
   ({ post, onSubmit, onValidityChange }) => {
     const validationParams = {
@@ -70,5 +63,4 @@ export const PostForm: FC<PostFormProps> = memo(
       </form>
     );
   },
-  areEqual,
 );

@@ -13,14 +13,6 @@ interface PostsFilterProps {
   className?: string;
 }
 
-const areEqual = (prev: PostsFilterProps, next: PostsFilterProps) =>
-  prev.searchValue === next.searchValue &&
-  prev.selectedAuthorId === next.selectedAuthorId &&
-  prev.authorOptions === next.authorOptions &&
-  prev.className === next.className &&
-  prev.onSearchChange === next.onSearchChange &&
-  prev.onAuthorChange === next.onAuthorChange;
-
 export const PostsFilter = memo(
   ({
     searchValue,
@@ -33,7 +25,9 @@ export const PostsFilter = memo(
     const handleAuthorSelect = (option: Option | null) => {
       onAuthorChange(option ? Number(option.value) : null);
     };
-
+    const handleFilterOptions = (option: Option, searchText: string) => {
+      return option.label.toLowerCase().includes(searchText.toLowerCase());
+    };
     const selectedAuthor = authorOptions.find(
       (option) => option.value === String(selectedAuthorId),
     );
@@ -53,9 +47,7 @@ export const PostsFilter = memo(
           value={selectedAuthor}
           onChange={handleAuthorSelect}
           placeholder="All authors"
-          filterOption={(option, searchText) =>
-            option.label.toLowerCase().includes(searchText.toLowerCase())
-          }
+          filterOption={handleFilterOptions}
           color="secondary"
           variant="filled"
           size="large"
@@ -63,5 +55,4 @@ export const PostsFilter = memo(
       </div>
     );
   },
-  areEqual,
 );

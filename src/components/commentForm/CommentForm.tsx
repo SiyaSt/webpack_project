@@ -12,11 +12,6 @@ interface CommentFormProps {
   onValidityChange?: (isValid: boolean) => void;
 }
 
-const areEqual = (prev: CommentFormProps, next: CommentFormProps) =>
-  prev.comment?.id === next.comment?.id &&
-  prev.onSubmit === next.onSubmit &&
-  prev.onValidityChange === next.onValidityChange;
-
 export const CommentForm: FC<CommentFormProps> = memo(
   ({ comment, onSubmit, onValidityChange }) => {
     const validationParams = {
@@ -80,5 +75,4 @@ export const CommentForm: FC<CommentFormProps> = memo(
       </form>
     );
   },
-  areEqual,
 );

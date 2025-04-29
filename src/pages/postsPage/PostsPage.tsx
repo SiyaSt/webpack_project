@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   createPost,
   deletePost,
@@ -128,9 +128,10 @@ const PostsPage = () => {
     setDeletingPostId(null);
   }, [deletingPostId, posts, currentPage, dispatch]);
 
-  const paginatedPosts = useMemo(() => {
-    return posts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
-  }, [posts, currentPage]);
+  const paginatedPosts = posts.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
   const handleEditPost = useCallback((post: Post) => setActivePost(post), []);
   const handleDeletePost = useCallback(
@@ -139,20 +140,14 @@ const PostsPage = () => {
   );
   const handleOpenCreateModal = () => setActivePost("new");
 
-  const postsList = useMemo(
-    () =>
-      paginatedPosts.map((post) => (
-        <PostItem
-          key={post.id}
-          post={post}
-          onEdit={handleEditPost}
-          onDelete={handleDeletePost}
-        />
-      )),
-    [paginatedPosts, handleEditPost, handleDeletePost],
-  );
-
-  const memoizedUserOptions = useMemo(() => userOptions, [userOptions]);
+  const postsList = paginatedPosts.map((post) => (
+    <PostItem
+      key={post.id}
+      post={post}
+      onEdit={handleEditPost}
+      onDelete={handleDeletePost}
+    />
+  ));
 
   return (
     <div className="posts-page">
@@ -162,7 +157,7 @@ const PostsPage = () => {
           onSearchChange={(value) => handleFilterChange(filters.userId, value)}
           selectedAuthorId={filters.userId}
           onAuthorChange={(id) => handleFilterChange(id, filters.title)}
-          authorOptions={memoizedUserOptions}
+          authorOptions={userOptions}
           className="posts-page-filter"
         />
 

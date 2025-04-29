@@ -81,18 +81,14 @@ const PostPage = () => {
     [],
   );
 
-  const memoizedComments = useMemo(
-    () =>
-      commentsForPost.map((comment) => (
-        <CommentItem
-          key={comment.id}
-          comment={comment}
-          onEdit={handleEditComment}
-          onDelete={handleDeleteComment}
-        />
-      )),
-    [commentsForPost, handleEditComment, handleDeleteComment],
-  );
+  const commentsList = commentsForPost.map((comment) => (
+    <CommentItem
+      key={comment.id}
+      comment={comment}
+      onEdit={handleEditComment}
+      onDelete={handleDeleteComment}
+    />
+  ));
   return (
     <div className="post-page">
       {post && (
@@ -111,7 +107,7 @@ const PostPage = () => {
         </div>
         {status === "loading" && <Loader className="loader" type="secondary" />}
         {error && <div className="error">Error: {error}</div>}
-        <div className="comments-list">{memoizedComments}</div>
+        <div className="comments-list">{commentsList}</div>
       </section>
 
       <Modal

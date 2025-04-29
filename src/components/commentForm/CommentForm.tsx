@@ -1,10 +1,10 @@
 import { FC, FormEvent, memo, useEffect } from "react";
 import { Comment } from "src/shared/types/comment/comment";
 import { Input } from "src/components";
+import { commentValidationRules } from "src/shared/validationRules";
+import { useFormValidation } from "src/hooks";
 import { CreateComment } from "src/shared/types/comment/createComment";
 import "./CommentForm.scss";
-import { useFormValidation } from "src/hooks/useFormValidation";
-import { commentValidationRules } from "src/shared/validationRules";
 
 interface CommentFormProps {
   comment?: Comment;

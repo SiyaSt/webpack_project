@@ -1,12 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 import {
   createPost,
   deletePost,
   fetchPosts,
   updatePost,
 } from "src/features/post/postThunk";
-import { useDebounce } from "src/hooks/useDebounce";
 import { selectPosts } from "src/features/post/postSelector";
 import { selectUsers } from "src/features/user/userSelector";
 import { Post } from "src/shared/types/post/post";
@@ -23,6 +21,8 @@ import { Option } from "src/shared/types/types";
 import { fetchUsers } from "src/features/user/userThunk";
 import { useSearchParams } from "react-router-dom";
 import { setPosts, setTotalCount } from "src/features/post/postSlice";
+import { DEBOUNCE, PAGE_SIZE } from "src/shared/constants";
+import { useAppDispatch, useAppSelector, useDebounce } from "src/hooks";
 import "./PostsPage.scss";
 
 const PostsPage = () => {
@@ -34,18 +34,21 @@ const PostsPage = () => {
     totalCount,
   } = useAppSelector(selectPosts);
   const { items: users } = useAppSelector(selectUsers);
-  const [isFormValid, setIsFormValid] = useState(false);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTitle, setSearchTitle] = useState("");
-  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+  const [filters, setFilters] = useState({
+    title: searchParams.get("title") || "",
+    userId: searchParams.get("userId")
+      ? Number(searchParams.get("userId"))
+      : null,
+  });
+
   const [deletingPostId, setDeletingPostId] = useState<number | null>(null);
   const [activePost, setActivePost] = useState<Post | null | "new">(null);
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const debouncedSearchTitle = useDebounce(searchTitle, 300);
-  const pageSize = 10;
-  const userIdParam = searchParams.get("userId");
-  const titleParam = searchParams.get("title");
+  const debouncedFilters = useDebounce(filters, DEBOUNCE);
 
   const userOptions: Option[] = users.map((user) => ({
     value: String(user.id),
@@ -53,36 +56,40 @@ const PostsPage = () => {
   }));
 
   useEffect(() => {
-    if (titleParam) setSearchTitle(titleParam);
-    if (userIdParam) {
-      const userId = Number(userIdParam);
-      if (!isNaN(userId)) {
-        setSelectedUserId(userId);
-      }
-    }
-  }, [titleParam, userIdParam]);
-
-  useEffect(() => {
     dispatch(
       fetchPosts({
-        title_like: debouncedSearchTitle,
-        userId: selectedUserId || undefined,
+        title_like: debouncedFilters.title,
+        userId: debouncedFilters.userId || undefined,
       }),
     );
     dispatch(fetchUsers());
-  }, [currentPage, debouncedSearchTitle, selectedUserId, dispatch]);
+  }, [currentPage, debouncedFilters, dispatch]);
 
   useEffect(() => {
     const params = new URLSearchParams();
 
-    if (debouncedSearchTitle) params.set("title", debouncedSearchTitle);
-    else params.delete("title");
+    if (debouncedFilters.title) {
+      params.set("title", debouncedFilters.title);
+    } else {
+      params.delete("title");
+    }
 
-    if (selectedUserId) params.set("userId", String(selectedUserId));
-    else params.delete("userId");
+    if (debouncedFilters.userId) {
+      params.set("userId", String(debouncedFilters.userId));
+    } else {
+      params.delete("userId");
+    }
 
     setSearchParams(params, { replace: true });
-  }, [debouncedSearchTitle, selectedUserId, setSearchParams]);
+  }, [debouncedFilters, setSearchParams]);
+
+  const handleFilterChange = useCallback(
+    (newUserId: number | null, newTitle: string) => {
+      setFilters({ userId: newUserId, title: newTitle });
+      setCurrentPage(1);
+    },
+    [],
+  );
 
   const handleSubmitPost = useCallback(
     async (data: Post) => {
@@ -110,8 +117,8 @@ const PostsPage = () => {
     await dispatch(deletePost(deletingPostId)).unwrap();
 
     const currentPagePosts = updatedPosts.slice(
-      (currentPage - 1) * pageSize,
-      currentPage * pageSize,
+      (currentPage - 1) * PAGE_SIZE,
+      currentPage * PAGE_SIZE,
     );
 
     if (currentPagePosts.length === 0 && currentPage > 1) {
@@ -119,20 +126,11 @@ const PostsPage = () => {
     }
 
     setDeletingPostId(null);
-  }, [deletingPostId, posts, currentPage, dispatch, pageSize]);
+  }, [deletingPostId, posts, currentPage, dispatch]);
 
   const paginatedPosts = useMemo(() => {
-    return posts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-  }, [posts, currentPage, pageSize]);
-
-  const handleFilterChange = useCallback(
-    (newUserId: number | null, newSearch: string) => {
-      setSelectedUserId(newUserId);
-      setSearchTitle(newSearch);
-      setCurrentPage(1);
-    },
-    [],
-  );
+    return posts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  }, [posts, currentPage]);
 
   const handleEditPost = useCallback((post: Post) => setActivePost(post), []);
   const handleDeletePost = useCallback(
@@ -160,10 +158,10 @@ const PostsPage = () => {
     <div className="posts-page">
       <div className="posts-controls">
         <PostsFilter
-          searchValue={searchTitle}
-          onSearchChange={(value) => handleFilterChange(selectedUserId, value)}
-          selectedAuthorId={selectedUserId}
-          onAuthorChange={(id) => handleFilterChange(id, searchTitle)}
+          searchValue={filters.title}
+          onSearchChange={(value) => handleFilterChange(filters.userId, value)}
+          selectedAuthorId={filters.userId}
+          onAuthorChange={(id) => handleFilterChange(id, filters.title)}
           authorOptions={memoizedUserOptions}
           className="posts-page-filter"
         />
@@ -176,14 +174,16 @@ const PostsPage = () => {
           Create New Post
         </Button>
       </div>
+
       {status === "loading" && <Loader className="loader" type="secondary" />}
       {error && <div className="error">Error: {error}</div>}
       {!error && status !== "loading" && (
         <div className="posts-list">{postsList}</div>
       )}
+
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(totalCount / pageSize)}
+        totalPages={Math.ceil(totalCount / PAGE_SIZE)}
         setCurrentPage={setCurrentPage}
         color="secondary"
       />

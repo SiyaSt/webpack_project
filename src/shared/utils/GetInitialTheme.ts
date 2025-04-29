@@ -1,5 +1,5 @@
 import { Theme } from "src/context/types";
-import { LOCAL_STORAGE_THEME_KEY } from "src/shared/types/constans/localStorage";
+import { LOCAL_STORAGE_THEME_KEY } from "src/shared/constants";
 
 export const getInitialTheme = (): Theme => {
   const storedTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);

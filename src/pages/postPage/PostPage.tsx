@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 import { selectPosts } from "src/features/post/postSelector";
 import {
   selectComments,
@@ -22,6 +21,7 @@ import {
   Loader,
   Modal,
 } from "src/components";
+import { useAppDispatch, useAppSelector } from "src/hooks";
 import { fetchPostById } from "src/features/post/postThunk";
 import "./PostPage.scss";
 

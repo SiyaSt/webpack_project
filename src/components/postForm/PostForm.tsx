@@ -3,7 +3,7 @@ import { Post } from "src/shared/types/post/post";
 import { Input } from "src/components";
 import { CreatePost } from "src/shared/types/post/createPost";
 import { postValidationRules } from "src/shared/validationRules";
-import { useFormValidation } from "src/hooks/useFormValidation";
+import { useFormValidation } from "src/hooks";
 import "./PostForm.scss";
 
 interface PostFormProps {

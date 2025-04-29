@@ -1,11 +1,11 @@
-import { useAppDispatch, useAppSelector } from "src/hooks/reduxHooks";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ShortUserInformation, User } from "src/shared/types/user";
-import { useDebounce } from "src/hooks/useDebounce";
 import { fetchUsers } from "src/features/user/userThunk";
 import { Input, Loader, Table, UserDetailsSidebar } from "src/components";
 import { columns } from "src/shared/types/columns";
 import { selectUsers } from "src/features/user/userSelector";
+import { useAppDispatch, useAppSelector, useDebounce } from "src/hooks";
+import { DEBOUNCE } from "src/shared/constants";
 import "./UsersPage.scss";
 
 const UsersPage = () => {
@@ -14,7 +14,7 @@ const UsersPage = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE);
 
   useEffect(() => {
     dispatch(fetchUsers());

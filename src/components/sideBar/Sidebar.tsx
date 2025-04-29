@@ -1,11 +1,11 @@
 import { FC, useEffect, useState } from "react";
-import { useTheme } from "src/hooks/useTheme";
 import LeftArrow from "src/shared/assets/left-arrow.svg";
 import RightArrow from "src/shared/assets/right-arrow.svg";
 import Moon from "src/shared/assets/moon-stars.svg";
 import Sun from "src/shared/assets/sun.svg";
 import { Button, Navigation } from "src/components";
-import { useMediaQuery } from "src/hooks/useMediaQuery";
+import { classNames } from "src/shared/utils/ClassName";
+import { useMediaQuery, useTheme } from "src/hooks";
 import "./Sidebar.scss";
 
 export const Sidebar: FC = () => {
@@ -24,7 +24,7 @@ export const Sidebar: FC = () => {
   const arrowIcon = isCollapsed ? <RightArrow /> : <LeftArrow />;
   const themeIcon = theme === "light" ? <Moon /> : <Sun />;
   return (
-    <div className={`sidebar ${isCollapsed ? "collapsed" : ""} ${theme}`}>
+    <div className={classNames("sidebar", { collapsed: isCollapsed })}>
       <div className="sidebar--header">
         <h2 className="sidebar-title">App</h2>
         <Button

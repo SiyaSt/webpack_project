@@ -1,6 +1,12 @@
 @use "../../styles/theme" as *;
 @use "sass:color";
 
+.post-page {
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
 .post-details {
   background: var(--background-light);
   padding: 20px;
@@ -38,10 +44,4 @@
 }
 
 
-
-.post-page {
-  max-width: 800px;
-  margin: 0 auto;
-  min-height: 100vh;
-}
 

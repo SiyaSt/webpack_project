@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { User } from "src/shared/types/user";
 import { FC } from "react";
-import { Button } from "src/components";
+import { Button, InfoItem } from "src/components";
 import "./UserDetailsSidebar.scss";
 
 interface UserDetailsSidebarProps {
@@ -33,40 +33,32 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
         </Button>
       </div>
       <div className="user-info">
-        <p>
-          <strong>Username:</strong> {user.username}
-        </p>
-        <p>
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p>
-          <strong>Phone:</strong> {user.phone}
-        </p>
-        <p>
-          <strong>Website:</strong> {user.website}
-        </p>
-        <p>
-          <strong>Address:</strong>
-        </p>
-        <ul>
-          {Object.entries(user.address).map(([key, value], index) => (
-            <li key={index}>
-              <strong>{key}:</strong>{" "}
-              {typeof value === "object" ? JSON.stringify(value) : value}
-            </li>
-          ))}
-        </ul>
-        <p>
-          <strong>Company:</strong>
-        </p>
-        <ul>
-          {Object.entries(user.company).map(([key, value], index) => (
-            <li key={index}>
-              <strong>{key}:</strong>{" "}
-              {typeof value === "object" ? JSON.stringify(value) : value}
-            </li>
-          ))}
-        </ul>
+        <InfoItem label="Username" value={user.username} />
+        <InfoItem label="Email" value={user.email} />
+        <InfoItem label="Phone" value={user.phone} />
+        <InfoItem label="Website" value={user.website} />
+
+        <div className="nested-block">
+          <strong>Address: </strong>
+          <InfoItem label="Street" value={user.address.street} />
+          <InfoItem label="Suite" value={user.address.suite} />
+          <InfoItem label="City" value={user.address.city} />
+          <InfoItem label="Zipcode" value={user.address.zipcode} />
+          {user.address.geo && (
+            <div className="geo-coordinates">
+              <strong>Geo: </strong>
+              <InfoItem label="Lat" value={user.address.geo.lat} />
+              <InfoItem label="Lng" value={user.address.geo.lng} />
+            </div>
+          )}
+        </div>
+
+        <div className="nested-block">
+          <strong>Company: </strong>
+          <InfoItem label="Name" value={user.company.name} />
+          <InfoItem label="Catchphrase" value={user.company.catchPhrase} />
+          <InfoItem label="BS" value={user.company.bs} />
+        </div>
       </div>
       <Button
         className="view-posts-button"

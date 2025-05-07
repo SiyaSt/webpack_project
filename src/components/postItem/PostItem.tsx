@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Post } from "src/shared/types/post";
 import { Button } from "src/components";
 import { FC, memo } from "react";
+import "./PostItem.scss";
 
 interface PostItemProps {
   post: Post;

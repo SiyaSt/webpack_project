@@ -95,9 +95,9 @@ const PostsPage = () => {
     async (data: Post) => {
       try {
         if (activePost === "new") {
-          await dispatch(createPost(data)).unwrap();
+          await dispatch(createPost(data));
         } else if (activePost) {
-          await dispatch(updatePost({ id: activePost.id, data })).unwrap();
+          await dispatch(updatePost({ id: activePost.id, data }));
         }
         setActivePost(null);
       } catch (error) {
@@ -114,7 +114,7 @@ const PostsPage = () => {
 
     dispatch(setPosts(updatedPosts));
     dispatch(setTotalCount(updatedPosts.length));
-    await dispatch(deletePost(deletingPostId)).unwrap();
+    await dispatch(deletePost(deletingPostId));
 
     const currentPagePosts = updatedPosts.slice(
       (currentPage - 1) * PAGE_SIZE,

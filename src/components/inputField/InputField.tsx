@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Input } from "src/components";
+import { Color } from "src/shared/types/types";
 
 type FieldType = "input" | "textarea";
 
@@ -11,7 +12,7 @@ interface InputFieldProps {
   label: string;
   errorText?: string;
   rows?: number;
-  color?: "primary" | "secondary";
+  color?: Color;
 }
 
 export const InputField: FC<InputFieldProps> = ({
@@ -27,13 +28,15 @@ export const InputField: FC<InputFieldProps> = ({
   <div className="input-wrapper">
     <label>{label}</label>
     {type === "textarea" ? (
-      <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        onBlur={onBlur}
-        rows={rows}
-        className={errorText ? "error" : ""}
-      />
+      <div>
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
+          rows={rows}
+        />
+        {errorText && <div className="error-message">{errorText}</div>}
+      </div>
     ) : (
       <Input
         color={color}
@@ -43,6 +46,5 @@ export const InputField: FC<InputFieldProps> = ({
         errorText={errorText}
       />
     )}
-    {errorText && <div className="error-message">{errorText}</div>}
   </div>
 );

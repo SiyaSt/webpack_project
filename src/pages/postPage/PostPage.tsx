@@ -32,7 +32,7 @@ const PostPage = () => {
   const postId = Number(id);
   const dispatch = useAppDispatch();
   const { currentPost: post } = useAppSelector(selectPosts);
-  const { items: comments, status, error } = useAppSelector(selectComments);
+  const { status, error } = useAppSelector(selectComments);
   const commentsForPost = useAppSelector((state) =>
     selectCommentsByPostId(state, postId),
   );
@@ -54,11 +54,9 @@ const PostPage = () => {
   const handleSubmitComment = useCallback(
     async (data: CreateComment | UpdateComment) => {
       if (activeComment === "new") {
-        await dispatch(
-          createComment({ ...data, postId } as CreateComment),
-        ).unwrap();
+        await dispatch(createComment({ ...data, postId } as CreateComment));
       } else if (activeComment) {
-        await dispatch(updateComment({ id: activeComment.id, data })).unwrap();
+        await dispatch(updateComment({ id: activeComment.id, data }));
       }
       setActiveComment(null);
     },
@@ -102,7 +100,7 @@ const PostPage = () => {
 
       <section className="comments-section">
         <div className="comments-header">
-          <h2>Comments ({comments.length})</h2>
+          <h2>Comments ({commentsForPost.length})</h2>
           <Button onClick={handleOpenCreateModal} color="secondary">
             Add Comment
           </Button>

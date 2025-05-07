@@ -1,6 +1,7 @@
 import { FC, memo } from "react";
 import { Comment } from "src/shared/types/comment";
 import { Button } from "src/components";
+import "./CommentItem.scss";
 
 interface CommentItemProps {
   comment: Comment;

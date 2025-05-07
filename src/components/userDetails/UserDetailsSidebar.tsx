@@ -21,15 +21,17 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
 
   return (
     <div className="user-details-sidebar">
-      <Button
-        className="close-button"
-        onClick={onClose}
-        variant="text"
-        color="secondary"
-      >
-        ×
-      </Button>
-      <h2>{user.name}</h2>
+      <div className="user-details-sidebar-header">
+        <h2 className="user-name">{user.name}</h2>
+        <Button
+          className="close-button"
+          onClick={onClose}
+          variant="text"
+          color="secondary"
+        >
+          ×
+        </Button>
+      </div>
       <div className="user-info">
         <p>
           <strong>Username:</strong> {user.username}

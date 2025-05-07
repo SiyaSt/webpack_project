@@ -1,6 +1,6 @@
 import { FC, FormEvent, memo, useEffect } from "react";
 import { Comment, CreateComment } from "src/shared/types/comment";
-import { Input } from "src/components";
+import { InputField } from "src/components";
 import { useFormValidation } from "src/hooks";
 import { COMMENT_VALIDATION_RULES } from "src/shared/constants";
 import "./CommentForm.scss";
@@ -34,42 +34,35 @@ export const CommentForm: FC<CommentFormProps> = memo(
     return (
       <form className="comment-form" onSubmit={handleSubmit} id="comment-form">
         <div className="form-group">
-          <div className="input-wrapper">
-            <label>Name</label>
-            <Input
-              color="secondary"
-              value={values.name}
-              onChange={(e) => handleChange("name")(e.target.value)}
-              onBlur={handleBlur("name")}
-              errorText={touched.name && errors.name}
-            />
-          </div>
+          <InputField
+            type="input"
+            label="Name"
+            value={values.name}
+            onChange={(value) => handleChange("name")(value)}
+            onBlur={handleBlur("name")}
+            errorText={touched.name && errors.name}
+          />
 
-          <div className="input-wrapper">
-            <label>Email</label>
-            <Input
-              color="secondary"
-              value={values.email}
-              onChange={(e) => handleChange("email")(e.target.value)}
-              onBlur={handleBlur("email")}
-              errorText={touched.email && errors.email}
-            />
-          </div>
+          <InputField
+            type="input"
+            label="Email"
+            value={values.email}
+            onChange={(value) => handleChange("email")(value)}
+            onBlur={handleBlur("email")}
+            errorText={touched.email && errors.email}
+          />
         </div>
 
         <div className="form-group">
-          <div className="input-wrapper">
-            <label>Comment</label>
-            <textarea
-              value={values.body}
-              onChange={(e) => handleChange("body")(e.target.value)}
-              onBlur={handleBlur("body")}
-              rows={4}
-            />
-            {touched.body && errors.body && (
-              <div className="error-message">{errors.body}</div>
-            )}
-          </div>
+          <InputField
+            type="textarea"
+            label="Comment"
+            value={values.body}
+            onChange={(value) => handleChange("body")(value)}
+            onBlur={handleBlur("body")}
+            errorText={touched.body && errors.body}
+            rows={4}
+          />
         </div>
       </form>
     );

@@ -49,7 +49,7 @@ const PostsPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const debouncedFilters = useDebounce(filters, DEBOUNCE);
-
+  const totalPages = totalCount === 0 ? 1 : Math.ceil(totalCount / PAGE_SIZE);
   const userOptions: Option[] = users.map((user) => ({
     value: String(user.id),
     label: user.name,
@@ -178,7 +178,7 @@ const PostsPage = () => {
 
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(totalCount / PAGE_SIZE)}
+        totalPages={totalPages}
         setCurrentPage={setCurrentPage}
         color="secondary"
       />

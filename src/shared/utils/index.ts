@@ -1,4 +1,4 @@
-export { mapToShortInfo } from "src/shared/utils/mapToShortInfo";
-export { classNames } from "src/shared/utils/className";
-export { getInitialTheme } from "src/shared/utils/getInitialTheme";
-export { validateForm } from "src/shared/utils/validation";
+export { mapToShortInfo } from "./mapToShortInfo";
+export { classNames } from "./classNames";
+export { getInitialTheme } from "./getInitialTheme";
+export { validateForm } from "./validation";

@@ -36,7 +36,8 @@ export const Table = <T extends object>({
     });
   }, [data, filters]);
 
-  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const totalPages =
+    filteredData.length === 0 ? 1 : Math.ceil(filteredData.length / pageSize);
   const paginatedData = useMemo(() => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;

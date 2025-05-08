@@ -38,7 +38,6 @@
   .nested-block {
     margin: 0.5rem 0;
     padding-left: 1rem;
-    border-left: 2px solid var(--text);
 
     > strong {
       display: block;
@@ -46,11 +45,6 @@
     }
   }
 
-  .geo-coordinates {
-    display: flex;
-    gap: 1rem;
-    margin: 0.3rem 0;
-  }
 
   .value {
     margin-left: 0.5rem;

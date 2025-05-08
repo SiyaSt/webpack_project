@@ -38,23 +38,22 @@ export const UserDetailsSidebar: FC<UserDetailsSidebarProps> = ({
         <InfoItem label="Phone" value={user.phone} />
         <InfoItem label="Website" value={user.website} />
 
+        <strong>Address: </strong>
         <div className="nested-block">
-          <strong>Address: </strong>
           <InfoItem label="Street" value={user.address.street} />
           <InfoItem label="Suite" value={user.address.suite} />
           <InfoItem label="City" value={user.address.city} />
           <InfoItem label="Zipcode" value={user.address.zipcode} />
-          {user.address.geo && (
-            <div className="geo-coordinates">
-              <strong>Geo: </strong>
-              <InfoItem label="Lat" value={user.address.geo.lat} />
-              <InfoItem label="Lng" value={user.address.geo.lng} />
-            </div>
-          )}
         </div>
 
+        <strong>Geo: </strong>
         <div className="nested-block">
-          <strong>Company: </strong>
+          <InfoItem label="Lat" value={user.address.geo.lat} />
+          <InfoItem label="Lng" value={user.address.geo.lng} />
+        </div>
+
+        <strong>Company: </strong>
+        <div className="nested-block">
           <InfoItem label="Name" value={user.company.name} />
           <InfoItem label="Catchphrase" value={user.company.catchPhrase} />
           <InfoItem label="BS" value={user.company.bs} />

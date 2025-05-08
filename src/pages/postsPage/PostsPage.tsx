@@ -49,7 +49,6 @@ const PostsPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const debouncedFilters = useDebounce(filters, DEBOUNCE);
-  const totalPages = totalCount === 0 ? 1 : Math.ceil(totalCount / PAGE_SIZE);
   const userOptions: Option[] = users.map((user) => ({
     value: String(user.id),
     label: user.name,
@@ -140,14 +139,28 @@ const PostsPage = () => {
   );
   const handleOpenCreateModal = () => setActivePost("new");
 
-  const postsList = paginatedPosts.map((post) => (
-    <PostItem
-      key={post.id}
-      post={post}
-      onEdit={handleEditPost}
-      onDelete={handleDeletePost}
-    />
-  ));
+  const filteredPaginatedPosts = paginatedPosts.filter((post) => {
+    const matchesTitle = post.title
+      .toLowerCase()
+      .includes(filters.title.toLowerCase());
+    const matchesUser = !filters.userId || post.userId === filters.userId;
+    return matchesTitle && matchesUser;
+  });
+
+  const postsList =
+    filteredPaginatedPosts.length === 0 ? (
+      <span>No Posts Found</span>
+    ) : (
+      filteredPaginatedPosts.map((post) => (
+        <PostItem
+          key={post.id}
+          post={post}
+          onEdit={handleEditPost}
+          onDelete={handleDeletePost}
+        />
+      ))
+    );
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   return (
     <div className="posts-page">

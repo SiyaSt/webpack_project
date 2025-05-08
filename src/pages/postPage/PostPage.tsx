@@ -25,6 +25,7 @@ import {
 } from "src/components";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { fetchPostById } from "src/features/post/postThunk";
+import { resetCurrentPost } from "src/features/post/postSlice";
 import "./PostPage.scss";
 
 const PostPage = () => {
@@ -49,6 +50,9 @@ const PostPage = () => {
       dispatch(fetchPostById(Number(id)));
       dispatch(fetchCommentsByPostId(Number(id)));
     }
+    return () => {
+      dispatch(resetCurrentPost());
+    };
   }, [id, dispatch]);
 
   const handleSubmitComment = useCallback(
@@ -107,7 +111,13 @@ const PostPage = () => {
         </div>
         {status === "loading" && <Loader className="loader" type="secondary" />}
         {error && <div className="error">Error: {error}</div>}
-        <div className="comments-list">{commentsList}</div>
+        <div className="comments-list">
+          {status !== "loading" && !error && commentsForPost.length === 0 ? (
+            <div>No comments found</div>
+          ) : (
+            commentsList
+          )}
+        </div>
       </section>
 
       <Modal

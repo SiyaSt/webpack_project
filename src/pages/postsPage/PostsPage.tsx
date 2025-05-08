@@ -147,19 +147,14 @@ const PostsPage = () => {
     return matchesTitle && matchesUser;
   });
 
-  const postsList =
-    filteredPaginatedPosts.length === 0 ? (
-      <span>No Posts Found</span>
-    ) : (
-      filteredPaginatedPosts.map((post) => (
-        <PostItem
-          key={post.id}
-          post={post}
-          onEdit={handleEditPost}
-          onDelete={handleDeletePost}
-        />
-      ))
-    );
+  const postsList = filteredPaginatedPosts.map((post) => (
+    <PostItem
+      key={post.id}
+      post={post}
+      onEdit={handleEditPost}
+      onDelete={handleDeletePost}
+    />
+  ));
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   return (
@@ -183,12 +178,15 @@ const PostsPage = () => {
         </Button>
       </div>
 
-      {status === "loading" && <Loader className="loader" type="secondary" />}
-      {error && <div className="error">Error: {error}</div>}
-      {!error && status !== "loading" && (
-        <div className="posts-list">{postsList}</div>
-      )}
-
+      <div className="posts-list">
+        {status === "loading" && <Loader className="loader" type="secondary" />}
+        {error && <div className="error">Error: {error}</div>}
+        {status !== "loading" && !error && postsList.length === 0 ? (
+          <div>No comments found</div>
+        ) : (
+          postsList
+        )}
+      </div>
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

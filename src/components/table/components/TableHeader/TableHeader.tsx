@@ -23,7 +23,7 @@ export const TableHeader = <T extends object>({
     Object.entries(debouncedFilters).forEach(([key, value]) => {
       onFilterChange(key, value);
     });
-  }, [debouncedFilters]);
+  }, [debouncedFilters, onFilterChange]);
 
   return (
     <thead>

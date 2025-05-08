@@ -64,14 +64,22 @@ export const Table = <T extends object>({
           onFilterChange={handleFilterChange}
         />
         <tbody>
-          {paginatedData.map((item, index) => (
-            <TableRow
-              key={index}
-              item={item}
-              columns={columns}
-              onClick={onRowClick}
-            />
-          ))}
+          {paginatedData.length === 0 ? (
+            <tr>
+              <td colSpan={columns.length} className="table-empty">
+                No data found
+              </td>
+            </tr>
+          ) : (
+            paginatedData.map((item, index) => (
+              <TableRow
+                key={index}
+                item={item}
+                columns={columns}
+                onClick={onRowClick}
+              />
+            ))
+          )}
         </tbody>
       </table>
       <TablePagination

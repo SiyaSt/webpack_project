@@ -182,7 +182,7 @@ const PostsPage = () => {
         {status === "loading" && <Loader className="loader" type="secondary" />}
         {error && <div className="error">Error: {error}</div>}
         {status !== "loading" && !error && postsList.length === 0 ? (
-          <div>No comments found</div>
+          <div>No Posts found</div>
         ) : (
           postsList
         )}

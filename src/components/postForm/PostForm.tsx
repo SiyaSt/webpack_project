@@ -1,6 +1,6 @@
 import { FC, useEffect, FormEvent, memo } from "react";
 import { CreatePost, Post } from "src/shared/types/post";
-import { Input, InputField } from "src/components";
+import { InputField } from "src/components";
 import { POST_VALIDATION_RULES } from "src/shared/constants/validationRules";
 import { useFormValidation } from "src/hooks";
 import "./PostForm.scss";

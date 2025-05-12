@@ -36,7 +36,8 @@ export const Table = <T extends object>({
     });
   }, [data, filters]);
 
-  const totalPages = Math.ceil(filteredData.length / pageSize);
+  const totalPages =
+    filteredData.length === 0 ? 1 : Math.ceil(filteredData.length / pageSize);
   const paginatedData = useMemo(() => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -63,14 +64,22 @@ export const Table = <T extends object>({
           onFilterChange={handleFilterChange}
         />
         <tbody>
-          {paginatedData.map((item, index) => (
-            <TableRow
-              key={index}
-              item={item}
-              columns={columns}
-              onClick={onRowClick}
-            />
-          ))}
+          {paginatedData.length === 0 ? (
+            <tr>
+              <td colSpan={columns.length} className="table-empty">
+                No data found
+              </td>
+            </tr>
+          ) : (
+            paginatedData.map((item, index) => (
+              <TableRow
+                key={index}
+                item={item}
+                columns={columns}
+                onClick={onRowClick}
+              />
+            ))
+          )}
         </tbody>
       </table>
       <TablePagination

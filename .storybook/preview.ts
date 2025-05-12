@@ -1,8 +1,16 @@
 import type { Preview } from "@storybook/react";
-if (typeof window !== "undefined") {
-  (window as any).$RefreshReg$ = () => {};
-  (window as any).$RefreshSig$ = () => () => {};
+declare global {
+  interface Window {
+    $RefreshReg$: () => void;
+    $RefreshSig$: () => () => void;
+  }
 }
+
+if (typeof window !== "undefined") {
+  window.$RefreshReg$ = () => {};
+  window.$RefreshSig$ = () => () => {};
+}
+
 const preview: Preview = {
   parameters: {
     controls: {

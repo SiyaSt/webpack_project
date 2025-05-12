@@ -20,3 +20,6 @@ export { PostsFilter } from "./postsFilter/PostsFilter";
 export { UserDetailsSidebar } from "./userDetails/UserDetailsSidebar";
 export { CommentItem } from "./commentItem/CommentItem";
 export { TablePagination as Pagination } from "./table/components/pagination/TablePagination";
+export { InputField } from "./inputField/InputField";
+export { InfoItem } from "./infoItem/InfoItem";
+export { HomeButton } from "./homeButton/HomeButton";

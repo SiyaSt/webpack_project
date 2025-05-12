@@ -45,7 +45,8 @@
     align-items: center;
   }
 
-  &--spinner, &--dots {
+  &--spinner,
+  &--dots {
     flex-direction: row;
     gap: 0.5em;
   }
@@ -73,7 +74,6 @@
       border: calc(map.get($size, medium) / 8) solid transparent;
       animation: loader-rotate 1s linear infinite;
     }
-
   }
 
   &--dots {

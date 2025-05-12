@@ -1,0 +1,28 @@
+.comment-item {
+  border-bottom: 1px solid var(--text);
+  padding: 15px;
+
+  .comment-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    h4 {
+      color: var(--text);
+    }
+
+    p {
+      color: var(--text-80);
+    }
+
+    .comment-email {
+      color: var(--text-60);
+    }
+  }
+
+  .comment-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+  }
+}

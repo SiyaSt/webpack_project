@@ -9,14 +9,14 @@ export const TablePagination: FC<TablePaginationProps> = memo(
       <div className="table-pagination">
         <Button
           onClick={() => setCurrentPage(1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || totalPages < 1}
           color={color}
         >
           First
         </Button>
         <Button
           onClick={() => setCurrentPage(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || totalPages < 1}
           color={color}
         >
           Previous
@@ -26,14 +26,14 @@ export const TablePagination: FC<TablePaginationProps> = memo(
         </span>
         <Button
           onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages < 1}
           color={color}
         >
           Next
         </Button>
         <Button
           onClick={() => setCurrentPage(totalPages)}
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages < 1}
           color={color}
         >
           Last

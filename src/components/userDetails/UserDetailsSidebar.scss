@@ -6,7 +6,7 @@
   right: 0;
   width: 400px;
   height: 100%;
-  background:  var(--background);;
+  background: var(--background);
   box-shadow: -2px 0 5px rgb(0 0 0 / 10%);
   padding: 20px;
   overflow-y: auto;
@@ -15,20 +15,39 @@
   flex-direction: column;
   gap: 20px;
 
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .user-name {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      max-width: 80%;
+    }
+  }
+
   .close-button {
     align-self: flex-end;
     font-size: 24px;
     cursor: pointer;
   }
 
-  .user-info {
-    p {
-      margin: 10px 0;
-    }
+  .nested-block {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
 
-    ul {
-      margin: 5px 0 15px 20px;
+    > strong {
+      display: block;
+      margin: 0.5rem 0;
     }
+  }
+
+  .value {
+    margin-left: 0.5rem;
+    font-weight: 400;
   }
 
   .view-posts-button {

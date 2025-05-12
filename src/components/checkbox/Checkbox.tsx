@@ -14,9 +14,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   children,
 }) => {
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (onChange) {
-      onChange(event.target.checked);
-    }
+    onChange?.(event.target.checked);
   };
   return (
     <div className="checkbox-container">

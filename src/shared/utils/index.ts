@@ -1,4 +1,4 @@
-export { mapToShortInfo } from "./MatToShortInfo";
-export { classNames } from "./ClassName";
-export { getInitialTheme } from "./GetInitialTheme";
-export { validateForm } from "./Validation";
+export { mapToShortInfo } from "./mapToShortInfo";
+export { classNames } from "./classNames";
+export { getInitialTheme } from "./getInitialTheme";
+export { validateForm } from "./validation";

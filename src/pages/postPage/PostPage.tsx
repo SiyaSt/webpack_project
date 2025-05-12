@@ -25,6 +25,7 @@ import {
 } from "src/components";
 import { useAppDispatch, useAppSelector } from "src/hooks";
 import { fetchPostById } from "src/features/post/postThunk";
+import { resetCurrentPost } from "src/features/post/postSlice";
 import "./PostPage.scss";
 
 const PostPage = () => {
@@ -32,7 +33,7 @@ const PostPage = () => {
   const postId = Number(id);
   const dispatch = useAppDispatch();
   const { currentPost: post } = useAppSelector(selectPosts);
-  const { items: comments, status, error } = useAppSelector(selectComments);
+  const { status, error } = useAppSelector(selectComments);
   const commentsForPost = useAppSelector((state) =>
     selectCommentsByPostId(state, postId),
   );
@@ -49,16 +50,17 @@ const PostPage = () => {
       dispatch(fetchPostById(Number(id)));
       dispatch(fetchCommentsByPostId(Number(id)));
     }
+    return () => {
+      dispatch(resetCurrentPost());
+    };
   }, [id, dispatch]);
 
   const handleSubmitComment = useCallback(
     async (data: CreateComment | UpdateComment) => {
       if (activeComment === "new") {
-        await dispatch(
-          createComment({ ...data, postId } as CreateComment),
-        ).unwrap();
+        await dispatch(createComment({ ...data, postId } as CreateComment));
       } else if (activeComment) {
-        await dispatch(updateComment({ id: activeComment.id, data })).unwrap();
+        await dispatch(updateComment({ id: activeComment.id, data }));
       }
       setActiveComment(null);
     },
@@ -102,14 +104,20 @@ const PostPage = () => {
 
       <section className="comments-section">
         <div className="comments-header">
-          <h2>Comments ({comments.length})</h2>
+          <h2>Comments ({commentsForPost.length})</h2>
           <Button onClick={handleOpenCreateModal} color="secondary">
             Add Comment
           </Button>
         </div>
         {status === "loading" && <Loader className="loader" type="secondary" />}
         {error && <div className="error">Error: {error}</div>}
-        <div className="comments-list">{commentsList}</div>
+        <div className="comments-list">
+          {status !== "loading" && !error && commentsForPost.length === 0 ? (
+            <div>No comments found</div>
+          ) : (
+            commentsList
+          )}
+        </div>
       </section>
 
       <Modal

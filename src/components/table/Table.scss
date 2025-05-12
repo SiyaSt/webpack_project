@@ -12,12 +12,18 @@
   border-collapse: collapse;
   margin-bottom: 1rem;
 
-  .input-filter, .select-filter {
-    margin-left: 10px;
-  }
-
   tbody tr {
     cursor: pointer;
+  }
+
+  .column {
+    max-width: 100%;
+
+    .input-filter,
+    .select-filter {
+      max-width: 70%;
+      margin-left: 10px;
+    }
   }
 
   th,
@@ -27,7 +33,7 @@
     border-bottom: 1px solid #dee2e6;
   }
 
-  tbody tr:hover{
+  tbody tr:hover {
     background: var(--background-dark);
   }
 
@@ -48,7 +54,8 @@
 
       border: 1px solid $color;
 
-      th, td {
+      th,
+      td {
         border-bottom: 1px solid $color;
       }
     }

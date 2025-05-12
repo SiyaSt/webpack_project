@@ -35,6 +35,9 @@ const postsSlice = createSlice({
     setTotalCount: (state, action: PayloadAction<number>) => {
       state.totalCount = action.payload;
     },
+    resetCurrentPost: (state) => {
+      state.currentPost = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -81,4 +84,4 @@ const postsSlice = createSlice({
 });
 
 export default postsSlice.reducer;
-export const { setPosts, setTotalCount } = postsSlice.actions;
+export const { setPosts, setTotalCount, resetCurrentPost } = postsSlice.actions;

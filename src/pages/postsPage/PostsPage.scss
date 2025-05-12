@@ -26,13 +26,14 @@
   max-width: 100%;
 
   .posts-page-filter {
+    max-width: 60%;
     justify-self: flex-start;
     display: flex;
     gap: 20px;
     align-items: center;
 
     &-input {
-      width: 50%;
+      max-width: 50%;
     }
   }
 
@@ -52,36 +53,5 @@
 
   .loader {
     align-self: center;
-  }
-}
-
-.post-item {
-  border-bottom: 1px solid var(--text);
-  padding-bottom: 20px;
-
-  h3 a {
-    color: var(--text);
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-
-  .post-body {
-    margin: 10px 0;
-  }
-
-  .post-actions {
-    display: flex;
-    gap: 10px;
-
-    button {
-      padding: 5px 10px;
-      border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
   }
 }

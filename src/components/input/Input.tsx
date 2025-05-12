@@ -19,9 +19,7 @@ export const Input: FC<InputProps> = ({
   ...props
 }) => {
   const handleSearch = () => {
-    if (onSearch) {
-      onSearch(value || "");
-    }
+    onSearch?.(value || "");
   };
   const inputClass = classNames(
     className,

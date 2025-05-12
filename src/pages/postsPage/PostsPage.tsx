@@ -49,7 +49,6 @@ const PostsPage = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const debouncedFilters = useDebounce(filters, DEBOUNCE);
-
   const userOptions: Option[] = users.map((user) => ({
     value: String(user.id),
     label: user.name,
@@ -95,9 +94,9 @@ const PostsPage = () => {
     async (data: Post) => {
       try {
         if (activePost === "new") {
-          await dispatch(createPost(data)).unwrap();
+          await dispatch(createPost(data));
         } else if (activePost) {
-          await dispatch(updatePost({ id: activePost.id, data })).unwrap();
+          await dispatch(updatePost({ id: activePost.id, data }));
         }
         setActivePost(null);
       } catch (error) {
@@ -114,7 +113,7 @@ const PostsPage = () => {
 
     dispatch(setPosts(updatedPosts));
     dispatch(setTotalCount(updatedPosts.length));
-    await dispatch(deletePost(deletingPostId)).unwrap();
+    await dispatch(deletePost(deletingPostId));
 
     const currentPagePosts = updatedPosts.slice(
       (currentPage - 1) * PAGE_SIZE,
@@ -140,7 +139,15 @@ const PostsPage = () => {
   );
   const handleOpenCreateModal = () => setActivePost("new");
 
-  const postsList = paginatedPosts.map((post) => (
+  const filteredPaginatedPosts = paginatedPosts.filter((post) => {
+    const matchesTitle = post.title
+      .toLowerCase()
+      .includes(filters.title.toLowerCase());
+    const matchesUser = !filters.userId || post.userId === filters.userId;
+    return matchesTitle && matchesUser;
+  });
+
+  const postsList = filteredPaginatedPosts.map((post) => (
     <PostItem
       key={post.id}
       post={post}
@@ -148,6 +155,7 @@ const PostsPage = () => {
       onDelete={handleDeletePost}
     />
   ));
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   return (
     <div className="posts-page">
@@ -170,15 +178,18 @@ const PostsPage = () => {
         </Button>
       </div>
 
-      {status === "loading" && <Loader className="loader" type="secondary" />}
-      {error && <div className="error">Error: {error}</div>}
-      {!error && status !== "loading" && (
-        <div className="posts-list">{postsList}</div>
-      )}
-
+      <div className="posts-list">
+        {status === "loading" && <Loader className="loader" type="secondary" />}
+        {error && <div className="error">Error: {error}</div>}
+        {status !== "loading" && !error && postsList.length === 0 ? (
+          <div>No Posts found</div>
+        ) : (
+          postsList
+        )}
+      </div>
       <Pagination
         currentPage={currentPage}
-        totalPages={Math.ceil(totalCount / PAGE_SIZE)}
+        totalPages={totalPages}
         setCurrentPage={setCurrentPage}
         color="secondary"
       />

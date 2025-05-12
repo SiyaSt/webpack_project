@@ -14,7 +14,7 @@
       display: block;
       margin-bottom: 8px;
       font-weight: 500;
-      color:  var(--text);
+      color: var(--text);
     }
 
     textarea {
@@ -29,11 +29,11 @@
       padding: 10px;
       border-radius: 4px;
       font-size: 14px;
-      color:  var(--text);
+      color: var(--text);
     }
 
-    .input-wrapper{
-      .error-message{
+    .input-wrapper {
+      .error-message {
         font-size: 0.7em;
         color: $danger-color;
       }

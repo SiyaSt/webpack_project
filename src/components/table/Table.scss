@@ -19,7 +19,8 @@
   .column {
     max-width: 100%;
 
-    .input-filter, .select-filter {
+    .input-filter,
+    .select-filter {
       max-width: 70%;
       margin-left: 10px;
     }
@@ -53,7 +54,8 @@
 
       border: 1px solid $color;
 
-      th, td {
+      th,
+      td {
         border-bottom: 1px solid $color;
       }
     }

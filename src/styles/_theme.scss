@@ -1,4 +1,4 @@
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --background: #333;
   --text: #f0f0f0;
   --sidebar-background: #235a5e;
@@ -9,7 +9,7 @@ html[data-theme='dark'] {
   --text-60: rgb(240 240 240 / 60%);
 }
 
-html[data-theme='light'] {
+html[data-theme="light"] {
   --background: #e4e4e4;
   --text: #333;
   --sidebar-background: #65a2a6;
@@ -18,9 +18,8 @@ html[data-theme='light'] {
   --background-dark: #d6d6d6;
   --text-80: rgb(51 51 51 / 80%);
   --text-60: rgb(51 51 51 / 60%);
-
 }
 
-html{
+html {
   --background-light: #f3f3f3;
 }

@@ -26,7 +26,6 @@
     transition: fill 0.2s ease;
   }
 
-
   @each $name, $color in $theme-colors {
     &--#{$name} .custom-checkbox {
       border-color: $color;

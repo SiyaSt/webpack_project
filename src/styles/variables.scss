@@ -1,20 +1,24 @@
 $theme-colors: (
-        "primary": rgb(83 176 246),
-        "secondary": #65a2a6,
-        "danger": #f86565,
-        "link": rgb(50 85 255),
+  "primary": rgb(83 176 246),
+  "secondary": #65a2a6,
+  "danger": #f86565,
+  "link": rgb(50 85 255),
 );
-$size: ("small": 24px,
-        "medium": 32px,
-        "large": 40px);
+$size: (
+  "small": 24px,
+  "medium": 32px,
+  "large": 40px,
+);
 $loader-speeds: (
-        "slow": 1.5s,
-        "normal": 1s,
-        "fast": 0.5s,
+  "slow": 1.5s,
+  "normal": 1s,
+  "fast": 0.5s,
 );
-$size-checkbox: ("small": 16px,
-        "medium": 18px,
-        "large": 22px);
+$size-checkbox: (
+  "small": 16px,
+  "medium": 18px,
+  "large": 22px,
+);
 $danger-color: #f86565;
 $white-color: #ffff;
 $dark-color: #021227;

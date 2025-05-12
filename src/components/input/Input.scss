@@ -230,7 +230,7 @@
     }
   }
 
-  @each $theme in ('outlined', 'filled', 'borderless', 'underlined') {
+  @each $theme in ("outlined", "filled", "borderless", "underlined") {
     &--#{$theme}--error .search-button:hover {
       color: $white-color;
       background-color: color.adjust($danger-color, $lightness: -10%);

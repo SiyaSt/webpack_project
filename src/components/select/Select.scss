@@ -2,7 +2,6 @@
 @use "../../styles/theme" as *;
 @use "sass:color";
 
-
 @mixin select-theme($color, $text-color: $white-color) {
   border-color: $color;
   background-color: $color;
@@ -92,7 +91,6 @@
         .select--option {
           border: 2px solid;
 
-
           @include select-theme-border($color, $dark-color);
 
           &--selected {
@@ -151,7 +149,6 @@
           border-radius: 0;
 
           @include select-theme-border($color, $dark-color);
-
         }
 
         .select--search {

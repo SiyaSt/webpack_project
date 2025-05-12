@@ -28,13 +28,11 @@
   color: $danger-color;
 }
 
-
 .inp {
   display: inline-flex;
   align-items: center;
   border-radius: 6px;
   transition: border-color 0.3s ease;
-
 
   @each $name, $size in $size {
     &--#{$name} {
@@ -48,7 +46,6 @@
 
   &--outlined {
     border: 1px solid;
-
 
     @each $name, $color in $theme-colors {
       &--#{$name} {
@@ -78,10 +75,6 @@
         border-radius: 0 4px 4px 0;
         background: $danger-color;
         color: $white-color;
-
-        &:hover {
-          background-color: color.adjust($danger-color, $lightness: -10%);
-        }
       }
     }
   }
@@ -100,10 +93,6 @@
         border-radius: 0 4px 4px 0;
         background: $danger-color;
         color: $white-color;
-
-        &:hover {
-          background-color: color.adjust($danger-color, $lightness: -10%);
-        }
       }
     }
 
@@ -136,11 +125,6 @@
         border-radius: 4px 4px 0 0;
         background: transparent;
         color: $danger-color;
-
-        &:hover {
-          color: $white-color;
-          background-color: color.adjust($danger-color, $lightness: -10%);
-        }
       }
     }
 
@@ -156,7 +140,6 @@
             background-color: color.adjust($color, $lightness: -10%);
           }
         }
-
       }
     }
   }
@@ -172,10 +155,6 @@
         border-radius: 4px 4px 0 0;
         background: $danger-color;
         color: $white-color;
-
-        &:hover {
-          background-color: color.adjust($danger-color, $lightness: -10%);
-        }
       }
 
       .input-field {
@@ -248,6 +227,13 @@
     &:disabled {
       background-color: $input-border-color;
       cursor: not-allowed;
+    }
+  }
+
+  @each $theme in ('outlined', 'filled', 'borderless', 'underlined') {
+    &--#{$theme}--error .search-button:hover {
+      color: $white-color;
+      background-color: color.adjust($danger-color, $lightness: -10%);
     }
   }
 }
